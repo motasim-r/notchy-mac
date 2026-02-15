@@ -328,14 +328,7 @@ struct EditorView: View {
                 }
 
                 if controller.updateAvailable {
-                    let updateTitle: String
-                    if let version = controller.updateVersion, !version.isEmpty {
-                        updateTitle = "Update \(version)"
-                    } else {
-                        updateTitle = "Update"
-                    }
-
-                    actionButton(updateTitle, primary: true) {
+                    actionButton(updateButtonTitle, primary: true) {
                         controller.installAvailableUpdate()
                     }
                 }
@@ -516,6 +509,13 @@ struct EditorView: View {
                 .font(.system(size: 12, weight: .medium, design: .rounded))
                 .notchyForeground(Color.white.opacity(0.68))
         }
+    }
+
+    private var updateButtonTitle: String {
+        if let version = controller.updateVersion, !version.isEmpty {
+            return "Update \(version)"
+        }
+        return "Update"
     }
 
     private static let v1ToV2ChangeLogSections: [ChangeLogSection] = [
