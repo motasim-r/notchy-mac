@@ -16,22 +16,29 @@ Artifacts are created in:
 
 ## Share with other users
 
-Share the `.zip` file. Do not send from inside `.derived*` folders.
+For public users, share the notarized `.dmg`:
+
+- `...-notarized.dmg` (recommended)
+- `...-notarized.dmg.sha256`
+
+Do not share debug builds or anything from `.derived*` folders.
 
 ## First launch on recipient Mac
 
-Because this build is not notarized yet, users may need to:
+1. Open the `.dmg`.
+2. Drag `Notchy Teleprompter.app` into `/Applications`.
+3. Launch from `/Applications`.
 
-1. Unzip the app.
-2. Right-click `Notchy Teleprompter.app` and choose `Open`.
-3. Confirm `Open` in the macOS security prompt.
+If a recipient still gets a launch block, clear quarantine once:
 
-If blocked, users can also go to `System Settings > Privacy & Security` and click `Open Anyway`.
+```bash
+xattr -dr com.apple.quarantine "/Applications/Notchy Teleprompter.app"
+```
 
 ## Version support
 
 - Built as universal binary: `Apple Silicon + Intel`
-- Minimum supported macOS: `12.0`
+- Minimum supported macOS: `11.0`
 
 ## For true public production distribution
 
