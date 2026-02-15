@@ -4,7 +4,15 @@ This file tracks product changes for Notchy.
 Process rule: every user-visible change should be appended here and mirrored in the in-app `Changelogs` tab.
 
 ## Unreleased
-- Reserved for changes after `2.1.1`.
+- Reserved for changes after `2.1.2`.
+
+## 2.1.2 - 2026-02-15
+
+### Highlights
+- Fixed default panel vertical position drift by normalizing existing installs back to `0` (top anchor).
+- Added conditional top-corner rounding when vertical position is positive (`1+`) so detached panel states look intentional.
+- Reduced playback-driven UI update pressure on older Macs by throttling scroll state publish frequency.
+- Improved editor tab responsiveness by using lazy tab content stacks for heavy scroll sections.
 
 ## 2.1.1 - 2026-02-15
 
