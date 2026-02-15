@@ -1,5 +1,32 @@
 # Notchy Teleprompter Distribution Guide
 
+## One-command public release (recommended)
+
+Run this once per public release:
+
+```bash
+DEVELOPER_ID_APP_CERT="Developer ID Application: Your Name (TEAMID)" \
+APPLE_ID="you@example.com" \
+APPLE_APP_SPECIFIC_PASSWORD="xxxx-xxxx-xxxx-xxxx" \
+TEAM_ID="TEAMID" \
+GITHUB_TOKEN="ghp_xxx" \
+./native/scripts/public_release.sh
+```
+
+What it automates:
+
+1. Push `main`
+2. Build universal release app
+3. Sign + notarize + staple + appcast generation
+4. Commit/push appcast update
+5. Create/push release tag (`v<version>`)
+6. Create/update GitHub release and upload notarized ZIP/DMG + SHA files
+
+Notes:
+
+- If `gh` CLI is installed/authenticated, `GITHUB_TOKEN` is optional.
+- Without `gh`, `GITHUB_TOKEN` is required for release upload.
+
 ## Build a shareable app
 
 Run:
