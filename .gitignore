@@ -33,3 +33,4 @@ native/.derived/
 native/.derived-*/
 native/.derived-release/
 native/release/
+native/appcast/archives/
