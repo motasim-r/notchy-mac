@@ -58,3 +58,32 @@ This command produces notarized public artifacts in `native/release/`:
 - `...-notarized.sha256`
 - `...-notarized.dmg`
 - `...-notarized.dmg.sha256`
+
+## Auto-update (Sparkle)
+
+Notchy now uses Sparkle for in-app updates.
+
+One-time setup:
+
+```bash
+./native/scripts/build_sparkle_tools.sh
+```
+
+For each public release, notarize and generate appcast in one flow:
+
+```bash
+DEVELOPER_ID_APP_CERT="Developer ID Application: Your Name (TEAMID)" \
+APPLE_ID="you@example.com" \
+APPLE_APP_SPECIFIC_PASSWORD="xxxx-xxxx-xxxx-xxxx" \
+TEAM_ID="TEAMID" \
+SPARKLE_DOWNLOAD_URL_PREFIX="https://github.com/<owner>/<repo>/releases/download/v<version>" \
+./native/scripts/notarize_release.sh
+```
+
+This also writes:
+
+- `native/appcast/appcast.xml`
+
+Push `native/appcast/appcast.xml` to your repo and keep GitHub Pages enabled so clients can read:
+
+- `https://motasim-r.github.io/notchy-mac/native/appcast/appcast.xml`
