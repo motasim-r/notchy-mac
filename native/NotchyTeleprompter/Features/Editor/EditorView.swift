@@ -326,15 +326,34 @@ struct EditorView: View {
                     controller.resetOffset()
                 }
 
+                if controller.updateAvailable {
+                    let updateTitle: String
+                    if let version = controller.updateVersion, !version.isEmpty {
+                        updateTitle = "Update \(version)"
+                    } else {
+                        updateTitle = "Update"
+                    }
+
+                    actionButton(updateTitle, primary: true) {
+                        controller.installAvailableUpdate()
+                    }
+                }
+
                 Spacer(minLength: 8)
 
-                Text("Offset")
-                    .font(.system(size: 11, weight: .semibold, design: .rounded))
-                    .notchyForeground(Color.white.opacity(0.62))
+                if controller.checkingForUpdates {
+                    Text("Checking updates…")
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .notchyForeground(Color.white.opacity(0.7))
+                } else {
+                    Text("Offset")
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .notchyForeground(Color.white.opacity(0.62))
 
-                Text("\(Int(controller.state.playback.offsetPx.rounded())) px")
-                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                    .notchyForeground(Color.white.opacity(0.92))
+                    Text("\(Int(controller.state.playback.offsetPx.rounded())) px")
+                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                        .notchyForeground(Color.white.opacity(0.92))
+                }
             }
 
             HStack(spacing: 10) {
@@ -356,6 +375,13 @@ struct EditorView: View {
                     .font(.system(size: 12, weight: .semibold, design: .monospaced))
                     .notchyForeground(Color.white.opacity(0.9))
                     .frame(width: 96, alignment: .trailing)
+            }
+
+            if let updateErrorMessage = controller.updateErrorMessage, !updateErrorMessage.isEmpty {
+                Text(updateErrorMessage)
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .notchyForeground(Color.white.opacity(0.58))
+                    .lineLimit(2)
             }
         }
         .padding(14)
