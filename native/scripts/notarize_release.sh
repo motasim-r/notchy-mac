@@ -198,6 +198,7 @@ if [[ "$GENERATE_APPCAST" == "1" ]]; then
   "$GENERATE_APPCAST_TOOL" \
     --download-url-prefix "$SPARKLE_DOWNLOAD_URL_PREFIX" \
     --maximum-versions 1 \
+    --maximum-deltas 0 \
     -o "$APPCAST_DIR/appcast.xml" \
     "$APPCAST_ARCHIVES_DIR"
 fi
