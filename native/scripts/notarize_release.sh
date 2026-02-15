@@ -93,11 +93,15 @@ if [[ "$GENERATE_APPCAST" == "1" ]]; then
     if [[ "$ORIGIN_URL" =~ github.com[:/]([^/]+)/([^.]+)(\.git)?$ ]]; then
       OWNER="${BASH_REMATCH[1]}"
       REPO="${BASH_REMATCH[2]}"
-      SPARKLE_DOWNLOAD_URL_PREFIX="https://github.com/$OWNER/$REPO/releases/download/v${VERSION}"
+      SPARKLE_DOWNLOAD_URL_PREFIX="https://github.com/$OWNER/$REPO/releases/download/v${VERSION}/"
     else
       echo "Set SPARKLE_DOWNLOAD_URL_PREFIX to your public release asset URL prefix."
       exit 1
     fi
+  fi
+
+  if [[ "$SPARKLE_DOWNLOAD_URL_PREFIX" != */ ]]; then
+    SPARKLE_DOWNLOAD_URL_PREFIX="${SPARKLE_DOWNLOAD_URL_PREFIX}/"
   fi
 
   mkdir -p "$APPCAST_ARCHIVES_DIR"
