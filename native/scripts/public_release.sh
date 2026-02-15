@@ -11,9 +11,9 @@ set -euo pipefail
 #
 # Required env vars:
 #   DEVELOPER_ID_APP_CERT
-#   APPLE_ID
-#   APPLE_APP_SPECIFIC_PASSWORD
-#   TEAM_ID
+#   and either:
+#     - NOTARYTOOL_PROFILE (recommended; default checked: notchy-notary)
+#     - OR APPLE_ID + APPLE_APP_SPECIFIC_PASSWORD + TEAM_ID
 #
 # GitHub release upload:
 #   Preferred: gh CLI installed and authenticated
@@ -44,9 +44,12 @@ require_cmd shasum
 require_cmd curl
 
 : "${DEVELOPER_ID_APP_CERT:?Set DEVELOPER_ID_APP_CERT}"
-: "${APPLE_ID:?Set APPLE_ID}"
-: "${APPLE_APP_SPECIFIC_PASSWORD:?Set APPLE_APP_SPECIFIC_PASSWORD}"
-: "${TEAM_ID:?Set TEAM_ID}"
+NOTARYTOOL_PROFILE="${NOTARYTOOL_PROFILE:-notchy-notary}"
+if ! xcrun notarytool history --keychain-profile "$NOTARYTOOL_PROFILE" >/dev/null 2>&1; then
+  : "${APPLE_ID:?Set APPLE_ID (or configure notary keychain profile)}"
+  : "${APPLE_APP_SPECIFIC_PASSWORD:?Set APPLE_APP_SPECIFIC_PASSWORD (or configure notary keychain profile)}"
+  : "${TEAM_ID:?Set TEAM_ID (or configure notary keychain profile)}"
+fi
 
 CURRENT_BRANCH="$(git -C "$REPO_DIR" branch --show-current)"
 if [[ "$CURRENT_BRANCH" != "main" ]]; then
