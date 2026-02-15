@@ -6,6 +6,14 @@ Process rule: every user-visible change should be appended here and mirrored in 
 ## Unreleased
 - Reserved for changes after `2.2.0`.
 
+## 2.2.1 - 2026-02-15
+
+### Highlights
+- Added installer-style drag-and-drop DMG layout (`Notchy Teleprompter.app` + `Applications` shortcut) for a familiar install experience.
+- Updated DMG creation pipeline to configure Finder icon view and placement for clearer install instructions.
+- Kept notarization/stapling/signing flow intact for both ZIP and DMG artifacts.
+- Prepared this release as the baseline public install before future in-app Sparkle-only updates.
+
 ## 2.2.0 - 2026-02-15
 
 ### Highlights
