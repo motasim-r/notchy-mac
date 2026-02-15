@@ -10,6 +10,7 @@ struct TeleprompterPanelView: View {
 
     private let topShoulderRadius: CGFloat = 37
     private let bottomCornerRadius: CGFloat = 14
+    private let detachedTopCornerRadius: CGFloat = 16
     private let notchTextSafeTopInset: CGFloat = 30
 
     private var isControlTrayExpanded: Bool {
@@ -51,11 +52,20 @@ struct TeleprompterPanelView: View {
     }
 
     private var panelBackground: some View {
-        NotchReferencePanelShape(
-            topRadius: topShoulderRadius,
-            bottomRadius: bottomCornerRadius
-        )
-            .fill(Color.black)
+        Group {
+            if controller.state.panel.verticalNudgePx > 0.5 {
+                DetachedRoundedPanelShape(
+                    topRadius: detachedTopCornerRadius,
+                    bottomRadius: bottomCornerRadius
+                )
+            } else {
+                NotchReferencePanelShape(
+                    topRadius: topShoulderRadius,
+                    bottomRadius: bottomCornerRadius
+                )
+            }
+        }
+        .fill(Color.black)
     }
 
     private var viewport: some View {
@@ -256,6 +266,42 @@ private struct NotchReferencePanelShape: Shape {
         )
 
         path.closeSubpath()
+        return path
+    }
+}
+
+private struct DetachedRoundedPanelShape: Shape {
+    let topRadius: CGFloat
+    let bottomRadius: CGFloat
+
+    func path(in rect: CGRect) -> Path {
+        let top = max(0, min(topRadius, min(rect.width * 0.2, rect.height * 0.45)))
+        let bottom = max(0, min(bottomRadius, min(rect.width * 0.2, rect.height * 0.45)))
+        var path = Path()
+
+        path.move(to: CGPoint(x: rect.minX + top, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - top, y: rect.minY))
+        path.addQuadCurve(
+            to: CGPoint(x: rect.maxX, y: rect.minY + top),
+            control: CGPoint(x: rect.maxX, y: rect.minY)
+        )
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - bottom))
+        path.addQuadCurve(
+            to: CGPoint(x: rect.maxX - bottom, y: rect.maxY),
+            control: CGPoint(x: rect.maxX, y: rect.maxY)
+        )
+        path.addLine(to: CGPoint(x: rect.minX + bottom, y: rect.maxY))
+        path.addQuadCurve(
+            to: CGPoint(x: rect.minX, y: rect.maxY - bottom),
+            control: CGPoint(x: rect.minX, y: rect.maxY)
+        )
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY + top))
+        path.addQuadCurve(
+            to: CGPoint(x: rect.minX + top, y: rect.minY),
+            control: CGPoint(x: rect.minX, y: rect.minY)
+        )
+        path.closeSubpath()
+
         return path
     }
 }
