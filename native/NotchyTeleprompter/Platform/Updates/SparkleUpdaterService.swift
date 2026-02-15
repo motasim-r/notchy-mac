@@ -2,7 +2,7 @@ import Foundation
 import Sparkle
 
 @MainActor
-final class SparkleUpdaterService: NSObject, SPUUpdaterDelegate {
+final class SparkleUpdaterService: NSObject, @preconcurrency SPUUpdaterDelegate {
     var onUpdateAvailabilityChange: ((Bool, String?) -> Void)?
     var onCheckingStateChange: ((Bool) -> Void)?
     var onErrorMessage: ((String?) -> Void)?
@@ -67,30 +67,18 @@ final class SparkleUpdaterService: NSObject, SPUUpdaterDelegate {
 
     func updaterDidNotFindUpdate(_ updater: SPUUpdater, error: Error) {
         onUpdateAvailabilityChange?(false, nil)
-        if shouldSurface(error: error) {
-            onErrorMessage?(error.localizedDescription)
-        }
+        onErrorMessage?(nil)
     }
 
     func updater(_ updater: SPUUpdater, didAbortWithError error: Error) {
         onCheckingStateChange?(false)
-        if shouldSurface(error: error) {
-            onErrorMessage?(error.localizedDescription)
-        }
+        onErrorMessage?(error.localizedDescription)
     }
 
     func updater(_ updater: SPUUpdater, didFinishUpdateCycleFor updateCheck: SPUUpdateCheck, error: Error?) {
         onCheckingStateChange?(false)
-        guard let error else {
-            return
-        }
-        if shouldSurface(error: error) {
+        if let error {
             onErrorMessage?(error.localizedDescription)
         }
-    }
-
-    private func shouldSurface(error: Error) -> Bool {
-        let nsError = error as NSError
-        return nsError.domain != SUSparkleErrorDomain || nsError.code != SUNoUpdateError
     }
 }
