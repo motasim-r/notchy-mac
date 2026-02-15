@@ -13,13 +13,5 @@
                 <enclosure url="https://github.com/motasim-r/notchy-mac/releases/download/v2.2.1/Notchy%20Teleprompter7-6.delta" sparkle:deltaFrom="6" length="23050" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="860528" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="0rgieHFFN1kWpLjW8Nb5NdP4SmiVz2XXtzus4JVW9fpkFvsDO4Nm+IyxIGgesampRtWZOt6qIvw+8w0PyBmqBg=="/>
             </sparkle:deltas>
         </item>
-        <item>
-            <title>2.2.0</title>
-            <pubDate>Sun, 15 Feb 2026 13:04:00 +0000</pubDate>
-            <sparkle:version>6</sparkle:version>
-            <sparkle:shortVersionString>2.2.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/motasim-r/notchy-mac/releases/download/v2.2.1/Notchy-Teleprompter-v2.2.0-6-macOS-universal-notarized.zip" length="1831679" type="application/octet-stream" sparkle:edSignature="R6xGytp3ULBh7k4GA/b0ee8FmeK3C8rVwQ3e368RMK9ELV+ngWWvi5BVQp7vmp2F/7BetinOf0T7Mtf3CBxUBw=="/>
-        </item>
     </channel>
 </rss>
