@@ -58,11 +58,14 @@ Full handoff steps are documented in `/Users/motasimrahman/Desktop/notchy-mac-ap
 For full public release automation (push, notarize, appcast, tag, GitHub release upload), use:
 
 ```bash
+xcrun notarytool store-credentials "notchy-notary" \
+  --apple-id "you@example.com" \
+  --team-id "TEAMID" \
+  --password "xxxx-xxxx-xxxx-xxxx"
+gh auth login -h github.com -p https -w
+
 DEVELOPER_ID_APP_CERT="Developer ID Application: Your Name (TEAMID)" \
-APPLE_ID="you@example.com" \
-APPLE_APP_SPECIFIC_PASSWORD="xxxx-xxxx-xxxx-xxxx" \
-TEAM_ID="TEAMID" \
-GITHUB_TOKEN="ghp_xxx" \
+NOTARYTOOL_PROFILE="notchy-notary" \
 ./native/scripts/public_release.sh
 ```
 
