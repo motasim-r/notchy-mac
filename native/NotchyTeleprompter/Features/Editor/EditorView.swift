@@ -103,7 +103,7 @@ struct EditorView: View {
 
             Spacer()
 
-            Text("V2.1.2")
+            Text("V2.2.0")
                 .font(.system(size: 11, weight: .semibold, design: .rounded))
                 .notchyForeground(Color.white.opacity(0.48))
                 .padding(.horizontal, 16)
@@ -277,13 +277,13 @@ struct EditorView: View {
         VStack(alignment: .leading, spacing: 12) {
             tabHeader(
                 title: "Changelogs",
-                subtitle: "Tracked updates from V1 to current V2.1.2."
+                subtitle: "Tracked updates from V1 to current V2.2.0."
             )
 
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 14) {
                     surfaceCard(
-                        title: "V2.1.2 Snapshot",
+                        title: "V2.2.0 Snapshot",
                         subtitle: "This log is now the source of truth for product changes."
                     ) {
                         Text("Rule enabled: every product/UI behavior change should be added here before final builds.")
@@ -577,7 +577,8 @@ struct EditorView: View {
                 "Added clearer hide/show controls to avoid confusion between hiding notch-ui and quitting app.",
                 "Prepared signing/notarization pipeline for public distribution flow.",
                 "Expanded compatibility baseline to support macOS 11.0+ with UI fallbacks for older SwiftUI runtimes.",
-                "Editor tab sections now use lazy rendering for smoother tab switching."
+                "Editor tab sections now use lazy rendering for smoother tab switching.",
+                "Integrated Sparkle auto-update plumbing with update detection, in-app update CTA, and a Check for Updates menu action."
             ]
         )
     ]
