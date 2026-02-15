@@ -103,7 +103,10 @@ hdiutil create \
   -ov \
   "$RW_DMG_PATH"
 
-MOUNT_POINT="$(hdiutil attach "$RW_DMG_PATH" -readwrite -noverify -noautoopen | awk '/\/Volumes\// {print $NF; exit}')"
+MOUNT_POINT="$(
+  hdiutil attach "$RW_DMG_PATH" -readwrite -noverify -noautoopen | \
+    sed -n 's#^.*\(/Volumes/.*\)$#\1#p' | head -n 1
+)"
 if [[ -z "$MOUNT_POINT" || ! -d "$MOUNT_POINT" ]]; then
   echo "Failed to mount temporary installer DMG."
   exit 1
