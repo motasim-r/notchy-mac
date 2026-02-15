@@ -192,11 +192,12 @@ if [[ "$GENERATE_APPCAST" == "1" ]]; then
   fi
 
   mkdir -p "$APPCAST_ARCHIVES_DIR"
+  rm -f "$APPCAST_ARCHIVES_DIR"/*.zip
   cp -f "$FINAL_ZIP_PATH" "$APPCAST_ARCHIVES_DIR/"
 
   "$GENERATE_APPCAST_TOOL" \
     --download-url-prefix "$SPARKLE_DOWNLOAD_URL_PREFIX" \
-    --maximum-versions 6 \
+    --maximum-versions 1 \
     -o "$APPCAST_DIR/appcast.xml" \
     "$APPCAST_ARCHIVES_DIR"
 fi
