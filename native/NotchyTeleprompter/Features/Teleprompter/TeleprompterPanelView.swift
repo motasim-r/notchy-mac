@@ -51,21 +51,21 @@ struct TeleprompterPanelView: View {
         .animation(.interactiveSpring(response: 0.24, dampingFraction: 0.86), value: isControlTrayExpanded)
     }
 
+    @ViewBuilder
     private var panelBackground: some View {
-        Group {
-            if controller.state.panel.verticalNudgePx > 0.5 {
-                DetachedRoundedPanelShape(
-                    topRadius: detachedTopCornerRadius,
-                    bottomRadius: bottomCornerRadius
-                )
-            } else {
-                NotchReferencePanelShape(
-                    topRadius: topShoulderRadius,
-                    bottomRadius: bottomCornerRadius
-                )
-            }
+        if controller.state.panel.verticalNudgePx > 0.5 {
+            DetachedRoundedPanelShape(
+                topRadius: detachedTopCornerRadius,
+                bottomRadius: bottomCornerRadius
+            )
+            .fill(Color.black)
+        } else {
+            NotchReferencePanelShape(
+                topRadius: topShoulderRadius,
+                bottomRadius: bottomCornerRadius
+            )
+            .fill(Color.black)
         }
-        .fill(Color.black)
     }
 
     private var viewport: some View {
