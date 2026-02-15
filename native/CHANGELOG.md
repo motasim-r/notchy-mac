@@ -4,7 +4,17 @@ This file tracks product changes for Notchy.
 Process rule: every user-visible change should be appended here and mirrored in the in-app `Changelogs` tab.
 
 ## Unreleased
-- Reserved for changes after `2.1.2`.
+- Reserved for changes after `2.2.0`.
+
+## 2.2.0 - 2026-02-15
+
+### Highlights
+- Added native Sparkle updater integration for in-app updates.
+- Added `Check for Updates…` action to app menus (status menu, dock menu, and app menu).
+- Added conditional `Update` button in Script tab playback strip that appears when a newer version is detected.
+- Added Sparkle feed metadata (`SUFeedURL`, `SUPublicEDKey`, automatic-check settings) to app configuration.
+- Added Sparkle tooling script to build `generate_keys`, `sign_update`, and `generate_appcast` from source.
+- Extended notarization pipeline to auto-generate `native/appcast/appcast.xml` from notarized ZIP releases.
 
 ## 2.1.2 - 2026-02-15
 
