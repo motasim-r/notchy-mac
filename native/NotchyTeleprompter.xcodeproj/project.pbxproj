@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		25529C4B6A8590FD0D22FF94 /* AppStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A97492CD784F4AAFB6AE36 /* AppStateController.swift */; };
+		293600AA168F1C78E536F697 /* SparkleUpdaterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8F832BD5C2F281E2C4E726 /* SparkleUpdaterService.swift */; };
 		2B04B71AEE3EC65DE7D4A7F3 /* MigrationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62EE710D349A6B90F50899 /* MigrationServiceProtocol.swift */; };
 		37D0D04A6AED85FFC3B2B7AB /* TeleprompterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A93D07BF4CF64CCE0E8477 /* TeleprompterState.swift */; };
 		3D3547BA29A63DACB3E6E564 /* NotchyTeleprompterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784D31CD4FCE2E6B4219D30A /* NotchyTeleprompterApp.swift */; };
@@ -34,6 +35,7 @@
 		180A26663456AB74A3045C71 /* NotchyTeleprompter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotchyTeleprompter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		196859D8E62592B56229F85E /* EditorSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSessionState.swift; sourceTree = "<group>"; };
 		1D62EE710D349A6B90F50899 /* MigrationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationServiceProtocol.swift; sourceTree = "<group>"; };
+		1D8F832BD5C2F281E2C4E726 /* SparkleUpdaterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparkleUpdaterService.swift; sourceTree = "<group>"; };
 		25A97492CD784F4AAFB6AE36 /* AppStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateController.swift; sourceTree = "<group>"; };
 		2E2E045E0E64B5A528A1D4B6 /* NotchPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchPanelController.swift; sourceTree = "<group>"; };
 		36C50097361A8AAB17306F2B /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
@@ -71,6 +73,14 @@
 				180A26663456AB74A3045C71 /* NotchyTeleprompter.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		12479FE24AF376AC470A6D1B /* Updates */ = {
+			isa = PBXGroup;
+			children = (
+				1D8F832BD5C2F281E2C4E726 /* SparkleUpdaterService.swift */,
+			);
+			path = Updates;
 			sourceTree = "<group>";
 		};
 		30550AE9A40C8D397AC46935 /* NotchyTeleprompter */ = {
@@ -183,6 +193,7 @@
 			children = (
 				50798E8AE1CC387B7CE231C9 /* Hotkeys */,
 				4E337618D300D0C56A445CAD /* Timing */,
+				12479FE24AF376AC470A6D1B /* Updates */,
 				4BB7DE9114888ADE2080967A /* Windowing */,
 			);
 			path = Platform;
@@ -266,6 +277,7 @@
 				2B04B71AEE3EC65DE7D4A7F3 /* MigrationServiceProtocol.swift in Sources */,
 				B6D9F35CA86188EEE66410D6 /* NotchPanelController.swift in Sources */,
 				3D3547BA29A63DACB3E6E564 /* NotchyTeleprompterApp.swift in Sources */,
+				293600AA168F1C78E536F697 /* SparkleUpdaterService.swift in Sources */,
 				91DC85BCF94C3BC97BC24644 /* StateStoreProtocol.swift in Sources */,
 				CA863515E578D794D5118D2A /* TeleprompterPanelView.swift in Sources */,
 				37D0D04A6AED85FFC3B2B7AB /* TeleprompterState.swift in Sources */,
@@ -311,7 +323,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -330,7 +342,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.1.2;
+				MARKETING_VERSION = 2.2.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -414,7 +426,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -427,7 +439,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.1.2;
+				MARKETING_VERSION = 2.2.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.notchy.teleprompter.native;
