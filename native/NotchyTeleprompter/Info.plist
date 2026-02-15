@@ -26,5 +26,13 @@
     <true/>
     <key>NSSupportsAutomaticGraphicsSwitching</key>
     <true/>
+    <key>SUFeedURL</key>
+    <string>https://motasim-r.github.io/notchy-mac/appcast.xml</string>
+    <key>SUEnableAutomaticChecks</key>
+    <true/>
+    <key>SUScheduledCheckInterval</key>
+    <real>14400</real>
+    <key>SUPublicEDKey</key>
+    <string>Vnpy6kqp8+PLpkXWVUwcwB5If1oHpLBkZIMerDVlvR8=</string>
 </dict>
 </plist>
