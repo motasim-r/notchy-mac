@@ -6,12 +6,18 @@ set -euo pipefail
 #   APPLE_ID="you@example.com" \
 #   APPLE_APP_SPECIFIC_PASSWORD="xxxx-xxxx-xxxx-xxxx" \
 #   TEAM_ID="TEAMID" \
+#   SPARKLE_DOWNLOAD_URL_PREFIX="https://github.com/<owner>/<repo>/releases/download/vX.Y.Z" \
 #   ./native/scripts/notarize_release.sh
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 NATIVE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 RELEASE_DIR="$NATIVE_DIR/release"
 APP_PATH="$RELEASE_DIR/Notchy Teleprompter.app"
+APPCAST_DIR="$NATIVE_DIR/appcast"
+APPCAST_ARCHIVES_DIR="$APPCAST_DIR/archives"
+SPARKLE_TOOLS_DIR_DEFAULT="$NATIVE_DIR/.derived-sparkle-tools/Build/Products/Release"
+SPARKLE_TOOLS_DIR="${SPARKLE_TOOLS_DIR:-$SPARKLE_TOOLS_DIR_DEFAULT}"
+GENERATE_APPCAST="${GENERATE_APPCAST:-1}"
 
 if [[ ! -d "$APP_PATH" ]]; then
   echo "Release app not found at $APP_PATH"
@@ -70,6 +76,40 @@ xcrun stapler validate "$DMG_PATH"
 spctl --assess --type open --context context:primary-signature --verbose=4 "$DMG_PATH"
 shasum -a 256 "$DMG_PATH" > "$DMG_SHA_PATH"
 
+if [[ "$GENERATE_APPCAST" == "1" ]]; then
+  GENERATE_APPCAST_TOOL="$SPARKLE_TOOLS_DIR/generate_appcast"
+
+  if [[ ! -x "$GENERATE_APPCAST_TOOL" ]]; then
+    "$NATIVE_DIR/scripts/build_sparkle_tools.sh"
+  fi
+
+  if [[ ! -x "$GENERATE_APPCAST_TOOL" ]]; then
+    echo "Sparkle generate_appcast tool not found at $GENERATE_APPCAST_TOOL"
+    exit 1
+  fi
+
+  if [[ -z "${SPARKLE_DOWNLOAD_URL_PREFIX:-}" ]]; then
+    ORIGIN_URL="$(git -C "$NATIVE_DIR/.." config --get remote.origin.url || true)"
+    if [[ "$ORIGIN_URL" =~ github.com[:/]([^/]+)/([^.]+)(\.git)?$ ]]; then
+      OWNER="${BASH_REMATCH[1]}"
+      REPO="${BASH_REMATCH[2]}"
+      SPARKLE_DOWNLOAD_URL_PREFIX="https://github.com/$OWNER/$REPO/releases/download/v${VERSION}"
+    else
+      echo "Set SPARKLE_DOWNLOAD_URL_PREFIX to your public release asset URL prefix."
+      exit 1
+    fi
+  fi
+
+  mkdir -p "$APPCAST_ARCHIVES_DIR"
+  cp -f "$FINAL_ZIP_PATH" "$APPCAST_ARCHIVES_DIR/"
+
+  "$GENERATE_APPCAST_TOOL" \
+    --download-url-prefix "$SPARKLE_DOWNLOAD_URL_PREFIX" \
+    --maximum-versions 6 \
+    -o "$APPCAST_DIR/appcast.xml" \
+    "$APPCAST_ARCHIVES_DIR"
+fi
+
 cat <<REPORT
 Public distribution artifacts ready:
 - App: $APP_PATH
@@ -77,4 +117,5 @@ Public distribution artifacts ready:
 - Zip SHA256: $FINAL_ZIP_SHA_PATH
 - DMG: $DMG_PATH
 - DMG SHA256: $DMG_SHA_PATH
+$( [[ "$GENERATE_APPCAST" == "1" ]] && echo "- Appcast: $APPCAST_DIR/appcast.xml" )
 REPORT
