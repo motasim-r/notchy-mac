@@ -1,0 +1,24 @@
+name: NotchyTeleprompter
+options:
+  bundleIdPrefix: com.notchy
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+    MACOSX_DEPLOYMENT_TARGET: 11.0
+    PRODUCT_BUNDLE_IDENTIFIER: com.notchy.teleprompter.native
+    MARKETING_VERSION: 2.1.1
+    CURRENT_PROJECT_VERSION: 4
+    CODE_SIGN_STYLE: Automatic
+targets:
+  NotchyTeleprompter:
+    type: application
+    platform: macOS
+    sources:
+      - path: NotchyTeleprompter
+    settings:
+      base:
+        INFOPLIST_FILE: NotchyTeleprompter/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        PRODUCT_NAME: Notchy Teleprompter
+        ENABLE_HARDENED_RUNTIME: YES
+        SWIFT_EMIT_LOC_STRINGS: NO

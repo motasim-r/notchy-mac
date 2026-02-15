@@ -1,0 +1,449 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		25529C4B6A8590FD0D22FF94 /* AppStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A97492CD784F4AAFB6AE36 /* AppStateController.swift */; };
+		2B04B71AEE3EC65DE7D4A7F3 /* MigrationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62EE710D349A6B90F50899 /* MigrationServiceProtocol.swift */; };
+		37D0D04A6AED85FFC3B2B7AB /* TeleprompterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A93D07BF4CF64CCE0E8477 /* TeleprompterState.swift */; };
+		3D3547BA29A63DACB3E6E564 /* NotchyTeleprompterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784D31CD4FCE2E6B4219D30A /* NotchyTeleprompterApp.swift */; };
+		5E680997E99178F207222263 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB13B5DE6C55FE7D0E0BA3C9 /* VisualEffectView.swift */; };
+		5FB69D4FBC05AED86BF86439 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C50097361A8AAB17306F2B /* EditorView.swift */; };
+		60A24E3D1A9B0295597303E6 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B8AFC0D6E039BC9D9501F /* EditorWindowController.swift */; };
+		C3D4E5F60718293A4B5C6D7E /* EditorTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5C /* EditorTab.swift */; };
+		D4E5F60718293A4B5C6D7E8F /* EditorSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F60718293A4B5C6D /* EditorSessionState.swift */; };
+		817D380F16317714C05B7232 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E6248DAC882AF860673818 /* HotkeyManager.swift */; };
+		91DC85BCF94C3BC97BC24644 /* StateStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB65A3C1CA08979426B2EADE /* StateStoreProtocol.swift */; };
+		B6D9F35CA86188EEE66410D6 /* NotchPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E045E0E64B5A528A1D4B6 /* NotchPanelController.swift */; };
+		C3E1A8DBFCA21E4719E29AF4 /* FileStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6BB4B2829D6EF35D5EA4C5 /* FileStateStore.swift */; };
+		C981A21DF5B1F902A98EBAFC /* ElectronMigrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B95ED278AED8F7EEE16F3AB /* ElectronMigrationService.swift */; };
+		CA863515E578D794D5118D2A /* TeleprompterPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D817A0FBDF18A56314ED7FD1 /* TeleprompterPanelView.swift */; };
+		D44B00D8E3985ECFA884AD79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C1CBA4673FF7F873D7A1BD /* AppDelegate.swift */; };
+		F6D4910A90395E36E0EBE48B /* DisplayLinkTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534139D5AD6A34DAD69AF56 /* DisplayLinkTicker.swift */; };
+		FD12D050482553DF1932821A /* GlobalKeyCaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3D3555DE06F10711796A2B /* GlobalKeyCaptureManager.swift */; };
+		FD83A8A574B67C2F4A08E2B7 /* DisplayLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB46B6EBBC20478B6E96E7 /* DisplayLocator.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		06A93D07BF4CF64CCE0E8477 /* TeleprompterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleprompterState.swift; sourceTree = "<group>"; };
+		180A26663456AB74A3045C71 /* NotchyTeleprompter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotchyTeleprompter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D62EE710D349A6B90F50899 /* MigrationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationServiceProtocol.swift; sourceTree = "<group>"; };
+		25A97492CD784F4AAFB6AE36 /* AppStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateController.swift; sourceTree = "<group>"; };
+		2E2E045E0E64B5A528A1D4B6 /* NotchPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchPanelController.swift; sourceTree = "<group>"; };
+		36C50097361A8AAB17306F2B /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
+		40C1CBA4673FF7F873D7A1BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4B3D3555DE06F10711796A2B /* GlobalKeyCaptureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalKeyCaptureManager.swift; sourceTree = "<group>"; };
+		5B95ED278AED8F7EEE16F3AB /* ElectronMigrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectronMigrationService.swift; sourceTree = "<group>"; };
+		784D31CD4FCE2E6B4219D30A /* NotchyTeleprompterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyTeleprompterApp.swift; sourceTree = "<group>"; };
+		84DB46B6EBBC20478B6E96E7 /* DisplayLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLocator.swift; sourceTree = "<group>"; };
+		8F6BB4B2829D6EF35D5EA4C5 /* FileStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStateStore.swift; sourceTree = "<group>"; };
+		99E6248DAC882AF860673818 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5C /* EditorTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTab.swift; sourceTree = "<group>"; };
+		B2C3D4E5F60718293A4B5C6D /* EditorSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSessionState.swift; sourceTree = "<group>"; };
+		C534139D5AD6A34DAD69AF56 /* DisplayLinkTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLinkTicker.swift; sourceTree = "<group>"; };
+		CB65A3C1CA08979426B2EADE /* StateStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateStoreProtocol.swift; sourceTree = "<group>"; };
+		D817A0FBDF18A56314ED7FD1 /* TeleprompterPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleprompterPanelView.swift; sourceTree = "<group>"; };
+		DD5F57177F215DE3BF0D484A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EB13B5DE6C55FE7D0E0BA3C9 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		F13B8AFC0D6E039BC9D9501F /* EditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		11AF311DE9FCD1C7E92CC84F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				180A26663456AB74A3045C71 /* NotchyTeleprompter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		30550AE9A40C8D397AC46935 /* NotchyTeleprompter */ = {
+			isa = PBXGroup;
+			children = (
+				DD5F57177F215DE3BF0D484A /* Info.plist */,
+				30ED3F8CBFF13541E54B131A /* App */,
+				8B62A4641307CF5E8292F653 /* Features */,
+				328C8A254DF5A221209C42E6 /* Models */,
+				BF1DA25977602295C21B222A /* Persistence */,
+				D1E8B330E21AB75473710A79 /* Platform */,
+			);
+			path = NotchyTeleprompter;
+			sourceTree = "<group>";
+		};
+		30ED3F8CBFF13541E54B131A /* App */ = {
+			isa = PBXGroup;
+			children = (
+				40C1CBA4673FF7F873D7A1BD /* AppDelegate.swift */,
+				25A97492CD784F4AAFB6AE36 /* AppStateController.swift */,
+				784D31CD4FCE2E6B4219D30A /* NotchyTeleprompterApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		328C8A254DF5A221209C42E6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				06A93D07BF4CF64CCE0E8477 /* TeleprompterState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4BB7DE9114888ADE2080967A /* Windowing */ = {
+			isa = PBXGroup;
+			children = (
+				84DB46B6EBBC20478B6E96E7 /* DisplayLocator.swift */,
+				F13B8AFC0D6E039BC9D9501F /* EditorWindowController.swift */,
+				2E2E045E0E64B5A528A1D4B6 /* NotchPanelController.swift */,
+				EB13B5DE6C55FE7D0E0BA3C9 /* VisualEffectView.swift */,
+			);
+			path = Windowing;
+			sourceTree = "<group>";
+		};
+		4E337618D300D0C56A445CAD /* Timing */ = {
+			isa = PBXGroup;
+			children = (
+				C534139D5AD6A34DAD69AF56 /* DisplayLinkTicker.swift */,
+			);
+			path = Timing;
+			sourceTree = "<group>";
+		};
+		4FF20865B1674A8CEC23AFD5 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				B2C3D4E5F60718293A4B5C6D /* EditorSessionState.swift */,
+				A1B2C3D4E5F60718293A4B5C /* EditorTab.swift */,
+				36C50097361A8AAB17306F2B /* EditorView.swift */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		50798E8AE1CC387B7CE231C9 /* Hotkeys */ = {
+			isa = PBXGroup;
+			children = (
+				4B3D3555DE06F10711796A2B /* GlobalKeyCaptureManager.swift */,
+				99E6248DAC882AF860673818 /* HotkeyManager.swift */,
+			);
+			path = Hotkeys;
+			sourceTree = "<group>";
+		};
+		77F8960137B5476F3185FE2D /* Teleprompter */ = {
+			isa = PBXGroup;
+			children = (
+				D817A0FBDF18A56314ED7FD1 /* TeleprompterPanelView.swift */,
+			);
+			path = Teleprompter;
+			sourceTree = "<group>";
+		};
+		8B62A4641307CF5E8292F653 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				4FF20865B1674A8CEC23AFD5 /* Editor */,
+				77F8960137B5476F3185FE2D /* Teleprompter */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		BF1DA25977602295C21B222A /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				5B95ED278AED8F7EEE16F3AB /* ElectronMigrationService.swift */,
+				8F6BB4B2829D6EF35D5EA4C5 /* FileStateStore.swift */,
+				1D62EE710D349A6B90F50899 /* MigrationServiceProtocol.swift */,
+				CB65A3C1CA08979426B2EADE /* StateStoreProtocol.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		CDAAA94DACEE6747C78452CD = {
+			isa = PBXGroup;
+			children = (
+				30550AE9A40C8D397AC46935 /* NotchyTeleprompter */,
+				11AF311DE9FCD1C7E92CC84F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D1E8B330E21AB75473710A79 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				50798E8AE1CC387B7CE231C9 /* Hotkeys */,
+				4E337618D300D0C56A445CAD /* Timing */,
+				4BB7DE9114888ADE2080967A /* Windowing */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0B0610F5C5F8F59BB3FE9CE7 /* NotchyTeleprompter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECAAD23702EBFA8F037D00A3 /* Build configuration list for PBXNativeTarget "NotchyTeleprompter" */;
+			buildPhases = (
+				1A18688C3A817893CFAE9492 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotchyTeleprompter;
+			packageProductDependencies = (
+			);
+			productName = NotchyTeleprompter;
+			productReference = 180A26663456AB74A3045C71 /* NotchyTeleprompter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		390B7827A0FAD582C2C40B54 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					0B0610F5C5F8F59BB3FE9CE7 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 364934009E73E80EF23BBB7F /* Build configuration list for PBXProject "NotchyTeleprompter" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CDAAA94DACEE6747C78452CD;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0B0610F5C5F8F59BB3FE9CE7 /* NotchyTeleprompter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A18688C3A817893CFAE9492 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D44B00D8E3985ECFA884AD79 /* AppDelegate.swift in Sources */,
+				25529C4B6A8590FD0D22FF94 /* AppStateController.swift in Sources */,
+				F6D4910A90395E36E0EBE48B /* DisplayLinkTicker.swift in Sources */,
+				FD83A8A574B67C2F4A08E2B7 /* DisplayLocator.swift in Sources */,
+				D4E5F60718293A4B5C6D7E8F /* EditorSessionState.swift in Sources */,
+				C3D4E5F60718293A4B5C6D7E /* EditorTab.swift in Sources */,
+				5FB69D4FBC05AED86BF86439 /* EditorView.swift in Sources */,
+				60A24E3D1A9B0295597303E6 /* EditorWindowController.swift in Sources */,
+				C981A21DF5B1F902A98EBAFC /* ElectronMigrationService.swift in Sources */,
+				C3E1A8DBFCA21E4719E29AF4 /* FileStateStore.swift in Sources */,
+				FD12D050482553DF1932821A /* GlobalKeyCaptureManager.swift in Sources */,
+				817D380F16317714C05B7232 /* HotkeyManager.swift in Sources */,
+				2B04B71AEE3EC65DE7D4A7F3 /* MigrationServiceProtocol.swift in Sources */,
+				B6D9F35CA86188EEE66410D6 /* NotchPanelController.swift in Sources */,
+				3D3547BA29A63DACB3E6E564 /* NotchyTeleprompterApp.swift in Sources */,
+				91DC85BCF94C3BC97BC24644 /* StateStoreProtocol.swift in Sources */,
+				CA863515E578D794D5118D2A /* TeleprompterPanelView.swift in Sources */,
+				37D0D04A6AED85FFC3B2B7AB /* TeleprompterState.swift in Sources */,
+				5E680997E99178F207222263 /* VisualEffectView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		46C22923E3E34B03BBF011E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 2.1.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.notchy.teleprompter.native;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Debug;
+		};
+		4FA8E9ABDB685E8B481346D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NotchyTeleprompter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_NAME = "Notchy Teleprompter";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Debug;
+		};
+		8D2736B92603B501E20D8CAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NotchyTeleprompter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_NAME = "Notchy Teleprompter";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Release;
+		};
+		8D803250A3CF8C08F900CA9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 2.1.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.notchy.teleprompter.native;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		364934009E73E80EF23BBB7F /* Build configuration list for PBXProject "NotchyTeleprompter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46C22923E3E34B03BBF011E4 /* Debug */,
+				8D803250A3CF8C08F900CA9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ECAAD23702EBFA8F037D00A3 /* Build configuration list for PBXNativeTarget "NotchyTeleprompter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FA8E9ABDB685E8B481346D6 /* Debug */,
+				8D2736B92603B501E20D8CAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 390B7827A0FAD582C2C40B54 /* Project object */;
+}
