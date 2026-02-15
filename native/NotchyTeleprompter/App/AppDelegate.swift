@@ -20,6 +20,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     )
 
     private lazy var editorWindowController = EditorWindowController(stateController: stateController)
+    private let updaterService = SparkleUpdaterService()
 
     private var hotkeyManager: HotkeyManagerProtocol?
     private var stateSubscription: AnyCancellable?
@@ -31,6 +32,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
     private var togglePanelMenuItem: NSMenuItem?
     private var playPauseMenuItem: NSMenuItem?
+    private var checkForUpdatesMenuItem: NSMenuItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.regular)
@@ -40,9 +42,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         setupStatusItem()
+        setupApplicationMenu()
         setupHotkeys()
         setupSpaceKeyHandler()
         setupScrollHandlers()
+        setupUpdater()
         setupObservers()
 
         stateSubscription = stateController.$state
@@ -69,6 +73,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         let toggleNotch = NSMenuItem(title: toggleTitle, action: #selector(togglePanelVisibilityAction), keyEquivalent: "")
         let openEditor = NSMenuItem(title: "Open Editor", action: #selector(openEditorAction), keyEquivalent: "")
+        let checkUpdates = NSMenuItem(title: "Check for Updates…", action: #selector(checkForUpdatesAction), keyEquivalent: "")
         let playPause = NSMenuItem(
             title: stateController.state.playback.isPlaying ? "Pause" : "Play",
             action: #selector(togglePlaybackAction),
@@ -78,11 +83,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         toggleNotch.target = self
         openEditor.target = self
+        checkUpdates.target = self
         playPause.target = self
         quit.target = self
 
         menu.addItem(toggleNotch)
         menu.addItem(openEditor)
+        menu.addItem(checkUpdates)
         menu.addItem(.separator())
         menu.addItem(playPause)
         menu.addItem(.separator())
@@ -111,6 +118,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         displayPollTimer?.invalidate()
         displayPollTimer = nil
+        updaterService.teardown()
 
         notchPanelController.teardown()
         editorWindowController.teardown()
@@ -128,6 +136,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func togglePlaybackAction() {
         stateController.togglePlayback()
+    }
+
+    @objc private func checkForUpdatesAction() {
+        stateController.checkForUpdates()
     }
 
     @objc private func quitAction() {
@@ -150,12 +162,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         togglePanelMenuItem = NSMenuItem(title: "Hide Notch UI", action: #selector(togglePanelVisibilityAction), keyEquivalent: "")
         playPauseMenuItem = NSMenuItem(title: "Play", action: #selector(togglePlaybackAction), keyEquivalent: "")
+        checkForUpdatesMenuItem = NSMenuItem(title: "Check for Updates…", action: #selector(checkForUpdatesAction), keyEquivalent: "")
 
         let openEditorItem = NSMenuItem(title: "Open Editor", action: #selector(openEditorAction), keyEquivalent: "")
         let quitItem = NSMenuItem(title: "Quit Notchy", action: #selector(quitAction), keyEquivalent: "q")
 
         togglePanelMenuItem?.target = self
         playPauseMenuItem?.target = self
+        checkForUpdatesMenuItem?.target = self
         openEditorItem.target = self
         quitItem.target = self
 
@@ -168,10 +182,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if let playPauseMenuItem {
             menu.addItem(playPauseMenuItem)
         }
+        if let checkForUpdatesMenuItem {
+            menu.addItem(checkForUpdatesMenuItem)
+        }
         menu.addItem(.separator())
         menu.addItem(quitItem)
 
         item.menu = menu
+    }
+
+    private func setupApplicationMenu() {
+        guard
+            let appMenu = NSApp.mainMenu?.item(at: 0)?.submenu,
+            !appMenu.items.contains(where: { $0.action == #selector(checkForUpdatesAction) })
+        else {
+            return
+        }
+
+        let checkUpdatesItem = NSMenuItem(title: "Check for Updates…", action: #selector(checkForUpdatesAction), keyEquivalent: "")
+        checkUpdatesItem.target = self
+
+        appMenu.insertItem(checkUpdatesItem, at: min(1, appMenu.items.count))
     }
 
     private func setupHotkeys() {
@@ -210,6 +241,30 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 self.notchPanelController.sync(with: self.stateController.state)
             }
         }
+    }
+
+    private func setupUpdater() {
+        stateController.checkForUpdatesHandler = { [weak self] in
+            self?.updaterService.checkForUpdates()
+        }
+
+        stateController.installAvailableUpdateHandler = { [weak self] in
+            self?.updaterService.checkForUpdates()
+        }
+
+        updaterService.onCheckingStateChange = { [weak self] checking in
+            self?.stateController.setCheckingForUpdates(checking)
+        }
+
+        updaterService.onUpdateAvailabilityChange = { [weak self] available, version in
+            self?.stateController.setUpdateAvailability(available: available, version: version)
+        }
+
+        updaterService.onErrorMessage = { [weak self] message in
+            self?.stateController.setUpdateErrorMessage(message)
+        }
+
+        updaterService.start()
     }
 
     private func setupSpaceKeyHandler() {
