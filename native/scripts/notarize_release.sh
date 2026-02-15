@@ -56,6 +56,17 @@ FINAL_ZIP_PATH="$RELEASE_DIR/${BASE_BASENAME}-notarized.zip"
 FINAL_ZIP_SHA_PATH="$RELEASE_DIR/${BASE_BASENAME}-notarized.sha256"
 DMG_PATH="$RELEASE_DIR/${BASE_BASENAME}-notarized.dmg"
 DMG_SHA_PATH="$RELEASE_DIR/${BASE_BASENAME}-notarized.dmg.sha256"
+TMP_DIR="$(mktemp -d "$RELEASE_DIR/.notchy-dmg-XXXXXX")"
+DMG_STAGING_DIR="$TMP_DIR/staging"
+RW_DMG_PATH="$TMP_DIR/${BASE_BASENAME}-installer-rw.dmg"
+
+cleanup() {
+  if [[ -n "${MOUNT_POINT:-}" && -d "${MOUNT_POINT:-}" ]]; then
+    hdiutil detach "$MOUNT_POINT" -quiet >/dev/null 2>&1 || true
+  fi
+  rm -rf "$TMP_DIR"
+}
+trap cleanup EXIT
 
 rm -f "$SUBMIT_ZIP_PATH" "$FINAL_ZIP_PATH" "$FINAL_ZIP_SHA_PATH" "$DMG_PATH" "$DMG_SHA_PATH"
 ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "$SUBMIT_ZIP_PATH"
@@ -80,8 +91,55 @@ spctl --assess --type execute --verbose=4 "$APP_PATH"
 ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "$FINAL_ZIP_PATH"
 shasum -a 256 "$FINAL_ZIP_PATH" > "$FINAL_ZIP_SHA_PATH"
 
-# Build, sign, notarize, and staple DMG.
-hdiutil create -volname "Notchy Teleprompter" -srcfolder "$APP_PATH" -ov -format UDZO "$DMG_PATH"
+# Build installer-style DMG (drag app into Applications).
+mkdir -p "$DMG_STAGING_DIR"
+cp -R "$APP_PATH" "$DMG_STAGING_DIR/"
+ln -s /Applications "$DMG_STAGING_DIR/Applications"
+
+hdiutil create \
+  -volname "Notchy Teleprompter" \
+  -srcfolder "$DMG_STAGING_DIR" \
+  -format UDRW \
+  -ov \
+  "$RW_DMG_PATH"
+
+MOUNT_POINT="$(hdiutil attach "$RW_DMG_PATH" -readwrite -noverify -noautoopen | awk '/\/Volumes\// {print $NF; exit}')"
+if [[ -z "$MOUNT_POINT" || ! -d "$MOUNT_POINT" ]]; then
+  echo "Failed to mount temporary installer DMG."
+  exit 1
+fi
+
+# Configure Finder window (icon view + drag-to-Applications layout). If this fails,
+# release still proceeds with a functional DMG.
+VOLUME_NAME="$(basename "$MOUNT_POINT")"
+osascript <<APPLESCRIPT || true
+tell application "Finder"
+  tell disk "$VOLUME_NAME"
+    open
+    set current view of container window to icon view
+    set toolbar visible of container window to false
+    set statusbar visible of container window to false
+    set bounds of container window to {140, 120, 860, 560}
+    set theViewOptions to the icon view options of container window
+    set arrangement of theViewOptions to not arranged
+    set icon size of theViewOptions to 112
+    set text size of theViewOptions to 14
+    set position of item "Notchy Teleprompter.app" of container window to {200, 240}
+    set position of item "Applications" of container window to {520, 240}
+    close
+    open
+    update without registering applications
+  end tell
+end tell
+APPLESCRIPT
+
+sync
+bless --folder "$MOUNT_POINT" --openfolder "$MOUNT_POINT" >/dev/null 2>&1 || true
+hdiutil detach "$MOUNT_POINT" -quiet
+MOUNT_POINT=""
+hdiutil convert "$RW_DMG_PATH" -format UDZO -imagekey zlib-level=9 -o "$DMG_PATH"
+
+# Sign, notarize, and staple final DMG.
 codesign --force --timestamp --sign "$DEVELOPER_ID_APP_CERT" "$DMG_PATH"
 codesign --verify --verbose=2 "$DMG_PATH"
 
