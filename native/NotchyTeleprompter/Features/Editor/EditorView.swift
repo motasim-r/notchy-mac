@@ -103,7 +103,7 @@ struct EditorView: View {
 
             Spacer()
 
-            Text("V2.1.1")
+            Text("V2.1.2")
                 .font(.system(size: 11, weight: .semibold, design: .rounded))
                 .notchyForeground(Color.white.opacity(0.48))
                 .padding(.horizontal, 16)
@@ -276,13 +276,13 @@ struct EditorView: View {
         VStack(alignment: .leading, spacing: 12) {
             tabHeader(
                 title: "Changelogs",
-                subtitle: "Tracked updates from V1 to current V2.1.1."
+                subtitle: "Tracked updates from V1 to current V2.1.2."
             )
 
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 14) {
                     surfaceCard(
-                        title: "V2.1.1 Snapshot",
+                        title: "V2.1.2 Snapshot",
                         subtitle: "This log is now the source of truth for product changes."
                     ) {
                         Text("Rule enabled: every product/UI behavior change should be added here before final builds.")
