@@ -264,6 +264,7 @@ struct EditorView: View {
                             shortcutRow("Cmd + Shift + Space", "Play/Pause (global fallback)")
                             shortcutRow("Cmd + Shift + Left / Right", "Speed -2 / +2")
                             shortcutRow("Cmd + Shift + Up / Down", "Move script up / down one line")
+                            shortcutRow("App Menu → Check for Updates…", "Manual update check")
                         }
                     }
                 }
