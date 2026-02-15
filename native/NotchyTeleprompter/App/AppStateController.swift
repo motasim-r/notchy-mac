@@ -18,6 +18,7 @@ final class AppStateController: ObservableObject {
     private var maxOffsetPx: Double = 0
     private var offsetPersistCounter = 0
     private var saveWorkItem: DispatchWorkItem?
+    private var playbackTickAccumulator: Double = 0
 
     init(
         stateStore: StateStoreProtocol,
@@ -269,6 +270,7 @@ final class AppStateController: ObservableObject {
             ticker.start()
         } else {
             ticker.stop()
+            playbackTickAccumulator = 0
         }
     }
 
@@ -278,8 +280,18 @@ final class AppStateController: ObservableObject {
         }
 
         let safeDelta = max(0, deltaSeconds)
+        playbackTickAccumulator += safeDelta
+
+        // Throttle editor/state redraw pressure on older Macs while keeping motion smooth.
+        guard playbackTickAccumulator >= (1.0 / 45.0) else {
+            return
+        }
+
+        let effectiveDelta = playbackTickAccumulator
+        playbackTickAccumulator = 0
+
         let nextOffset = min(
-            state.playback.offsetPx + state.playback.speedPxPerSec * safeDelta,
+            state.playback.offsetPx + state.playback.speedPxPerSec * effectiveDelta,
             maxOffsetPx
         )
         let reachedEnd = maxOffsetPx > 0 && nextOffset >= maxOffsetPx
@@ -319,24 +331,28 @@ final class AppStateController: ObservableObject {
 
     private func applyNotchBlendStylePresetIfNeeded() {
         let currentVersion = UserDefaults.standard.integer(forKey: stylePresetVersionKey)
-        guard currentVersion < 6 else {
+        guard currentVersion < 8 else {
             return
         }
 
-        // Force a one-time visual reset for the tighter notch-integrated presentation.
-        state.panel.width = 358
-        state.panel.height = 118
-        state.panel.fontSizePx = 14
-        state.panel.lineHeight = 1.06
-        state.panel.letterSpacingPx = 0
+        if currentVersion < 6 {
+            // Force a one-time visual reset for the tighter notch-integrated presentation.
+            state.panel.width = 358
+            state.panel.height = 118
+            state.panel.fontSizePx = 14
+            state.panel.lineHeight = 1.06
+            state.panel.letterSpacingPx = 0
+            state.playback.offsetPx = 0
+            state.playback.isPlaying = false
+        }
+
+        // Always normalize top-anchor default for existing installs.
         state.panel.verticalNudgePx = 0
         state.keyboard.remoteModeEnabled = false
         state.keyboard.consumeKeysWhenRemote = false
-        state.playback.offsetPx = 0
-        state.playback.isPlaying = false
         state = state.clamped()
 
-        UserDefaults.standard.set(6, forKey: stylePresetVersionKey)
+        UserDefaults.standard.set(8, forKey: stylePresetVersionKey)
     }
 }
 
