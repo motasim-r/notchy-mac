@@ -501,7 +501,9 @@ struct EditorView: View {
                 "Added notch-safe top text inset so lines do not hide behind the physical notch.",
                 "Resized panel and typography for tighter camera-adjacent readability and centered text alignment.",
                 "Moved controls to hover behavior and then upgraded to a slick black slide-in tray for visibility on any background.",
-                "Tray now includes Play/Pause (first), Script, Shortcuts, and Minimize actions."
+                "Tray now includes Play/Pause (first), Script, Shortcuts, and Minimize actions.",
+                "Default vertical position is now normalized to 0 px (top anchor) across existing installs.",
+                "Top corners automatically become rounded whenever Vertical Position is positive."
             ]
         ),
         ChangeLogSection(
@@ -524,7 +526,8 @@ struct EditorView: View {
                 "Added direct notch-ui mouse/trackpad scrolling: two-finger or wheel moves script offset in real time.",
                 "Downward scroll advances script naturally (text moves upward), with clamped boundaries.",
                 "Play from editor now auto-restores notch-ui if it was minimized/hidden.",
-                "End-of-script behavior keeps auto-pause and reset-to-top flow."
+                "End-of-script behavior keeps auto-pause and reset-to-top flow.",
+                "Playback state updates are throttled to reduce UI lag on older Mac hardware."
             ]
         ),
         ChangeLogSection(
@@ -546,7 +549,8 @@ struct EditorView: View {
                 "Maintained persistent local state across launches for script and settings.",
                 "Added clearer hide/show controls to avoid confusion between hiding notch-ui and quitting app.",
                 "Prepared signing/notarization pipeline for public distribution flow.",
-                "Expanded compatibility baseline to support macOS 11.0+ with UI fallbacks for older SwiftUI runtimes."
+                "Expanded compatibility baseline to support macOS 11.0+ with UI fallbacks for older SwiftUI runtimes.",
+                "Editor tab sections now use lazy rendering for smoother tab switching."
             ]
         )
     ]
