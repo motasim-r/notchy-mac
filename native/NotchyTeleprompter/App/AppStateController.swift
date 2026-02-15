@@ -5,10 +5,16 @@ import Foundation
 final class AppStateController: ObservableObject {
     @Published private(set) var state: TeleprompterState
     @Published private(set) var accessibilityPermissionGranted = false
+    @Published private(set) var updateAvailable = false
+    @Published private(set) var updateVersion: String?
+    @Published private(set) var checkingForUpdates = false
+    @Published private(set) var updateErrorMessage: String?
 
     var onStateChange: ((TeleprompterState) -> Void)?
     var requestAccessibilityPermissionHandler: (() -> Void)?
     var openEditorTabHandler: ((EditorTab) -> Void)?
+    var checkForUpdatesHandler: (() -> Void)?
+    var installAvailableUpdateHandler: (() -> Void)?
 
     private let stateStore: StateStoreProtocol
     private let migrationService: MigrationServiceProtocol
@@ -178,6 +184,37 @@ final class AppStateController: ObservableObject {
 
     func requestAccessibilityPermission() {
         requestAccessibilityPermissionHandler?()
+    }
+
+    func checkForUpdates() {
+        checkForUpdatesHandler?()
+    }
+
+    func installAvailableUpdate() {
+        if let installAvailableUpdateHandler {
+            installAvailableUpdateHandler()
+        } else {
+            checkForUpdatesHandler?()
+        }
+    }
+
+    func setCheckingForUpdates(_ checking: Bool) {
+        checkingForUpdates = checking
+        if checking {
+            updateErrorMessage = nil
+        }
+    }
+
+    func setUpdateAvailability(available: Bool, version: String?) {
+        updateAvailable = available
+        updateVersion = version
+        if available {
+            updateErrorMessage = nil
+        }
+    }
+
+    func setUpdateErrorMessage(_ message: String?) {
+        updateErrorMessage = message
     }
 
     func openEditor(tab: EditorTab) {
