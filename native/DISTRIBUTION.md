@@ -2,14 +2,21 @@
 
 ## One-command public release (recommended)
 
+One-time setup first:
+
+```bash
+gh auth login -h github.com -p https -w
+xcrun notarytool store-credentials "notchy-notary" \
+  --apple-id "you@example.com" \
+  --team-id "TEAMID" \
+  --password "xxxx-xxxx-xxxx-xxxx"
+```
+
 Run this once per public release:
 
 ```bash
 DEVELOPER_ID_APP_CERT="Developer ID Application: Your Name (TEAMID)" \
-APPLE_ID="you@example.com" \
-APPLE_APP_SPECIFIC_PASSWORD="xxxx-xxxx-xxxx-xxxx" \
-TEAM_ID="TEAMID" \
-GITHUB_TOKEN="ghp_xxx" \
+NOTARYTOOL_PROFILE="notchy-notary" \
 ./native/scripts/public_release.sh
 ```
 
@@ -24,8 +31,8 @@ What it automates:
 
 Notes:
 
-- If `gh` CLI is installed/authenticated, `GITHUB_TOKEN` is optional.
-- Without `gh`, `GITHUB_TOKEN` is required for release upload.
+- If `gh` is installed/authenticated, you do not need `GITHUB_TOKEN`.
+- Without `gh`, set `GITHUB_TOKEN` and the script uses GitHub API.
 
 ## Build a shareable app
 
