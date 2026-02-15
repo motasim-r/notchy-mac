@@ -1,6 +1,10 @@
 name: NotchyTeleprompter
 options:
   bundleIdPrefix: com.notchy
+packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: 2.6.4
 settings:
   base:
     SWIFT_VERSION: "5.10"
@@ -22,3 +26,6 @@ targets:
         PRODUCT_NAME: Notchy Teleprompter
         ENABLE_HARDENED_RUNTIME: YES
         SWIFT_EMIT_LOC_STRINGS: NO
+    dependencies:
+      - package: Sparkle
+        product: Sparkle
