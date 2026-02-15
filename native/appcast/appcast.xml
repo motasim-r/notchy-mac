@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Notchy Teleprompter</title>
+        <item>
+            <title>2.2.1</title>
+            <pubDate>Sun, 15 Feb 2026 14:07:41 +0000</pubDate>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>2.2.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/motasim-r/notchy-mac/releases/download/v2.2.1/Notchy-Teleprompter-v2.2.1-7-macOS-universal-notarized.zip" length="1831689" type="application/octet-stream" sparkle:edSignature="FHcOeynK8Hd/GQRBTIzxiX8+5fTwCWuUe7r1Gxa1q5vWd8B3BnD8L+eoITsn+vHzpbeQKzCuVttwfm+qjkA3AA=="/>
+        </item>
+    </channel>
+</rss>
