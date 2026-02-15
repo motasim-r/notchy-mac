@@ -103,7 +103,7 @@ struct EditorView: View {
 
             Spacer()
 
-            Text("V2.2.0")
+            Text("V2.2.1")
                 .font(.system(size: 11, weight: .semibold, design: .rounded))
                 .notchyForeground(Color.white.opacity(0.48))
                 .padding(.horizontal, 16)
@@ -277,16 +277,16 @@ struct EditorView: View {
         VStack(alignment: .leading, spacing: 12) {
             tabHeader(
                 title: "Changelogs",
-                subtitle: "Tracked updates from V1 to current V2.2.0."
+                subtitle: "Tracked updates from V1 to current V2.2.1."
             )
 
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 14) {
                     surfaceCard(
-                        title: "V2.2.0 Snapshot",
+                        title: "V2.2.1 Snapshot",
                         subtitle: "This log is now the source of truth for product changes."
                     ) {
-                        Text("Rule enabled: every product/UI behavior change should be added here before final builds.")
+                        Text("Rule enabled: every product/UI behavior change should be added here before final builds. Added installer-style drag-to-Applications DMG flow in 2.2.1.")
                             .font(.system(size: 12, weight: .medium, design: .rounded))
                             .notchyForeground(Color.white.opacity(0.76))
                     }
