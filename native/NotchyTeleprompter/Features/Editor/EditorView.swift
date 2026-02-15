@@ -164,7 +164,7 @@ struct EditorView: View {
             )
 
             ScrollView {
-                VStack(alignment: .leading, spacing: 14) {
+                LazyVStack(alignment: .leading, spacing: 14) {
                     surfaceCard(title: "Panel", subtitle: "Position and size") {
                         sliderControl(
                             title: "Panel Width",
@@ -257,7 +257,7 @@ struct EditorView: View {
             )
 
             ScrollView {
-                VStack(alignment: .leading, spacing: 14) {
+                LazyVStack(alignment: .leading, spacing: 14) {
                     surfaceCard(title: "Keyboard Shortcuts", subtitle: "Use Space while Notchy UI is focused, plus global Command shortcuts.") {
                         VStack(alignment: .leading, spacing: 6) {
                             shortcutRow("Space (Notchy UI focused)", "Play/Pause")
@@ -280,7 +280,7 @@ struct EditorView: View {
             )
 
             ScrollView {
-                VStack(alignment: .leading, spacing: 14) {
+                LazyVStack(alignment: .leading, spacing: 14) {
                     surfaceCard(
                         title: "V2.1.1 Snapshot",
                         subtitle: "This log is now the source of truth for product changes."
