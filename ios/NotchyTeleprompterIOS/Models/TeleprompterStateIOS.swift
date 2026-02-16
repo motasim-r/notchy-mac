@@ -180,7 +180,21 @@ struct TeleprompterStateIOS: Codable, Equatable {
 
     static let defaultState = TeleprompterStateIOS(
         script: ScriptStateIOS(
-            text: "Notchy is a native Mac teleprompter designed specifically for the MacBook notch.\\n\\nIt keeps your script directly beside the camera so you can speak naturally, maintain eye contact, and stop glancing down at notes.\\n\\nHere’s how it works: Launch Notchy – the notch-ui appears at the top center of your screen.\\n\\nWrite or paste your script into the separate editor window. Press Space to play or pause scrolling.\\n\\nAdjust speed, font size, and layout in real time. Notchy auto-saves everything, so your script is always ready when you return. It stays accessible while you record, present, stream, or work.\\n\\nWho It’s For? Content creators & YouTubers, Online coaches & educators, Founders recording demos, Sales teams doing video outreach, Streamers & presenters, Anyone who wants camera-first delivery without memorizing scripts\\n\\nNotchy helps you stay on message, sound prepared, and maintain real eye contact – without expensive hardware or awkward screen placement."
+            text: """
+Notchy is a native Mac teleprompter designed specifically for the MacBook notch.
+
+It keeps your script directly beside the camera so you can speak naturally, maintain eye contact, and stop glancing down at notes.
+
+Here's how it works: Launch Notchy - the notch-ui appears at the top center of your screen.
+
+Write or paste your script into the separate editor window. Press Space to play or pause scrolling.
+
+Adjust speed, font size, and layout in real time. Notchy auto-saves everything, so your script is always ready when you return. It stays accessible while you record, present, stream, or work.
+
+Who It's For? Content creators & YouTubers, Online coaches & educators, Founders recording demos, Sales teams doing video outreach, Streamers & presenters, Anyone who wants camera-first delivery without memorizing scripts.
+
+Notchy helps you stay on message, sound prepared, and maintain real eye contact - without expensive hardware or awkward screen placement.
+"""
         ),
         playback: PlaybackStateIOS(
             isPlaying: false,
