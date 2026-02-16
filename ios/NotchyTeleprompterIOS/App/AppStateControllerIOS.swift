@@ -37,7 +37,13 @@ final class AppStateControllerIOS: ObservableObject {
         self.recordingPipeline = recordingPipeline
         self.ticker = ticker
 
-        state = (stateStore.load() ?? .defaultState).clamped()
+        var loadedState = (stateStore.load() ?? .defaultState).clamped()
+        let normalizedScript = Self.normalizeLegacyEscapedText(loadedState.script.text)
+        if normalizedScript != loadedState.script.text {
+            loadedState.script.text = normalizedScript
+            try? stateStore.save(loadedState)
+        }
+        state = loadedState
 
         ticker.onTick = { [weak self] delta in
             guard let self else { return }
@@ -437,6 +443,13 @@ final class AppStateControllerIOS: ObservableObject {
         }
         bannerWorkItem = workItem
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: workItem)
+    }
+
+    private static func normalizeLegacyEscapedText(_ text: String) -> String {
+        text
+            .replacingOccurrences(of: "\\r\\n", with: "\n")
+            .replacingOccurrences(of: "\\n", with: "\n")
+            .replacingOccurrences(of: "\\t", with: "\t")
     }
 }
 
