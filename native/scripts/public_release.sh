@@ -2,12 +2,13 @@
 set -euo pipefail
 
 # One-command public release pipeline:
-# 1) Push main
-# 2) Build release app
-# 3) Sign + notarize + staple + generate appcast
-# 4) Commit/push appcast changes
-# 5) Create/push git tag (v<version>)
-# 6) Create or update GitHub release and upload notarized assets
+# 1) Auto-bump marketing version and build number (default on)
+# 2) Push main
+# 3) Build release app
+# 4) Sign + notarize + staple + generate appcast
+# 5) Commit/push appcast changes
+# 6) Create/push git tag (v<version>)
+# 7) Create or update GitHub release and upload notarized assets
 #
 # Required env vars:
 #   DEVELOPER_ID_APP_CERT
@@ -66,13 +67,31 @@ else
   exit 1
 fi
 
-echo "==> Step 1/6: push main"
+AUTO_BUMP_RELEASE_VERSION="${AUTO_BUMP_RELEASE_VERSION:-1}"
+
+if [[ "$AUTO_BUMP_RELEASE_VERSION" == "1" ]]; then
+  echo "==> Step 1/7: auto-bump version/build"
+  "$NATIVE_DIR/scripts/bump_version.sh"
+
+  if [[ -n "$(git -C "$REPO_DIR" status --porcelain -- native/project.yml native/NotchyTeleprompter.xcodeproj/project.pbxproj)" ]]; then
+    NEXT_VERSION="$(sed -nE 's/^[[:space:]]*MARKETING_VERSION:[[:space:]]*([0-9]+\.[0-9]+\.[0-9]+)[[:space:]]*$/\1/p' "$NATIVE_DIR/project.yml" | head -n1)"
+    NEXT_BUILD="$(sed -nE 's/^[[:space:]]*CURRENT_PROJECT_VERSION:[[:space:]]*([0-9]+)[[:space:]]*$/\1/p' "$NATIVE_DIR/project.yml" | head -n1)"
+    git -C "$REPO_DIR" add native/project.yml native/NotchyTeleprompter.xcodeproj/project.pbxproj
+    git -C "$REPO_DIR" commit -m "chore(release): bump version to v${NEXT_VERSION} (${NEXT_BUILD})"
+  else
+    echo "Version files unchanged after bump script."
+  fi
+else
+  echo "==> Step 1/7: auto-bump skipped (AUTO_BUMP_RELEASE_VERSION=0)"
+fi
+
+echo "==> Step 2/7: push main"
 git -C "$REPO_DIR" push origin main
 
-echo "==> Step 2/6: build universal release"
+echo "==> Step 3/7: build universal release"
 "$NATIVE_DIR/scripts/build_release.sh"
 
-echo "==> Step 3/6: notarize and generate appcast"
+echo "==> Step 4/7: notarize and generate appcast"
 "$NATIVE_DIR/scripts/notarize_release.sh"
 
 if [[ ! -d "$APP_PATH" ]]; then
@@ -96,7 +115,7 @@ for required_file in "$ZIP_PATH" "$ZIP_SHA_PATH" "$DMG_PATH" "$DMG_SHA_PATH" "$N
   fi
 done
 
-echo "==> Step 4/6: commit/push appcast updates"
+echo "==> Step 5/7: commit/push appcast updates"
 if [[ -n "$(git -C "$REPO_DIR" status --porcelain -- native/appcast/appcast.xml)" ]]; then
   git -C "$REPO_DIR" add native/appcast/appcast.xml
   git -C "$REPO_DIR" commit -m "chore(release): update appcast for ${TAG} (${BUILD_NUMBER})"
@@ -105,7 +124,7 @@ else
   echo "No appcast changes detected."
 fi
 
-echo "==> Step 5/6: create/push tag ${TAG}"
+echo "==> Step 6/7: create/push tag ${TAG}"
 if git -C "$REPO_DIR" ls-remote --tags origin "refs/tags/${TAG}" | grep -q "${TAG}"; then
   echo "Tag ${TAG} already exists on origin."
 else
@@ -211,7 +230,7 @@ EOF
   done
 }
 
-echo "==> Step 6/6: publish GitHub release assets"
+echo "==> Step 7/7: publish GitHub release assets"
 if command -v gh >/dev/null 2>&1; then
   release_with_gh
 else
