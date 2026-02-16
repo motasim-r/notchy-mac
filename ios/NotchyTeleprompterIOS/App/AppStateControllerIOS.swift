@@ -22,6 +22,7 @@ final class AppStateControllerIOS: ObservableObject {
     private var maxOffsetPx: Double = 0
     private var hasBootstrapped = false
     private var saveWorkItem: DispatchWorkItem?
+    private var bannerWorkItem: DispatchWorkItem?
     private var offsetPersistCounter = 0
     private var playbackTickAccumulator: Double = 0
 
@@ -219,7 +220,7 @@ final class AppStateControllerIOS: ObservableObject {
 
         guard sessionReady else {
             bootstrap()
-            statusBannerMessage = "Camera is preparing..."
+            setStatusBanner("Camera is preparing...")
             return
         }
 
@@ -247,7 +248,7 @@ final class AppStateControllerIOS: ObservableObject {
                     state.recording.errorMessage = error.localizedDescription
                     state.playback.isPlaying = false
                 }
-                statusBannerMessage = error.localizedDescription
+                setStatusBanner(error.localizedDescription)
             }
 
             commandInFlight = false
@@ -275,7 +276,7 @@ final class AppStateControllerIOS: ObservableObject {
                     state.recording.errorMessage = error.localizedDescription
                     state.playback.isPlaying = false
                 }
-                statusBannerMessage = error.localizedDescription
+                setStatusBanner(error.localizedDescription)
             }
 
             commandInFlight = false
@@ -303,7 +304,7 @@ final class AppStateControllerIOS: ObservableObject {
                     state.recording.errorMessage = error.localizedDescription
                     state.playback.isPlaying = false
                 }
-                statusBannerMessage = error.localizedDescription
+                setStatusBanner(error.localizedDescription)
             }
 
             commandInFlight = false
@@ -330,14 +331,14 @@ final class AppStateControllerIOS: ObservableObject {
                     state.recording.lastSavedAssetId = assetIdentifier
                     state.recording.errorMessage = nil
                 }
-                statusBannerMessage = "Saved to Photos"
+                setStatusBanner("Saved to Photos")
             } catch {
                 mutate { state in
                     state.recording.status = .failed
                     state.recording.errorMessage = error.localizedDescription
                     state.playback.isPlaying = false
                 }
-                statusBannerMessage = error.localizedDescription
+                setStatusBanner(error.localizedDescription)
             }
 
             commandInFlight = false
@@ -425,6 +426,17 @@ final class AppStateControllerIOS: ObservableObject {
         } catch {
             print("[state] Failed to save iOS state: \(error)")
         }
+    }
+
+    private func setStatusBanner(_ message: String, clearAfter seconds: TimeInterval = 2.4) {
+        bannerWorkItem?.cancel()
+        statusBannerMessage = message
+
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.statusBannerMessage = nil
+        }
+        bannerWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: workItem)
     }
 }
 
