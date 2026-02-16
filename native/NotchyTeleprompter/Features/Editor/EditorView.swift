@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct EditorView: View {
     @ObservedObject var controller: AppStateController
@@ -658,7 +659,10 @@ private enum NotchyBrandTypography {
         default:
             fontName = seasonSerifRegular
         }
-        return .custom(fontName, size: size)
+        if NSFont(name: fontName, size: size) != nil {
+            return .custom(fontName, size: size)
+        }
+        return .system(size: size, weight: weight, design: .serif)
     }
 
     static func ui(size: CGFloat, weight: Font.Weight = .regular) -> Font {
@@ -671,7 +675,10 @@ private enum NotchyBrandTypography {
         default:
             fontName = seasonSansRegular
         }
-        return .custom(fontName, size: size)
+        if NSFont(name: fontName, size: size) != nil {
+            return .custom(fontName, size: size)
+        }
+        return .system(size: size, weight: weight, design: .default)
     }
 }
 
