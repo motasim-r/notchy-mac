@@ -34,6 +34,7 @@ struct SegmentComposer {
         let compositionAudio = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
 
         var cursor = CMTime.zero
+        var appliedPreferredTransform = false
 
         for segmentURL in segments {
             let asset = AVURLAsset(url: segmentURL)
@@ -49,6 +50,11 @@ struct SegmentComposer {
                 of: sourceVideo,
                 at: cursor
             )
+
+            if !appliedPreferredTransform {
+                compositionVideo.preferredTransform = try await sourceVideo.load(.preferredTransform)
+                appliedPreferredTransform = true
+            }
 
             let audioTracks = try await asset.loadTracks(withMediaType: .audio)
             if let sourceAudio = audioTracks.first, let compositionAudio {
