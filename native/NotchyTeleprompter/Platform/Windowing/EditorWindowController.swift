@@ -36,8 +36,11 @@ final class EditorWindowController: NSWindowController, NSWindowDelegate {
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.toolbarStyle = .unifiedCompact
+        window.titlebarSeparatorStyle = .none
         window.isMovableByWindowBackground = true
         window.styleMask.insert(.fullSizeContentView)
+        window.backgroundColor = .clear
+        window.isOpaque = false
         window.isReleasedWhenClosed = false
         window.minSize = NSSize(width: TeleprompterState.limits.editorWidthMin, height: TeleprompterState.limits.editorHeightMin)
         window.contentViewController = hostingController
