@@ -8,7 +8,7 @@
             <sparkle:version>8</sparkle:version>
             <sparkle:shortVersionString>2.2.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/motasim-r/notchy-mac/releases/download/v2.2.2/Notchy-Teleprompter-v2.2.2-8-macOS-universal-notarized.zip" length="2055939" type="application/octet-stream" sparkle:edSignature="loB8UYfKjYLA782/5UHK/NRbQgFUUvJWIAWA7uHG6Jx8hLoY2SYfVql5rh1GQd9C38UDiOckeU9dO4RGRwCPAg=="/>
+            <enclosure url="https://github.com/motasim-r/notchy-mac/releases/download/v2.2.2/Notchy-Teleprompter-v2.2.2-8-macOS-universal-notarized.zip" length="2060361" type="application/octet-stream" sparkle:edSignature="SY2e8Eos7xNbRyHltmmwz91s47ku/5krNX7ltPQBQebL77B2dGv+YQ8Fzs74rECDp29NIDKNcjGyQ7GXF67EBQ=="/>
         </item>
     </channel>
 </rss>
