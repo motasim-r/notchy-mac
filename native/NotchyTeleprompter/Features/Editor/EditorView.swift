@@ -81,18 +81,6 @@ struct EditorView: View {
 
     private var leftRail: some View {
         VStack(alignment: .leading, spacing: 18) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Notchy")
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
-                    .notchyForeground(.white)
-
-                Text("Teleprompter")
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
-                    .notchyForeground(Color.white.opacity(0.68))
-            }
-            .padding(.horizontal, 16)
-            .padding(.top, 30)
-
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(EditorTab.allCases) { tab in
                     EditorRailTabButton(tab: tab, isSelected: sessionState.selectedTab == tab) {
@@ -101,6 +89,7 @@ struct EditorView: View {
                 }
             }
             .padding(.horizontal, 10)
+            .padding(.top, 18)
 
             Spacer()
 
