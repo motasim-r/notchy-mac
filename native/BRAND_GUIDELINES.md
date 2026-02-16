@@ -28,6 +28,7 @@ This is the source-of-truth brand guideline for Notchy UI (editor first), based 
 - `ATSApplicationFontsPath` is set in:
   - `/Users/motasimrahman/Desktop/notchy-mac-app/native/NotchyTeleprompter/Info.plist`
 - Value: `.`
+- Fallback behavior: if custom font registration fails, UI falls back to native system serif/sans.
 
 ## 3) Color System
 - Background base: near-black graphite (`~#111315` to `~#0F1114`)
