@@ -40,6 +40,10 @@ final class SegmentedRecorder: NSObject {
         }
 
         let url = nextSegmentURL()
+        let folderURL = url.deletingLastPathComponent()
+        if !FileManager.default.fileExists(atPath: folderURL.path) {
+            try FileManager.default.createDirectory(at: folderURL, withIntermediateDirectories: true)
+        }
 
         stateQueue.sync {
             activeSegmentURL = url
