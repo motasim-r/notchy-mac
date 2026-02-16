@@ -217,15 +217,17 @@ final class AppStateControllerIOS: ObservableObject {
             return
         }
 
+        guard sessionReady else {
+            bootstrap()
+            statusBannerMessage = "Camera is preparing..."
+            return
+        }
+
         commandInFlight = true
         statusBannerMessage = nil
 
         Task {
             do {
-                if !sessionReady {
-                    bootstrap()
-                }
-
                 try await recordingPipeline.startRecording()
 
                 mutate { state in
