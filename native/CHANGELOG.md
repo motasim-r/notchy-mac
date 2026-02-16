@@ -4,6 +4,7 @@ This file tracks product changes for Notchy.
 Process rule: every user-visible change should be appended here and mirrored in the in-app `Changelogs` tab.
 
 ## Unreleased
+- Removed editor titlebar/content seam by disabling titlebar separator and eliminating top gap; window now reads as one blended surface while keeping traffic-light controls.
 - Editor window chrome now blends into UI: hidden title text, transparent titlebar, and full-size content view for seamless top bar.
 - Editor theme adjusted to flatter dark-glass styling with softer borders and lower-contrast surfaces.
 - Reserved for changes after `2.2.2`.
