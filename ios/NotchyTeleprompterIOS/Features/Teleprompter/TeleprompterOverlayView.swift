@@ -11,7 +11,7 @@ struct TeleprompterOverlayView: View {
     private let topShoulderRadius: CGFloat = 34
     private let bottomCornerRadius: CGFloat = 16
     private let detachedTopCornerRadius: CGFloat = 16
-    private let notchSafeTopInset: CGFloat = 34
+    private let notchSafeTopInset: CGFloat = 40
 
     private var overlayWidth: CGFloat {
         min(CGFloat(controller.state.overlay.width), maxWidth)
@@ -34,18 +34,32 @@ struct TeleprompterOverlayView: View {
         GeometryReader { geometry in
             ZStack {
                 overlayShape
-                    .fill(Color.black.opacity(0.92))
+                    .fill(.ultraThinMaterial)
+                    .opacity(0.28)
+
+                overlayShape
+                    .fill(
+                        LinearGradient(
+                            colors: [
+                                Color.black.opacity(0.78),
+                                Color.black.opacity(0.66)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
 
                 viewport
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 10)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 12)
             }
             .frame(width: overlayWidth, height: CGFloat(controller.state.overlay.height))
             .clipShape(overlayShape)
             .overlay(
                 overlayShape
-                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                    .stroke(Color.white.opacity(0.14), lineWidth: 1)
             )
+            .shadow(color: .black.opacity(0.3), radius: 14, x: 0, y: 8)
             .contentShape(Rectangle())
             .gesture(dragGesture)
             .onAppear {
@@ -61,7 +75,7 @@ struct TeleprompterOverlayView: View {
 
     private var viewport: some View {
         GeometryReader { geo in
-            let textColumnWidth = max(120, geo.size.width - 24)
+            let textColumnWidth = max(120, geo.size.width - 36)
             let contentTextHeight = measuredTextHeight(textColumnWidth: textColumnWidth)
             let totalContentHeight = max(geo.size.height, notchSafeTopInset + contentTextHeight)
 
@@ -76,6 +90,7 @@ struct TeleprompterOverlayView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .clipped()
+            .mask(topFadeMask)
             .onAppear {
                 controller.updateScrollBounds(contentHeight: totalContentHeight, viewportHeight: geo.size.height)
             }
@@ -98,6 +113,18 @@ struct TeleprompterOverlayView: View {
                 controller.updateScrollBounds(contentHeight: totalContentHeight, viewportHeight: geo.size.height)
             }
         }
+    }
+
+    private var topFadeMask: some View {
+        LinearGradient(
+            stops: [
+                .init(color: .clear, location: 0.0),
+                .init(color: .white, location: 0.22),
+                .init(color: .white, location: 1.0)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
     }
 
     @ViewBuilder
