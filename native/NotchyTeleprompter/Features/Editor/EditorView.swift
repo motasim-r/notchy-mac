@@ -89,7 +89,7 @@ struct EditorView: View {
                 }
             }
             .padding(.horizontal, 10)
-            .padding(.top, 18)
+            .padding(.top, 54)
 
             Spacer()
 
