@@ -33,6 +33,11 @@ final class EditorWindowController: NSWindowController, NSWindowDelegate {
         )
 
         window.title = "Notchy Teleprompter"
+        window.titleVisibility = .hidden
+        window.titlebarAppearsTransparent = true
+        window.toolbarStyle = .unifiedCompact
+        window.isMovableByWindowBackground = true
+        window.styleMask.insert(.fullSizeContentView)
         window.isReleasedWhenClosed = false
         window.minSize = NSSize(width: TeleprompterState.limits.editorWidthMin, height: TeleprompterState.limits.editorHeightMin)
         window.contentViewController = hostingController
