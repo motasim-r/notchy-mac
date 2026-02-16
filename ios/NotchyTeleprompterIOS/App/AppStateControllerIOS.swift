@@ -195,6 +195,10 @@ final class AppStateControllerIOS: ObservableObject {
         }
     }
 
+    func configurePreviewConnection(_ connection: AVCaptureConnection?) {
+        captureManager.configurePreviewConnection(connection)
+    }
+
     func updateScrollBounds(contentHeight: Double, viewportHeight: Double) {
         maxOffsetPx = max(0, contentHeight - viewportHeight)
 
