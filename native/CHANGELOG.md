@@ -4,7 +4,7 @@ This file tracks product changes for Notchy.
 Process rule: every user-visible change should be appended here and mirrored in the in-app `Changelogs` tab.
 
 ## Unreleased
-- Reserved for changes after `2.2.0`.
+- Changed default teleprompter speed from `42 px/s` to `20 px/s` for new installs / reset settings flows.
 
 ## 2.2.1 - 2026-02-15
 
