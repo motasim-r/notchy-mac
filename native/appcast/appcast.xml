@@ -3,12 +3,12 @@
     <channel>
         <title>Notchy Teleprompter</title>
         <item>
-            <title>2.2.1</title>
-            <pubDate>Sun, 15 Feb 2026 14:07:41 +0000</pubDate>
-            <sparkle:version>7</sparkle:version>
-            <sparkle:shortVersionString>2.2.1</sparkle:shortVersionString>
+            <title>2.2.2</title>
+            <pubDate>Mon, 16 Feb 2026 08:40:48 +0000</pubDate>
+            <sparkle:version>8</sparkle:version>
+            <sparkle:shortVersionString>2.2.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/motasim-r/notchy-mac/releases/download/v2.2.1/Notchy-Teleprompter-v2.2.1-7-macOS-universal-notarized.zip" length="1831689" type="application/octet-stream" sparkle:edSignature="FHcOeynK8Hd/GQRBTIzxiX8+5fTwCWuUe7r1Gxa1q5vWd8B3BnD8L+eoITsn+vHzpbeQKzCuVttwfm+qjkA3AA=="/>
+            <enclosure url="https://github.com/motasim-r/notchy-mac/releases/download/v2.2.2/Notchy-Teleprompter-v2.2.2-8-macOS-universal-notarized.zip" length="2055939" type="application/octet-stream" sparkle:edSignature="loB8UYfKjYLA782/5UHK/NRbQgFUUvJWIAWA7uHG6Jx8hLoY2SYfVql5rh1GQd9C38UDiOckeU9dO4RGRwCPAg=="/>
         </item>
     </channel>
 </rss>
