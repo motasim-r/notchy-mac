@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct RootCaptureView: View {
     @ObservedObject var controller: AppStateControllerIOS
