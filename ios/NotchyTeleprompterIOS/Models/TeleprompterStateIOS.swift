@@ -202,7 +202,7 @@ Notchy helps you stay on message, sound prepared, and maintain real eye contact 
             offsetPx: 0
         ),
         overlay: OverlayStateIOS(
-            width: 334,
+            width: 368,
             height: 162,
             verticalOffsetPx: 0,
             fontSizePx: 14,
