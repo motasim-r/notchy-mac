@@ -13,6 +13,12 @@ struct EditorView: View {
         )
     }
 
+    private var appVersionLabel: String {
+        let shortVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?"
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "?"
+        return "V\(shortVersion) (\(build))"
+    }
+
     @ViewBuilder
     var body: some View {
         let shell = HStack(spacing: 0) {
@@ -93,8 +99,8 @@ struct EditorView: View {
 
             Spacer()
 
-            Text("V2.2.2")
-                .font(.system(size: 11, weight: .semibold, design: .rounded))
+            Text(appVersionLabel)
+                .font(NotchyBrandTypography.ui(size: 11, weight: .medium))
                 .notchyForeground(Color.white.opacity(0.48))
                 .padding(.horizontal, 16)
                 .padding(.bottom, 14)
@@ -278,7 +284,7 @@ struct EditorView: View {
         VStack(alignment: .leading, spacing: 12) {
             tabHeader(
                 title: "Changelogs",
-                subtitle: "Tracked updates from V1 to current V2.2.2."
+                subtitle: "Tracked updates from V1 to current release."
             )
 
             ScrollView {
@@ -288,7 +294,7 @@ struct EditorView: View {
                         subtitle: "This log is now the source of truth for product changes."
                     ) {
                         Text("Rule enabled: every product/UI behavior change should be added here before final builds. Added full app icon rollout and branding pass in 2.2.2.")
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .font(NotchyBrandTypography.ui(size: 12, weight: .medium))
                             .notchyForeground(Color.white.opacity(0.76))
                     }
 
@@ -298,12 +304,12 @@ struct EditorView: View {
                                 ForEach(section.items.indices, id: \.self) { index in
                                     HStack(alignment: .top, spacing: 8) {
                                         Text("•")
-                                            .font(.system(size: 12, weight: .bold, design: .rounded))
+                                            .font(NotchyBrandTypography.ui(size: 12, weight: .bold))
                                             .notchyForeground(Color.white.opacity(0.76))
                                             .padding(.top, 1)
 
                                         Text(section.items[index])
-                                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                                            .font(NotchyBrandTypography.ui(size: 12, weight: .medium))
                                             .notchyForeground(Color.white.opacity(0.82))
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
@@ -332,11 +338,11 @@ struct EditorView: View {
 
                 if controller.checkingForUpdates {
                     Text("Checking updates…")
-                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .font(NotchyBrandTypography.ui(size: 11, weight: .medium))
                         .notchyForeground(Color.white.opacity(0.7))
                 } else {
                     Text("Offset")
-                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .font(NotchyBrandTypography.ui(size: 11, weight: .medium))
                         .notchyForeground(Color.white.opacity(0.62))
 
                     Text("\(Int(controller.state.playback.offsetPx.rounded())) px")
@@ -347,7 +353,7 @@ struct EditorView: View {
 
             HStack(spacing: 10) {
                 Text("Speed")
-                    .font(.system(size: 12, weight: .semibold, design: .rounded))
+                    .font(NotchyBrandTypography.ui(size: 12, weight: .medium))
                     .notchyForeground(Color.white.opacity(0.8))
 
                 Slider(
@@ -368,7 +374,7 @@ struct EditorView: View {
 
             if let updateErrorMessage = controller.updateErrorMessage, !updateErrorMessage.isEmpty {
                 Text(updateErrorMessage)
-                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .font(NotchyBrandTypography.ui(size: 11, weight: .regular))
                     .notchyForeground(Color.white.opacity(0.58))
                     .lineLimit(2)
             }
@@ -381,14 +387,14 @@ struct EditorView: View {
     private func scriptEditor(binding: Binding<String>) -> some View {
         if #available(macOS 13.0, *) {
             TextEditor(text: binding)
-                .font(.system(size: 15, weight: .medium, design: .monospaced))
+                .font(NotchyBrandTypography.ui(size: 15, weight: .regular))
                 .notchyForeground(.white)
                 .scrollContentBackground(.hidden)
                 .padding(12)
                 .background(editorTextBackground)
         } else {
             TextEditor(text: binding)
-                .font(.system(size: 15, weight: .medium, design: .monospaced))
+                .font(NotchyBrandTypography.ui(size: 15, weight: .regular))
                 .notchyForeground(.white)
                 .padding(12)
                 .background(editorTextBackground)
@@ -407,11 +413,11 @@ struct EditorView: View {
     private func tabHeader(title: String, subtitle: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
-                .font(.system(size: 25, weight: .bold, design: .rounded))
+                .font(NotchyBrandTypography.display(size: 31, weight: .regular))
                 .notchyForeground(.white)
 
             Text(subtitle)
-                .font(.system(size: 13, weight: .medium, design: .rounded))
+                .font(NotchyBrandTypography.ui(size: 13, weight: .regular))
                 .notchyForeground(Color.white.opacity(0.66))
         }
     }
@@ -426,7 +432,7 @@ struct EditorView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(title)
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .font(NotchyBrandTypography.ui(size: 13, weight: .medium))
                     .notchyForeground(Color.white.opacity(0.87))
 
                 Spacer()
@@ -449,11 +455,11 @@ struct EditorView: View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 3) {
                 Text(title)
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .font(NotchyBrandTypography.display(size: 21, weight: .medium))
                     .notchyForeground(.white)
 
                 Text(subtitle)
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(NotchyBrandTypography.ui(size: 12, weight: .regular))
                     .notchyForeground(Color.white.opacity(0.68))
             }
 
@@ -476,7 +482,7 @@ struct EditorView: View {
     private func actionButton(_ title: String, primary: Bool = false, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                .font(NotchyBrandTypography.ui(size: 12, weight: .medium))
                 .notchyForeground(.white)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 7)
@@ -501,7 +507,7 @@ struct EditorView: View {
             Spacer()
 
             Text(action)
-                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .font(NotchyBrandTypography.ui(size: 12, weight: .regular))
                 .notchyForeground(Color.white.opacity(0.68))
         }
     }
@@ -604,10 +610,10 @@ private struct EditorRailTabButton: View {
 
                 VStack(alignment: .leading, spacing: 1) {
                     Text(tab.title)
-                        .font(.system(size: 13, weight: .semibold, design: .rounded))
+                        .font(NotchyBrandTypography.ui(size: 13, weight: .medium))
 
                     Text(tab.subtitle)
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .font(NotchyBrandTypography.ui(size: 10, weight: .regular))
                         .notchyForeground(Color.white.opacity(isSelected ? 0.74 : 0.52))
                 }
 
@@ -629,6 +635,41 @@ private struct EditorRailTabButton: View {
         .onHover { hovering in
             isHovering = hovering
         }
+    }
+}
+
+private enum NotchyBrandTypography {
+    private static let seasonSerifRegular = "SeasonSerif-Regular-TRIAL"
+    private static let seasonSerifMedium = "SeasonSerif-Medium-TRIAL"
+    private static let seasonSerifBold = "SeasonSerif-Bold-TRIAL"
+    private static let seasonSansRegular = "SeasonSans-Regular-TRIAL"
+    private static let seasonSansMedium = "SeasonSans-Medium-TRIAL"
+    private static let seasonSansBold = "SeasonSans-Bold-TRIAL"
+
+    static func display(size: CGFloat, weight: Font.Weight = .regular) -> Font {
+        let fontName: String
+        switch weight {
+        case .bold, .heavy, .semibold:
+            fontName = seasonSerifBold
+        case .medium:
+            fontName = seasonSerifMedium
+        default:
+            fontName = seasonSerifRegular
+        }
+        return .custom(fontName, size: size)
+    }
+
+    static func ui(size: CGFloat, weight: Font.Weight = .regular) -> Font {
+        let fontName: String
+        switch weight {
+        case .bold, .heavy, .semibold:
+            fontName = seasonSansBold
+        case .medium:
+            fontName = seasonSansMedium
+        default:
+            fontName = seasonSansRegular
+        }
+        return .custom(fontName, size: size)
     }
 }
 
