@@ -22,3 +22,12 @@ targets:
         GENERATE_INFOPLIST_FILE: NO
         PRODUCT_NAME: Notchy Teleprompter iOS
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+schemes:
+  NotchyTeleprompterIOS:
+    build:
+      targets:
+        NotchyTeleprompterIOS: all
+    run:
+      config: Debug
+    archive:
+      config: Release
