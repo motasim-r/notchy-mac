@@ -4,7 +4,16 @@ This file tracks product changes for Notchy.
 Process rule: every user-visible change should be appended here and mirrored in the in-app `Changelogs` tab.
 
 ## Unreleased
-- Replaced default starter script with new product-description copy for Notchy (camera-first positioning, usage flow, and target audience).
+- Reserved for changes after `2.2.2`.
+
+## 2.2.2 - 2026-02-16
+
+### Highlights
+- Added new branded Notchy macOS app icon set (`AppIcon.appiconset`) from provided logo artwork.
+- Wired icon into the app bundle so Finder, Dock, Launchpad, and installed app identity use the new brand.
+- Updated menu bar status item button to use the app icon for consistent visual branding.
+- Included icon rollout in a full notarized public release so existing Sparkle users receive the new icon after update.
+- Replaced default starter script with new product-description copy for Notchy.
 - Changed default teleprompter speed from `42 px/s` to `20 px/s` for new installs / reset settings flows.
 
 ## 2.2.1 - 2026-02-15
