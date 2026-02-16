@@ -155,8 +155,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem = item
 
         if let button = item.button {
-            button.image = NSImage(systemSymbolName: "text.bubble", accessibilityDescription: "Notchy Teleprompter")
+            button.image = NSApp.applicationIconImage
             button.imagePosition = .imageOnly
+            button.imageScaling = .scaleProportionallyDown
             button.toolTip = "Notchy Teleprompter"
         }
 
