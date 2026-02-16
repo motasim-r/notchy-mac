@@ -4,6 +4,7 @@ This file tracks product changes for Notchy.
 Process rule: every user-visible change should be appended here and mirrored in the in-app `Changelogs` tab.
 
 ## Unreleased
+- Replaced default starter script with new product-description copy for Notchy (camera-first positioning, usage flow, and target audience).
 - Changed default teleprompter speed from `42 px/s` to `20 px/s` for new installs / reset settings flows.
 
 ## 2.2.1 - 2026-02-15
