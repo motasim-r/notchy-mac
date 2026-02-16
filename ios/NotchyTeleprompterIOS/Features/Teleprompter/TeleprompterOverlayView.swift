@@ -34,20 +34,7 @@ struct TeleprompterOverlayView: View {
         GeometryReader { geometry in
             ZStack {
                 overlayShape
-                    .fill(.ultraThinMaterial)
-                    .opacity(0.28)
-
-                overlayShape
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                Color.black.opacity(0.78),
-                                Color.black.opacity(0.66)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
+                    .fill(Color.black.opacity(0.94))
 
                 viewport
                     .padding(.horizontal, 18)
@@ -57,7 +44,7 @@ struct TeleprompterOverlayView: View {
             .clipShape(overlayShape)
             .overlay(
                 overlayShape
-                    .stroke(Color.white.opacity(0.14), lineWidth: 1)
+                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
             )
             .shadow(color: .black.opacity(0.3), radius: 14, x: 0, y: 8)
             .contentShape(Rectangle())
