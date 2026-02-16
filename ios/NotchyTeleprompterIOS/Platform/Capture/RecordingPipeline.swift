@@ -1,4 +1,5 @@
 import Foundation
+import AVFoundation
 
 enum RecordingPipelineError: LocalizedError {
     case invalidState
@@ -45,6 +46,7 @@ final class RecordingPipeline: RecordingPipelineProtocol {
             throw RecordingPipelineError.invalidState
         }
 
+        try configureAudioSession()
         try await captureManager.prepareSession()
         captureManager.startSession()
         captureManager.configureRecordingConnection()
@@ -101,6 +103,7 @@ final class RecordingPipeline: RecordingPipelineProtocol {
 
         try? FileManager.default.removeItem(at: mergedURL)
         segmentedRecorder.resetSegments(clearFiles: true)
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
 
         state = .idle
         return assetIdentifier
@@ -112,6 +115,13 @@ final class RecordingPipeline: RecordingPipelineProtocol {
         }
 
         segmentedRecorder.resetSegments(clearFiles: true)
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
         state = .idle
+    }
+
+    private func configureAudioSession() throws {
+        let audioSession = AVAudioSession.sharedInstance()
+        try audioSession.setCategory(.playAndRecord, mode: .videoRecording, options: [.defaultToSpeaker, .allowBluetooth])
+        try audioSession.setActive(true, options: [])
     }
 }
