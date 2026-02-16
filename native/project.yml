@@ -19,6 +19,9 @@ targets:
     platform: macOS
     sources:
       - path: NotchyTeleprompter
+        excludes:
+          - Resources/Fonts/Season/*.ttf
+          - Resources/Fonts/Season/Befonts-License.txt
     settings:
       base:
         INFOPLIST_FILE: NotchyTeleprompter/Info.plist
