@@ -25,6 +25,7 @@ struct EditorView: View {
         }
         .frame(minWidth: 760, minHeight: 520)
         .background(rootBackground)
+        .ignoresSafeArea(edges: .top)
 
         if #available(macOS 12.0, *) {
             shell
@@ -90,7 +91,7 @@ struct EditorView: View {
                     .notchyForeground(Color.white.opacity(0.68))
             }
             .padding(.horizontal, 16)
-            .padding(.top, 44)
+            .padding(.top, 30)
 
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(EditorTab.allCases) { tab in
@@ -136,7 +137,7 @@ struct EditorView: View {
             }
         }
         .padding(20)
-        .padding(.top, 38)
+        .padding(.top, 26)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
