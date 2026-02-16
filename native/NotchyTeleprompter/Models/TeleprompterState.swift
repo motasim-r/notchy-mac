@@ -155,7 +155,7 @@ struct TeleprompterState: Codable, Equatable {
         scriptText: "Welcome. This is your native notch teleprompter.\\n\\nPaste your script in the editor window, then press play.",
         playback: PlaybackState(
             isPlaying: false,
-            speedPxPerSec: 42,
+            speedPxPerSec: 20,
             offsetPx: 0
         ),
         panel: PanelState(
