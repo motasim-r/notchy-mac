@@ -20,6 +20,7 @@ struct RootCaptureView: View {
                         .padding(.horizontal, 14)
                         .padding(.bottom, max(10, geo.safeAreaInsets.bottom))
                 }
+                .ignoresSafeArea(edges: .top)
 
                 if let permissionMessage = controller.permissionMessage {
                     permissionOverlay(message: permissionMessage)
@@ -64,7 +65,7 @@ struct RootCaptureView: View {
                 controller: controller,
                 maxWidth: geo.size.width - 24
             )
-            .padding(.top, max(2, geo.safeAreaInsets.top + CGFloat(controller.state.overlay.verticalOffsetPx)))
+            .offset(y: CGFloat(controller.state.overlay.verticalOffsetPx))
             .transition(.opacity)
         }
     }
