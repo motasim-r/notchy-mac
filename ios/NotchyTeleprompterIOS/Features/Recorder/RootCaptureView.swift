@@ -42,7 +42,7 @@ struct RootCaptureView: View {
                 )
             ) {
                 EditorSheetView(controller: controller)
-                    .presentationBackground(.clear)
+                    .notchySheetBackgroundClear()
             }
             .statusBar(hidden: true)
             .onAppear {
@@ -259,5 +259,16 @@ struct RootCaptureView: View {
         let minutes = total / 60
         let remaining = total % 60
         return String(format: "%02d:%02d", minutes, remaining)
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func notchySheetBackgroundClear() -> some View {
+        if #available(iOS 16.4, *) {
+            presentationBackground(.clear)
+        } else {
+            self
+        }
     }
 }
