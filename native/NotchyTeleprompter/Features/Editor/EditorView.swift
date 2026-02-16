@@ -571,6 +571,7 @@ struct EditorView: View {
                 "Maintained persistent local state across launches for script and settings.",
                 "Added clearer hide/show controls to avoid confusion between hiding notch-ui and quitting app.",
                 "Prepared signing/notarization pipeline for public distribution flow.",
+                "Installer DMG now shows a centered drag-to-install instruction message for first-time users.",
                 "Expanded compatibility baseline to support macOS 11.0+ with UI fallbacks for older SwiftUI runtimes.",
                 "Editor tab sections now use lazy rendering for smoother tab switching.",
                 "Integrated Sparkle auto-update plumbing with update detection, in-app update CTA, and a Check for Updates menu action."
