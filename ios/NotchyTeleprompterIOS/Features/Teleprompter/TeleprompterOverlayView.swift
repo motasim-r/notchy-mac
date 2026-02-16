@@ -11,22 +11,41 @@ struct TeleprompterOverlayView: View {
     private let topShoulderRadius: CGFloat = 34
     private let bottomCornerRadius: CGFloat = 16
     private let detachedTopCornerRadius: CGFloat = 16
-    private let notchSafeTopInset: CGFloat = 26
+    private let notchSafeTopInset: CGFloat = 34
 
     private var overlayWidth: CGFloat {
         min(CGFloat(controller.state.overlay.width), maxWidth)
     }
 
+    private var isDetachedShape: Bool {
+        controller.state.overlay.verticalOffsetPx > 0.5
+    }
+
+    private var overlayShape: OverlayChromeShape {
+        OverlayChromeShape(
+            isDetached: isDetachedShape,
+            notchTopRadius: topShoulderRadius,
+            detachedTopRadius: detachedTopCornerRadius,
+            bottomRadius: bottomCornerRadius
+        )
+    }
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                backgroundShape
+                overlayShape
+                    .fill(Color.black.opacity(0.92))
 
                 viewport
                     .padding(.horizontal, 12)
                     .padding(.vertical, 10)
             }
             .frame(width: overlayWidth, height: CGFloat(controller.state.overlay.height))
+            .clipShape(overlayShape)
+            .overlay(
+                overlayShape
+                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+            )
             .contentShape(Rectangle())
             .gesture(dragGesture)
             .onAppear {
@@ -40,28 +59,11 @@ struct TeleprompterOverlayView: View {
         .opacity(controller.state.overlay.visible ? 1 : 0)
     }
 
-    @ViewBuilder
-    private var backgroundShape: some View {
-        if controller.state.overlay.verticalOffsetPx > 0.5 {
-            DetachedRoundedOverlayShape(
-                topRadius: detachedTopCornerRadius,
-                bottomRadius: bottomCornerRadius
-            )
-            .fill(Color.black.opacity(0.9))
-        } else {
-            NotchStyledOverlayShape(
-                topRadius: topShoulderRadius,
-                bottomRadius: bottomCornerRadius
-            )
-            .fill(Color.black.opacity(0.9))
-        }
-    }
-
     private var viewport: some View {
         GeometryReader { geo in
-            let textColumnWidth = max(120, geo.size.width - 20)
+            let textColumnWidth = max(120, geo.size.width - 24)
             let contentTextHeight = measuredTextHeight(textColumnWidth: textColumnWidth)
-            let totalContentHeight = notchSafeTopInset + contentTextHeight
+            let totalContentHeight = max(geo.size.height, notchSafeTopInset + contentTextHeight)
 
             ZStack(alignment: .top) {
                 VStack(spacing: 0) {
@@ -153,6 +155,27 @@ struct TeleprompterOverlayView: View {
             .onEnded { _ in
                 lastDragY = 0
             }
+    }
+}
+
+private struct OverlayChromeShape: Shape {
+    let isDetached: Bool
+    let notchTopRadius: CGFloat
+    let detachedTopRadius: CGFloat
+    let bottomRadius: CGFloat
+
+    func path(in rect: CGRect) -> Path {
+        if isDetached {
+            DetachedRoundedOverlayShape(
+                topRadius: detachedTopRadius,
+                bottomRadius: bottomRadius
+            ).path(in: rect)
+        } else {
+            NotchStyledOverlayShape(
+                topRadius: notchTopRadius,
+                bottomRadius: bottomRadius
+            ).path(in: rect)
+        }
     }
 }
 
