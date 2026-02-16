@@ -23,7 +23,8 @@ struct ChangelogTabView: View {
                 "Added hard notch-shape clipping so text always stays inside the notch-ui.",
                 "Polished notch-ui with translucent dark-glass styling, softer border/shadow, and cleaner spacing.",
                 "Added a slow top fade effect so text eases out naturally as it leaves the notch.",
-                "Switched notch-ui surface back to dark black for stronger readability and notch blending."
+                "Switched notch-ui surface back to dark black for stronger readability and notch blending.",
+                "Adjusted top fade to be subtler and shorter while still starting from the top edge."
             ]
         ),
         ChangelogSection(
@@ -40,7 +41,8 @@ struct ChangelogTabView: View {
             items: [
                 "Default script now uses real line breaks for clean teleprompter rendering.",
                 "Legacy escaped line breaks (\\n) are auto-normalized on load.",
-                "Default notch width increased for better breathing room."
+                "Default notch width increased for better breathing room.",
+                "Default notch height and font size were reduced to improve eye contact with the camera."
             ]
         )
     ]
