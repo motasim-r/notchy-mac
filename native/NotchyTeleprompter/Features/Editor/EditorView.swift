@@ -5,6 +5,7 @@ struct EditorView: View {
     @ObservedObject var sessionState: EditorSessionState
 
     @State private var showResetConfirmation = false
+    private let topWindowInset: CGFloat = 36
 
     private var scriptBinding: Binding<String> {
         Binding(
@@ -19,12 +20,13 @@ struct EditorView: View {
             leftRail
 
             Divider()
-                .overlay(Color.white.opacity(0.12))
+                .overlay(Color.white.opacity(0.08))
 
             contentPane
         }
         .frame(minWidth: 760, minHeight: 520)
         .background(rootBackground)
+        .padding(.top, topWindowInset)
 
         if #available(macOS 12.0, *) {
             shell
@@ -59,8 +61,8 @@ struct EditorView: View {
         ZStack {
             LinearGradient(
                 colors: [
-                    Color(red: 0.06, green: 0.065, blue: 0.078),
-                    Color(red: 0.048, green: 0.052, blue: 0.062)
+                    Color(red: 0.075, green: 0.078, blue: 0.086),
+                    Color(red: 0.066, green: 0.069, blue: 0.078)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -68,9 +70,9 @@ struct EditorView: View {
 
             LinearGradient(
                 colors: [
-                    Color.white.opacity(0.03),
+                    Color.white.opacity(0.018),
                     Color.clear,
-                    Color.white.opacity(0.02)
+                    Color.white.opacity(0.01)
                 ],
                 startPoint: .top,
                 endPoint: .bottom
@@ -113,8 +115,8 @@ struct EditorView: View {
         .background(
             LinearGradient(
                 colors: [
-                    Color.black.opacity(0.32),
-                    Color.black.opacity(0.18)
+                    Color.black.opacity(0.22),
+                    Color.black.opacity(0.14)
                 ],
                 startPoint: .top,
                 endPoint: .bottom
@@ -406,10 +408,10 @@ struct EditorView: View {
 
     private var editorTextBackground: some View {
         RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .fill(Color.black.opacity(0.33))
+            .fill(Color.black.opacity(0.24))
             .overlay(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .stroke(Color.white.opacity(0.14), lineWidth: 1)
+                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
             )
     }
 
@@ -475,10 +477,10 @@ struct EditorView: View {
 
     private func cardBackground(cornerRadius: CGFloat) -> some View {
         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-            .fill(Color(red: 0.09, green: 0.095, blue: 0.11).opacity(0.78))
+            .fill(Color(red: 0.1, green: 0.105, blue: 0.115).opacity(0.62))
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .stroke(Color.white.opacity(0.13), lineWidth: 1)
+                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
             )
     }
 
@@ -491,10 +493,10 @@ struct EditorView: View {
                 .padding(.vertical, 7)
                 .background(
                     RoundedRectangle(cornerRadius: 9, style: .continuous)
-                        .fill(primary ? Color.white.opacity(0.16) : Color.white.opacity(0.08))
+                        .fill(primary ? Color.white.opacity(0.12) : Color.white.opacity(0.06))
                         .overlay(
                             RoundedRectangle(cornerRadius: 9, style: .continuous)
-                                .stroke(Color.white.opacity(primary ? 0.28 : 0.16), lineWidth: 1)
+                                .stroke(Color.white.opacity(primary ? 0.18 : 0.1), lineWidth: 1)
                         )
                 )
         }
