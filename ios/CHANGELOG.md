@@ -26,6 +26,8 @@
 - Added slow top fade mask so scrolling text eases out as it exits the top edge.
 - Increased internal text padding and widened default notch panel for cleaner spacing.
 - Switched notch-ui surface from transparent glass back to dark black for better readability and closer notch blend.
+- Tuned fade effect to be subtler and shorter while still starting at the top edge.
+- Reduced default notch height and default font size for tighter camera-adjacent eye-line behavior.
 
 ### Editor Sheet
 - Added bottom sheet tabs: Script, Settings, Changelogs.
