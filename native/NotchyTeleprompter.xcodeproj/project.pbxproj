@@ -13,6 +13,7 @@
 		37D0D04A6AED85FFC3B2B7AB /* TeleprompterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A93D07BF4CF64CCE0E8477 /* TeleprompterState.swift */; };
 		3D3547BA29A63DACB3E6E564 /* NotchyTeleprompterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784D31CD4FCE2E6B4219D30A /* NotchyTeleprompterApp.swift */; };
 		51BF330AC38EDEB01E6B6E24 /* EditorSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196859D8E62592B56229F85E /* EditorSessionState.swift */; };
+		52C6E87A56C7C77FCDC2452F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 414D94B43DDEB00D16AA8459 /* Assets.xcassets */; };
 		5E680997E99178F207222263 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB13B5DE6C55FE7D0E0BA3C9 /* VisualEffectView.swift */; };
 		5FB69D4FBC05AED86BF86439 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C50097361A8AAB17306F2B /* EditorView.swift */; };
 		60A24E3D1A9B0295597303E6 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B8AFC0D6E039BC9D9501F /* EditorWindowController.swift */; };
@@ -40,6 +41,7 @@
 		2E2E045E0E64B5A528A1D4B6 /* NotchPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchPanelController.swift; sourceTree = "<group>"; };
 		36C50097361A8AAB17306F2B /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		40C1CBA4673FF7F873D7A1BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		414D94B43DDEB00D16AA8459 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B3D3555DE06F10711796A2B /* GlobalKeyCaptureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalKeyCaptureManager.swift; sourceTree = "<group>"; };
 		5B95ED278AED8F7EEE16F3AB /* ElectronMigrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectronMigrationService.swift; sourceTree = "<group>"; };
 		6CBB676AAA9B32C5A1A279C5 /* EditorTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTab.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		30550AE9A40C8D397AC46935 /* NotchyTeleprompter */ = {
 			isa = PBXGroup;
 			children = (
+				414D94B43DDEB00D16AA8459 /* Assets.xcassets */,
 				DD5F57177F215DE3BF0D484A /* Info.plist */,
 				30ED3F8CBFF13541E54B131A /* App */,
 				8B62A4641307CF5E8292F653 /* Features */,
@@ -207,6 +210,7 @@
 			buildConfigurationList = ECAAD23702EBFA8F037D00A3 /* Build configuration list for PBXNativeTarget "NotchyTeleprompter" */;
 			buildPhases = (
 				1A18688C3A817893CFAE9492 /* Sources */,
+				B8334E937902F0CDAADE0B82 /* Resources */,
 				B49B142018EAA6D33B484F69 /* Frameworks */,
 			);
 			buildRules = (
@@ -256,6 +260,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B8334E937902F0CDAADE0B82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52C6E87A56C7C77FCDC2452F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1A18688C3A817893CFAE9492 /* Sources */ = {
