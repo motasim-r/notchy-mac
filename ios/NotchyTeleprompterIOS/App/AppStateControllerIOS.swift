@@ -378,28 +378,29 @@ final class AppStateControllerIOS: ObservableObject {
         }
 
         playbackTickAccumulator += safeDelta
-        guard playbackTickAccumulator >= (1.0 / 45.0) else {
+        guard playbackTickAccumulator >= (1.0 / ScrollEngine.throttleFps) else {
             return
         }
 
         let effectiveDelta = playbackTickAccumulator
         playbackTickAccumulator = 0
 
-        let nextOffset = min(
-            state.playback.offsetPx + (state.playback.speedPxPerSec * effectiveDelta),
-            maxOffsetPx
+        let result = ScrollEngine.nextOffset(
+            current: state.playback.offsetPx,
+            speedPxPerSec: state.playback.speedPxPerSec,
+            deltaSec: effectiveDelta,
+            maxOffset: maxOffsetPx
         )
-        let reachedEnd = maxOffsetPx > 0 && nextOffset >= maxOffsetPx
 
         mutate(shouldPersist: false) { state in
-            state.playback.offsetPx = nextOffset
-            if reachedEnd {
+            state.playback.offsetPx = result.offset
+            if result.reachedEnd {
                 state.playback.isPlaying = false
             }
         }
 
         offsetPersistCounter += 1
-        if reachedEnd || offsetPersistCounter >= 20 {
+        if result.reachedEnd || offsetPersistCounter >= 20 {
             offsetPersistCounter = 0
             persistNow()
         }
