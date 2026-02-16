@@ -10,8 +10,8 @@ settings:
     SWIFT_VERSION: "5.10"
     MACOSX_DEPLOYMENT_TARGET: 11.0
     PRODUCT_BUNDLE_IDENTIFIER: com.notchy.teleprompter.native
-    MARKETING_VERSION: 2.2.4
-    CURRENT_PROJECT_VERSION: 10
+    MARKETING_VERSION: 2.2.5
+    CURRENT_PROJECT_VERSION: 11
     CODE_SIGN_STYLE: Automatic
 targets:
   NotchyTeleprompter:
