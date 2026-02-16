@@ -11,7 +11,7 @@ struct TeleprompterOverlayView: View {
     private let topShoulderRadius: CGFloat = 34
     private let bottomCornerRadius: CGFloat = 16
     private let detachedTopCornerRadius: CGFloat = 16
-    private let notchSafeTopInset: CGFloat = 40
+    private let notchSafeTopInset: CGFloat = 34
 
     private var overlayWidth: CGFloat {
         min(CGFloat(controller.state.overlay.width), maxWidth)
@@ -105,8 +105,9 @@ struct TeleprompterOverlayView: View {
     private var topFadeMask: some View {
         LinearGradient(
             stops: [
-                .init(color: .clear, location: 0.0),
-                .init(color: .white, location: 0.22),
+                .init(color: .white.opacity(0.5), location: 0.0),
+                .init(color: .white.opacity(0.82), location: 0.06),
+                .init(color: .white, location: 0.14),
                 .init(color: .white, location: 1.0)
             ],
             startPoint: .top,
@@ -117,7 +118,7 @@ struct TeleprompterOverlayView: View {
     @ViewBuilder
     private func scriptTextView(textColumnWidth: CGFloat) -> some View {
         let baseText = Text(controller.state.script.text.isEmpty ? " " : controller.state.script.text)
-            .font(.system(size: controller.state.overlay.fontSizePx, weight: .black, design: .monospaced))
+            .font(.system(size: controller.state.overlay.fontSizePx, weight: .heavy, design: .monospaced))
             .lineSpacing((controller.state.overlay.lineHeight - 1) * controller.state.overlay.fontSizePx)
             .foregroundStyle(Color.white)
             .multilineTextAlignment(.center)
