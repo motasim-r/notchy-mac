@@ -74,7 +74,7 @@ struct SegmentComposer {
         exportSession.outputFileType = .mov
         exportSession.shouldOptimizeForNetworkUse = true
 
-        try await withCheckedThrowingContinuation { continuation in
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             exportSession.exportAsynchronously {
                 if let error = exportSession.error {
                     continuation.resume(throwing: error)
