@@ -141,10 +141,20 @@ struct EditorView: View {
 
     private var scriptTab: some View {
         VStack(alignment: .leading, spacing: 14) {
-            tabHeader(
-                title: "Script",
-                subtitle: "Keep script and playback controls together for live runs."
-            )
+            HStack(alignment: .top, spacing: 10) {
+                tabHeader(
+                    title: "Script",
+                    subtitle: "Keep script and playback controls together for live runs."
+                )
+
+                Spacer(minLength: 8)
+
+                if controller.updateAvailable {
+                    actionButton(updateButtonTitle, primary: true) {
+                        controller.installAvailableUpdate()
+                    }
+                }
+            }
 
             playbackStrip
 
@@ -325,12 +335,6 @@ struct EditorView: View {
 
                 actionButton("Reset to Top") {
                     controller.resetOffset()
-                }
-
-                if controller.updateAvailable {
-                    actionButton(updateButtonTitle, primary: true) {
-                        controller.installAvailableUpdate()
-                    }
                 }
 
                 Spacer(minLength: 8)
