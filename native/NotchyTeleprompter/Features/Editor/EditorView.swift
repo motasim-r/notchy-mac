@@ -5,7 +5,6 @@ struct EditorView: View {
     @ObservedObject var sessionState: EditorSessionState
 
     @State private var showResetConfirmation = false
-    private let topWindowInset: CGFloat = 36
 
     private var scriptBinding: Binding<String> {
         Binding(
@@ -26,7 +25,6 @@ struct EditorView: View {
         }
         .frame(minWidth: 760, minHeight: 520)
         .background(rootBackground)
-        .padding(.top, topWindowInset)
 
         if #available(macOS 12.0, *) {
             shell
@@ -92,7 +90,7 @@ struct EditorView: View {
                     .notchyForeground(Color.white.opacity(0.68))
             }
             .padding(.horizontal, 16)
-            .padding(.top, 16)
+            .padding(.top, 44)
 
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(EditorTab.allCases) { tab in
@@ -138,6 +136,7 @@ struct EditorView: View {
             }
         }
         .padding(20)
+        .padding(.top, 38)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
