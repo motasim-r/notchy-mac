@@ -22,6 +22,9 @@
 - Fixed top anchoring so notch-ui stitches to the physical top edge by default.
 - Added hard shape clipping so teleprompter text cannot render outside notch-ui bounds.
 - Added migration normalization for legacy escaped script text (`\\n` to newline).
+- Polished notch-ui surface with translucent dark-glass layering and softer border/shadow.
+- Added slow top fade mask so scrolling text eases out as it exits the top edge.
+- Increased internal text padding and widened default notch panel for cleaner spacing.
 
 ### Editor Sheet
 - Added bottom sheet tabs: Script, Settings, Changelogs.
