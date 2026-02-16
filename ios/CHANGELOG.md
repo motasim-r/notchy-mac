@@ -12,12 +12,16 @@
 - Added recording pipeline with pause/resume into multiple segments.
 - Added segment composition into a single final `.mov` output.
 - Added automatic save-to-Photos flow with permission handling and error surfacing.
+- Fixed exported video orientation by preserving source track preferred transform during segment merge.
 
 ### Teleprompter UI
 - Added top-center notch-style overlay with shoulder-cut profile.
 - Added safe top inset so text avoids Dynamic Island/notch clipping.
 - Added smooth autoscroll ticker with px/sec speed model.
 - Added manual drag scroll support with clamped bounds.
+- Fixed top anchoring so notch-ui stitches to the physical top edge by default.
+- Added hard shape clipping so teleprompter text cannot render outside notch-ui bounds.
+- Added migration normalization for legacy escaped script text (`\\n` to newline).
 
 ### Editor Sheet
 - Added bottom sheet tabs: Script, Settings, Changelogs.
