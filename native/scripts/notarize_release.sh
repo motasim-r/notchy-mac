@@ -25,6 +25,8 @@ APPCAST_ARCHIVES_DIR="$APPCAST_DIR/archives"
 SPARKLE_TOOLS_DIR_DEFAULT="$NATIVE_DIR/.derived-sparkle-tools/Build/Products/Release"
 SPARKLE_TOOLS_DIR="${SPARKLE_TOOLS_DIR:-$SPARKLE_TOOLS_DIR_DEFAULT}"
 GENERATE_APPCAST="${GENERATE_APPCAST:-1}"
+DMG_BACKGROUND_SCRIPT="$NATIVE_DIR/scripts/generate_dmg_background.swift"
+DMG_BACKGROUND_REL_PATH=".background/installer-background.png"
 
 if [[ ! -d "$APP_PATH" ]]; then
   echo "Release app not found at $APP_PATH"
@@ -95,6 +97,13 @@ shasum -a 256 "$FINAL_ZIP_PATH" > "$FINAL_ZIP_SHA_PATH"
 mkdir -p "$DMG_STAGING_DIR"
 cp -R "$APP_PATH" "$DMG_STAGING_DIR/"
 ln -s /Applications "$DMG_STAGING_DIR/Applications"
+DMG_BACKGROUND_PATH="$DMG_STAGING_DIR/$DMG_BACKGROUND_REL_PATH"
+if [[ -f "$DMG_BACKGROUND_SCRIPT" ]]; then
+  xcrun swift "$DMG_BACKGROUND_SCRIPT" "$DMG_BACKGROUND_PATH" 720 440 || {
+    echo "Warning: failed to generate DMG background image; continuing without custom background."
+  }
+  chflags hidden "$DMG_STAGING_DIR/.background" >/dev/null 2>&1 || true
+fi
 
 hdiutil create \
   -volname "Notchy Teleprompter" \
@@ -115,6 +124,10 @@ fi
 # Configure Finder window (icon view + drag-to-Applications layout). If this fails,
 # release still proceeds with a functional DMG.
 VOLUME_NAME="$(basename "$MOUNT_POINT")"
+FINDER_BACKGROUND_LINE=""
+if [[ -f "$DMG_BACKGROUND_PATH" ]]; then
+  FINDER_BACKGROUND_LINE='set background picture of theViewOptions to file ".background:installer-background.png"'
+fi
 osascript <<APPLESCRIPT || true
 tell application "Finder"
   tell disk "$VOLUME_NAME"
@@ -127,6 +140,7 @@ tell application "Finder"
     set arrangement of theViewOptions to not arranged
     set icon size of theViewOptions to 112
     set text size of theViewOptions to 14
+    $FINDER_BACKGROUND_LINE
     set position of item "Notchy Teleprompter.app" of container window to {200, 240}
     set position of item "Applications" of container window to {520, 240}
     close
