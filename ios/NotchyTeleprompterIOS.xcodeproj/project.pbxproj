@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1FFBD4F752A7EBADC8F895CB /* SeasonSerif-TRIAL-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 081396A0E8BD324AFC92356F /* SeasonSerif-TRIAL-Regular.otf */; };
+		23D6ED125998629E3BF0F08B /* StateStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39834F0614382C79F3EF77BB /* StateStoreProtocol.swift */; };
+		2906A1436F72B77A8EF9FB3D /* TeleprompterOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9C722CCE7E93612BAC3028 /* TeleprompterOverlayView.swift */; };
+		29647DD4ABC22EF879347EAD /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768A5C1B5FB605D2DF00A28B /* CameraPreviewView.swift */; };
+		2EBCBE290B06B431C965507C /* TickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11B23DFD3F0DE07F6796A3F /* TickerProtocol.swift */; };
+		2F0466C1E202C4826B827062 /* SeasonSerif-TRIAL-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48F60F6FCCCF4734120AE9F0 /* SeasonSerif-TRIAL-Medium.otf */; };
+		35E16B701CB8907C5CC6B84C /* RootCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33DB8FA6A506F7F8CC71EBD /* RootCaptureView.swift */; };
+		41BCB6DDA089156AB5B0FFE6 /* SegmentComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B03C5A9C31CA12B57005EF9 /* SegmentComposer.swift */; };
+		53ED19912F20DAE5D0866C30 /* CaptureSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07BE68A8B2F3AAB21540544 /* CaptureSessionManager.swift */; };
+		61510EF1CBC0ABD8FA8E0BF4 /* AppStateControllerIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15807E2B5C467008E6AAEBC /* AppStateControllerIOS.swift */; };
+		78B04C165E05E0AF7B6942B6 /* RecordingPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC73F59A8D2D6FADF6346744 /* RecordingPipeline.swift */; };
+		7BEB4A8A826925161B3A937F /* SeasonSans-TRIAL-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F8D20189842B556D917F4707 /* SeasonSans-TRIAL-Bold.otf */; };
+		82661F78F05BC64674D68134 /* FileStateStoreIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D892B39EC7ED54DD18DFBC /* FileStateStoreIOS.swift */; };
+		880C4C5367090963D83A5EBD /* RecordingPipelineProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B478C7458E1E759E4BEACE /* RecordingPipelineProtocol.swift */; };
+		8EC9C419604FF497353202BB /* EditorSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFA3B5CCE83881B464F275A /* EditorSheetView.swift */; };
+		8F9B37A0C5248F02B4480F4D /* ScrollBoundsCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2087C15736DC020A020BA2A2 /* ScrollBoundsCalculator.swift */; };
+		8FC0ED35A0772BF125199E1B /* SeasonSerif-TRIAL-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5EF58B8E1151D4A36F65C3F8 /* SeasonSerif-TRIAL-Bold.otf */; };
+		924317368A64DB57DBFF6812 /* TeleprompterStateIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999655E080AC01727ACC15EE /* TeleprompterStateIOS.swift */; };
+		9BBB924A55D56F28D7D30641 /* PhotoLibraryExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52578FC2B5E9B09EA776F04 /* PhotoLibraryExporter.swift */; };
+		A2D7F9D318AC7B2B2798019C /* NotchyTypographyIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E094F60671B64407316D832 /* NotchyTypographyIOS.swift */; };
+		A50AEE05CED1CCFDE8DAA43C /* SegmentedRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE05AA3DE0ADED4B87FE9CD /* SegmentedRecorder.swift */; };
+		ABB90805E4C68288429CF9E4 /* SeasonSans-TRIAL-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9D685E9565914A95960AB913 /* SeasonSans-TRIAL-Medium.otf */; };
+		AE92CE031F0E8F797D5AFB2B /* ScriptTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9307315DCE7ADBFB58AA35 /* ScriptTabView.swift */; };
+		B28E40EA91101D8CC08B61D6 /* ChangelogTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888ED1B178680C3B042B890 /* ChangelogTabView.swift */; };
+		BD18AF34B74DC32CCDB366F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C136199288313956058134 /* Assets.xcassets */; };
+		D1B33482EDB9CA8A8A390605 /* CaptureSessionManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF1B3B4F0D6C1A95E6B99AC /* CaptureSessionManaging.swift */; };
+		E06B739D2B436096C2276E5B /* SettingsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97851EED88969AB30FBBF2 /* SettingsTabView.swift */; };
+		E703B7DC605F0462DDD2F92B /* NotchyTeleprompterIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D1EFD91EE7EFD650216BB9 /* NotchyTeleprompterIOSApp.swift */; };
+		E9B4F4EA888A21BFEFFA9B94 /* DisplayLinkTickerIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2BDFB70DB0A3396D9DF679 /* DisplayLinkTickerIOS.swift */; };
+		EC2602BFAC4971A17ECB3576 /* SeasonSans-TRIAL-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 916ACED55816A72F0496952F /* SeasonSans-TRIAL-Regular.otf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		081396A0E8BD324AFC92356F /* SeasonSerif-TRIAL-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SeasonSerif-TRIAL-Regular.otf"; sourceTree = "<group>"; };
+		1E094F60671B64407316D832 /* NotchyTypographyIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyTypographyIOS.swift; sourceTree = "<group>"; };
+		1EEC68603677CC312FE3F769 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2087C15736DC020A020BA2A2 /* ScrollBoundsCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollBoundsCalculator.swift; sourceTree = "<group>"; };
+		27B478C7458E1E759E4BEACE /* RecordingPipelineProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPipelineProtocol.swift; sourceTree = "<group>"; };
+		39834F0614382C79F3EF77BB /* StateStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateStoreProtocol.swift; sourceTree = "<group>"; };
+		48F60F6FCCCF4734120AE9F0 /* SeasonSerif-TRIAL-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SeasonSerif-TRIAL-Medium.otf"; sourceTree = "<group>"; };
+		4B03C5A9C31CA12B57005EF9 /* SegmentComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentComposer.swift; sourceTree = "<group>"; };
+		5A2BDFB70DB0A3396D9DF679 /* DisplayLinkTickerIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLinkTickerIOS.swift; sourceTree = "<group>"; };
+		5E9307315DCE7ADBFB58AA35 /* ScriptTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptTabView.swift; sourceTree = "<group>"; };
+		5EF58B8E1151D4A36F65C3F8 /* SeasonSerif-TRIAL-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SeasonSerif-TRIAL-Bold.otf"; sourceTree = "<group>"; };
+		768A5C1B5FB605D2DF00A28B /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		87D892B39EC7ED54DD18DFBC /* FileStateStoreIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStateStoreIOS.swift; sourceTree = "<group>"; };
+		916ACED55816A72F0496952F /* SeasonSans-TRIAL-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SeasonSans-TRIAL-Regular.otf"; sourceTree = "<group>"; };
+		97C136199288313956058134 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		999655E080AC01727ACC15EE /* TeleprompterStateIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleprompterStateIOS.swift; sourceTree = "<group>"; };
+		9D685E9565914A95960AB913 /* SeasonSans-TRIAL-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SeasonSans-TRIAL-Medium.otf"; sourceTree = "<group>"; };
+		AA97851EED88969AB30FBBF2 /* SettingsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabView.swift; sourceTree = "<group>"; };
+		ABE05AA3DE0ADED4B87FE9CD /* SegmentedRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedRecorder.swift; sourceTree = "<group>"; };
+		AC73F59A8D2D6FADF6346744 /* RecordingPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPipeline.swift; sourceTree = "<group>"; };
+		B15807E2B5C467008E6AAEBC /* AppStateControllerIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateControllerIOS.swift; sourceTree = "<group>"; };
+		B8D1EFD91EE7EFD650216BB9 /* NotchyTeleprompterIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyTeleprompterIOSApp.swift; sourceTree = "<group>"; };
+		C07BE68A8B2F3AAB21540544 /* CaptureSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSessionManager.swift; sourceTree = "<group>"; };
+		CF9C722CCE7E93612BAC3028 /* TeleprompterOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleprompterOverlayView.swift; sourceTree = "<group>"; };
+		DDF1B3B4F0D6C1A95E6B99AC /* CaptureSessionManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSessionManaging.swift; sourceTree = "<group>"; };
+		E11B23DFD3F0DE07F6796A3F /* TickerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerProtocol.swift; sourceTree = "<group>"; };
+		E52578FC2B5E9B09EA776F04 /* PhotoLibraryExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryExporter.swift; sourceTree = "<group>"; };
+		F33DB8FA6A506F7F8CC71EBD /* RootCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCaptureView.swift; sourceTree = "<group>"; };
+		F888ED1B178680C3B042B890 /* ChangelogTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangelogTabView.swift; sourceTree = "<group>"; };
+		F8D20189842B556D917F4707 /* SeasonSans-TRIAL-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SeasonSans-TRIAL-Bold.otf"; sourceTree = "<group>"; };
+		FBFA3B5CCE83881B464F275A /* EditorSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSheetView.swift; sourceTree = "<group>"; };
+		FD991DC938CDF3890BD7BEC0 /* NotchyTeleprompterIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NotchyTeleprompterIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1C06FD0F106F788B124F48F1 /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				768A5C1B5FB605D2DF00A28B /* CameraPreviewView.swift */,
+				F33DB8FA6A506F7F8CC71EBD /* RootCaptureView.swift */,
+			);
+			path = Recorder;
+			sourceTree = "<group>";
+		};
+		2579CC1DBEE4459DAD18D73F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				999655E080AC01727ACC15EE /* TeleprompterStateIOS.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		29FD2141B34100F5A092CA46 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F7379098DBD46D3FFF2D1683 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3EB028C425AB54A5D47487AF /* Timing */ = {
+			isa = PBXGroup;
+			children = (
+				5A2BDFB70DB0A3396D9DF679 /* DisplayLinkTickerIOS.swift */,
+				E11B23DFD3F0DE07F6796A3F /* TickerProtocol.swift */,
+			);
+			path = Timing;
+			sourceTree = "<group>";
+		};
+		4BB2F462017F41184879955E = {
+			isa = PBXGroup;
+			children = (
+				A8B4F6311895C0949BA4EC75 /* NotchyTeleprompterIOS */,
+				EE9AD62FF57E48707B8618A9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4FEE04CA56A44002AB5C0F60 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				87D892B39EC7ED54DD18DFBC /* FileStateStoreIOS.swift */,
+				39834F0614382C79F3EF77BB /* StateStoreProtocol.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		55B51EA3411D3A8F643B87A0 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				D2F4BBD816EEE0368E236D3C /* Editor */,
+				1C06FD0F106F788B124F48F1 /* Recorder */,
+				70DCDB480B101A9280A6BB1C /* Teleprompter */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		5A3D0D8D995EEC67AE148E39 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B15807E2B5C467008E6AAEBC /* AppStateControllerIOS.swift */,
+				1EEC68603677CC312FE3F769 /* Info.plist */,
+				B8D1EFD91EE7EFD650216BB9 /* NotchyTeleprompterIOSApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		70DCDB480B101A9280A6BB1C /* Teleprompter */ = {
+			isa = PBXGroup;
+			children = (
+				2087C15736DC020A020BA2A2 /* ScrollBoundsCalculator.swift */,
+				CF9C722CCE7E93612BAC3028 /* TeleprompterOverlayView.swift */,
+			);
+			path = Teleprompter;
+			sourceTree = "<group>";
+		};
+		72B4DA26683FEFD83F7D10BF /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				8FAF5EA2C93ACE01E2AE1FD6 /* Capture */,
+				3EB028C425AB54A5D47487AF /* Timing */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		8FAF5EA2C93ACE01E2AE1FD6 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				C07BE68A8B2F3AAB21540544 /* CaptureSessionManager.swift */,
+				DDF1B3B4F0D6C1A95E6B99AC /* CaptureSessionManaging.swift */,
+				E52578FC2B5E9B09EA776F04 /* PhotoLibraryExporter.swift */,
+				AC73F59A8D2D6FADF6346744 /* RecordingPipeline.swift */,
+				27B478C7458E1E759E4BEACE /* RecordingPipelineProtocol.swift */,
+				4B03C5A9C31CA12B57005EF9 /* SegmentComposer.swift */,
+				ABE05AA3DE0ADED4B87FE9CD /* SegmentedRecorder.swift */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+		A8B4F6311895C0949BA4EC75 /* NotchyTeleprompterIOS */ = {
+			isa = PBXGroup;
+			children = (
+				97C136199288313956058134 /* Assets.xcassets */,
+				5A3D0D8D995EEC67AE148E39 /* App */,
+				55B51EA3411D3A8F643B87A0 /* Features */,
+				2579CC1DBEE4459DAD18D73F /* Models */,
+				4FEE04CA56A44002AB5C0F60 /* Persistence */,
+				72B4DA26683FEFD83F7D10BF /* Platform */,
+				29FD2141B34100F5A092CA46 /* Resources */,
+			);
+			path = NotchyTeleprompterIOS;
+			sourceTree = "<group>";
+		};
+		D2F4BBD816EEE0368E236D3C /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				F888ED1B178680C3B042B890 /* ChangelogTabView.swift */,
+				FBFA3B5CCE83881B464F275A /* EditorSheetView.swift */,
+				1E094F60671B64407316D832 /* NotchyTypographyIOS.swift */,
+				5E9307315DCE7ADBFB58AA35 /* ScriptTabView.swift */,
+				AA97851EED88969AB30FBBF2 /* SettingsTabView.swift */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		EE9AD62FF57E48707B8618A9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FD991DC938CDF3890BD7BEC0 /* NotchyTeleprompterIOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F7379098DBD46D3FFF2D1683 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F8D20189842B556D917F4707 /* SeasonSans-TRIAL-Bold.otf */,
+				9D685E9565914A95960AB913 /* SeasonSans-TRIAL-Medium.otf */,
+				916ACED55816A72F0496952F /* SeasonSans-TRIAL-Regular.otf */,
+				5EF58B8E1151D4A36F65C3F8 /* SeasonSerif-TRIAL-Bold.otf */,
+				48F60F6FCCCF4734120AE9F0 /* SeasonSerif-TRIAL-Medium.otf */,
+				081396A0E8BD324AFC92356F /* SeasonSerif-TRIAL-Regular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F0D301ABC566A7CA7EED8D0B /* NotchyTeleprompterIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8378BF6BC03A54CAE6D7561A /* Build configuration list for PBXNativeTarget "NotchyTeleprompterIOS" */;
+			buildPhases = (
+				E2E4D305E27A1380DBA7ECC7 /* Sources */,
+				72F86DF121AC955D9D29F03E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotchyTeleprompterIOS;
+			packageProductDependencies = (
+			);
+			productName = NotchyTeleprompterIOS;
+			productReference = FD991DC938CDF3890BD7BEC0 /* NotchyTeleprompterIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1B5C78CE1B37CAB46979B4B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = A6069376DFE3FCDE1B992E07 /* Build configuration list for PBXProject "NotchyTeleprompterIOS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 4BB2F462017F41184879955E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F0D301ABC566A7CA7EED8D0B /* NotchyTeleprompterIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		72F86DF121AC955D9D29F03E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD18AF34B74DC32CCDB366F9 /* Assets.xcassets in Resources */,
+				7BEB4A8A826925161B3A937F /* SeasonSans-TRIAL-Bold.otf in Resources */,
+				ABB90805E4C68288429CF9E4 /* SeasonSans-TRIAL-Medium.otf in Resources */,
+				EC2602BFAC4971A17ECB3576 /* SeasonSans-TRIAL-Regular.otf in Resources */,
+				8FC0ED35A0772BF125199E1B /* SeasonSerif-TRIAL-Bold.otf in Resources */,
+				2F0466C1E202C4826B827062 /* SeasonSerif-TRIAL-Medium.otf in Resources */,
+				1FFBD4F752A7EBADC8F895CB /* SeasonSerif-TRIAL-Regular.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E2E4D305E27A1380DBA7ECC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61510EF1CBC0ABD8FA8E0BF4 /* AppStateControllerIOS.swift in Sources */,
+				29647DD4ABC22EF879347EAD /* CameraPreviewView.swift in Sources */,
+				53ED19912F20DAE5D0866C30 /* CaptureSessionManager.swift in Sources */,
+				D1B33482EDB9CA8A8A390605 /* CaptureSessionManaging.swift in Sources */,
+				B28E40EA91101D8CC08B61D6 /* ChangelogTabView.swift in Sources */,
+				E9B4F4EA888A21BFEFFA9B94 /* DisplayLinkTickerIOS.swift in Sources */,
+				8EC9C419604FF497353202BB /* EditorSheetView.swift in Sources */,
+				82661F78F05BC64674D68134 /* FileStateStoreIOS.swift in Sources */,
+				E703B7DC605F0462DDD2F92B /* NotchyTeleprompterIOSApp.swift in Sources */,
+				A2D7F9D318AC7B2B2798019C /* NotchyTypographyIOS.swift in Sources */,
+				9BBB924A55D56F28D7D30641 /* PhotoLibraryExporter.swift in Sources */,
+				78B04C165E05E0AF7B6942B6 /* RecordingPipeline.swift in Sources */,
+				880C4C5367090963D83A5EBD /* RecordingPipelineProtocol.swift in Sources */,
+				35E16B701CB8907C5CC6B84C /* RootCaptureView.swift in Sources */,
+				AE92CE031F0E8F797D5AFB2B /* ScriptTabView.swift in Sources */,
+				8F9B37A0C5248F02B4480F4D /* ScrollBoundsCalculator.swift in Sources */,
+				41BCB6DDA089156AB5B0FFE6 /* SegmentComposer.swift in Sources */,
+				A50AEE05CED1CCFDE8DAA43C /* SegmentedRecorder.swift in Sources */,
+				E06B739D2B436096C2276E5B /* SettingsTabView.swift in Sources */,
+				23D6ED125998629E3BF0F08B /* StateStoreProtocol.swift in Sources */,
+				2906A1436F72B77A8EF9FB3D /* TeleprompterOverlayView.swift in Sources */,
+				924317368A64DB57DBFF6812 /* TeleprompterStateIOS.swift in Sources */,
+				2EBCBE290B06B431C965507C /* TickerProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2AFB0C72A467AABEFAA11813 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NotchyTeleprompterIOS/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_NAME = "Notchy Teleprompter iOS";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3C77F7EF9E07B2AC4EE316F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.notchy.teleprompter.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.10;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		9DDCF3F1DA92B81C272E15A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NotchyTeleprompterIOS/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_NAME = "Notchy Teleprompter iOS";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EA94CCC54F7B284F730C32F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.notchy.teleprompter.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.10;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8378BF6BC03A54CAE6D7561A /* Build configuration list for PBXNativeTarget "NotchyTeleprompterIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AFB0C72A467AABEFAA11813 /* Debug */,
+				9DDCF3F1DA92B81C272E15A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A6069376DFE3FCDE1B992E07 /* Build configuration list for PBXProject "NotchyTeleprompterIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C77F7EF9E07B2AC4EE316F1 /* Debug */,
+				EA94CCC54F7B284F730C32F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1B5C78CE1B37CAB46979B4B8 /* Project object */;
+}
