@@ -25,6 +25,7 @@
 - Polished notch-ui surface with translucent dark-glass layering and softer border/shadow.
 - Added slow top fade mask so scrolling text eases out as it exits the top edge.
 - Increased internal text padding and widened default notch panel for cleaner spacing.
+- Switched notch-ui surface from transparent glass back to dark black for better readability and closer notch blend.
 
 ### Editor Sheet
 - Added bottom sheet tabs: Script, Settings, Changelogs.
