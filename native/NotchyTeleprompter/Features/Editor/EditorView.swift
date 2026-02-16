@@ -540,6 +540,7 @@ struct EditorView: View {
             items: [
                 "Redesigned editor into dark-glass left-rail tabs inspired by modern productivity apps.",
                 "Created dedicated tabs: Script, Settings, Shortcuts, and now Changelogs.",
+                "Adopted brand typography stack: Season Serif for section headings and Season Sans for body/control text.",
                 "Script tab keeps playback controls at top with live speed and offset feedback.",
                 "Settings tab uses sliders for panel width, height, vertical position, font size, line spacing, and letter spacing.",
                 "Removed vertical quick-step buttons once slider-based vertical control became clear.",
@@ -580,7 +581,8 @@ struct EditorView: View {
                 "Installer DMG now shows a centered drag-to-install instruction message for first-time users.",
                 "Expanded compatibility baseline to support macOS 11.0+ with UI fallbacks for older SwiftUI runtimes.",
                 "Editor tab sections now use lazy rendering for smoother tab switching.",
-                "Integrated Sparkle auto-update plumbing with update detection, in-app update CTA, and a Check for Updates menu action."
+                "Integrated Sparkle auto-update plumbing with update detection, in-app update CTA, and a Check for Updates menu action.",
+                "Added a repo-level Brand Guidelines spec to keep app/editor/website styling consistent."
             ]
         )
     ]
