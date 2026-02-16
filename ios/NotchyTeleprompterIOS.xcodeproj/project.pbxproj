@@ -18,6 +18,7 @@
 		53ED19912F20DAE5D0866C30 /* CaptureSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07BE68A8B2F3AAB21540544 /* CaptureSessionManager.swift */; };
 		61510EF1CBC0ABD8FA8E0BF4 /* AppStateControllerIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15807E2B5C467008E6AAEBC /* AppStateControllerIOS.swift */; };
 		78B04C165E05E0AF7B6942B6 /* RecordingPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC73F59A8D2D6FADF6346744 /* RecordingPipeline.swift */; };
+		78E5EACBB5CADAB94DDBA654 /* ScrollEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709EDCA5DE236B3660C6BD48 /* ScrollEngine.swift */; };
 		7BEB4A8A826925161B3A937F /* SeasonSans-TRIAL-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F8D20189842B556D917F4707 /* SeasonSans-TRIAL-Bold.otf */; };
 		82661F78F05BC64674D68134 /* FileStateStoreIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D892B39EC7ED54DD18DFBC /* FileStateStoreIOS.swift */; };
 		880C4C5367090963D83A5EBD /* RecordingPipelineProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B478C7458E1E759E4BEACE /* RecordingPipelineProtocol.swift */; };
@@ -51,6 +52,7 @@
 		5A2BDFB70DB0A3396D9DF679 /* DisplayLinkTickerIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLinkTickerIOS.swift; sourceTree = "<group>"; };
 		5E9307315DCE7ADBFB58AA35 /* ScriptTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptTabView.swift; sourceTree = "<group>"; };
 		5EF58B8E1151D4A36F65C3F8 /* SeasonSerif-TRIAL-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SeasonSerif-TRIAL-Bold.otf"; sourceTree = "<group>"; };
+		709EDCA5DE236B3660C6BD48 /* ScrollEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollEngine.swift; sourceTree = "<group>"; };
 		768A5C1B5FB605D2DF00A28B /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		87D892B39EC7ED54DD18DFBC /* FileStateStoreIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStateStoreIOS.swift; sourceTree = "<group>"; };
 		916ACED55816A72F0496952F /* SeasonSans-TRIAL-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SeasonSans-TRIAL-Regular.otf"; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				2087C15736DC020A020BA2A2 /* ScrollBoundsCalculator.swift */,
+				709EDCA5DE236B3660C6BD48 /* ScrollEngine.swift */,
 				CF9C722CCE7E93612BAC3028 /* TeleprompterOverlayView.swift */,
 			);
 			path = Teleprompter;
@@ -312,6 +315,7 @@
 				35E16B701CB8907C5CC6B84C /* RootCaptureView.swift in Sources */,
 				AE92CE031F0E8F797D5AFB2B /* ScriptTabView.swift in Sources */,
 				8F9B37A0C5248F02B4480F4D /* ScrollBoundsCalculator.swift in Sources */,
+				78E5EACBB5CADAB94DDBA654 /* ScrollEngine.swift in Sources */,
 				41BCB6DDA089156AB5B0FFE6 /* SegmentComposer.swift in Sources */,
 				A50AEE05CED1CCFDE8DAA43C /* SegmentedRecorder.swift in Sources */,
 				E06B739D2B436096C2276E5B /* SettingsTabView.swift in Sources */,
