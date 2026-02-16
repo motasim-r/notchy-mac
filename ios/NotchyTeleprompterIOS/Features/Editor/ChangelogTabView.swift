@@ -20,7 +20,9 @@ struct ChangelogTabView: View {
                 "Manual drag scrolling on overlay with clamped bounds.",
                 "Safe text inset to avoid notch/Dynamic Island clipping.",
                 "Fixed top anchoring so notch-ui is stitched to the physical top edge at default position.",
-                "Added hard notch-shape clipping so text always stays inside the notch-ui."
+                "Added hard notch-shape clipping so text always stays inside the notch-ui.",
+                "Polished notch-ui with translucent dark-glass styling, softer border/shadow, and cleaner spacing.",
+                "Added a slow top fade effect so text eases out naturally as it leaves the notch."
             ]
         ),
         ChangelogSection(
@@ -36,7 +38,8 @@ struct ChangelogTabView: View {
             title: "Data and Script Handling",
             items: [
                 "Default script now uses real line breaks for clean teleprompter rendering.",
-                "Legacy escaped line breaks (\\n) are auto-normalized on load."
+                "Legacy escaped line breaks (\\n) are auto-normalized on load.",
+                "Default notch width increased for better breathing room."
             ]
         )
     ]
