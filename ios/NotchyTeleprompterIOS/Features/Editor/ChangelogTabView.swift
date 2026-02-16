@@ -18,7 +18,9 @@ struct ChangelogTabView: View {
             items: [
                 "Top-center notch-style capsule with shoulder cut-in shape.",
                 "Manual drag scrolling on overlay with clamped bounds.",
-                "Safe text inset to avoid notch/Dynamic Island clipping."
+                "Safe text inset to avoid notch/Dynamic Island clipping.",
+                "Fixed top anchoring so notch-ui is stitched to the physical top edge at default position.",
+                "Added hard notch-shape clipping so text always stays inside the notch-ui."
             ]
         ),
         ChangelogSection(
@@ -26,7 +28,15 @@ struct ChangelogTabView: View {
             items: [
                 "Bottom floating tray: Play/Pause, speed controls, Record/Pause/Resume/Stop, Script sheet button.",
                 "Start recording auto-plays teleprompter for one-tap live flow.",
-                "Recording is mirrored in preview and saved unmirrored."
+                "Recording is mirrored in preview and saved unmirrored.",
+                "Fixed final saved video orientation by preserving source track transform during segment merge."
+            ]
+        ),
+        ChangelogSection(
+            title: "Data and Script Handling",
+            items: [
+                "Default script now uses real line breaks for clean teleprompter rendering.",
+                "Legacy escaped line breaks (\\n) are auto-normalized on load."
             ]
         )
     ]
