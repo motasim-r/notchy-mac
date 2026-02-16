@@ -4,6 +4,7 @@ This file tracks product changes for Notchy.
 Process rule: every user-visible change should be appended here and mirrored in the in-app `Changelogs` tab.
 
 ## Unreleased
+- Increased left-rail top offset to avoid overlap with macOS traffic-light controls and align tab stack with main Script header.
 - Removed left-rail "Notchy / Teleprompter" heading from editor UI for a cleaner, more minimal layout.
 - Unified editor top chrome with main surface: titlebar now uses matching dark background and content background extends into the title area for a single continuous look.
 - Removed editor titlebar/content seam by disabling titlebar separator and eliminating top gap; window now reads as one blended surface while keeping traffic-light controls.
