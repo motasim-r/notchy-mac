@@ -290,10 +290,10 @@ struct EditorView: View {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 14) {
                     surfaceCard(
-                        title: "V2.2.2 Snapshot",
+                        title: "Latest Snapshot",
                         subtitle: "This log is now the source of truth for product changes."
                     ) {
-                        Text("Rule enabled: every product/UI behavior change should be added here before final builds. Added full app icon rollout and branding pass in 2.2.2.")
+                        Text("Rule enabled: every product/UI behavior change should be added here before final builds, including brand-system updates.")
                             .font(NotchyBrandTypography.ui(size: 12, weight: .medium))
                             .notchyForeground(Color.white.opacity(0.76))
                     }
