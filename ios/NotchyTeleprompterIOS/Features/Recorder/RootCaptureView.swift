@@ -83,6 +83,14 @@ struct RootCaptureView: View {
                     controller.adjustSpeed(delta: -2)
                 }
 
+                circleIconButton(symbol: "arrow.up", label: "Step Script Up") {
+                    controller.stepScript(direction: .up)
+                }
+
+                circleIconButton(symbol: "arrow.down", label: "Step Script Down") {
+                    controller.stepScript(direction: .down)
+                }
+
                 Text("\(Int(controller.state.playback.speedPxPerSec.rounded()))")
                     .font(.system(size: 13, weight: .bold, design: .monospaced))
                     .foregroundStyle(Color.white.opacity(0.9))
