@@ -29,11 +29,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var localScrollMonitor: Any?
     private var globalScrollMonitor: Any?
 
-    private var statusItem: NSStatusItem?
-    private var togglePanelMenuItem: NSMenuItem?
-    private var playPauseMenuItem: NSMenuItem?
-    private var checkForUpdatesMenuItem: NSMenuItem?
-
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.regular)
 
@@ -41,7 +36,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             self?.editorWindowController.showAndActivate(tab: tab)
         }
 
-        setupStatusItem()
         setupApplicationMenu()
         setupHotkeys()
         setupSpaceKeyHandler()
@@ -148,48 +142,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func handleScreenParametersChanged() {
         syncUI(with: stateController.state)
-    }
-
-    private func setupStatusItem() {
-        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        statusItem = item
-
-        if let button = item.button {
-            button.image = NSApp.applicationIconImage
-            button.imagePosition = .imageOnly
-            button.imageScaling = .scaleProportionallyDown
-            button.toolTip = "Notchy Teleprompter"
-        }
-
-        togglePanelMenuItem = NSMenuItem(title: "Hide Notch UI", action: #selector(togglePanelVisibilityAction), keyEquivalent: "")
-        playPauseMenuItem = NSMenuItem(title: "Play", action: #selector(togglePlaybackAction), keyEquivalent: "")
-        checkForUpdatesMenuItem = NSMenuItem(title: "Check for Updates…", action: #selector(checkForUpdatesAction), keyEquivalent: "")
-
-        let openEditorItem = NSMenuItem(title: "Open Editor", action: #selector(openEditorAction), keyEquivalent: "")
-        let quitItem = NSMenuItem(title: "Quit Notchy", action: #selector(quitAction), keyEquivalent: "q")
-
-        togglePanelMenuItem?.target = self
-        playPauseMenuItem?.target = self
-        checkForUpdatesMenuItem?.target = self
-        openEditorItem.target = self
-        quitItem.target = self
-
-        let menu = NSMenu()
-        if let togglePanelMenuItem {
-            menu.addItem(togglePanelMenuItem)
-        }
-        menu.addItem(openEditorItem)
-        menu.addItem(.separator())
-        if let playPauseMenuItem {
-            menu.addItem(playPauseMenuItem)
-        }
-        if let checkForUpdatesMenuItem {
-            menu.addItem(checkForUpdatesMenuItem)
-        }
-        menu.addItem(.separator())
-        menu.addItem(quitItem)
-
-        item.menu = menu
     }
 
     private func setupApplicationMenu() {
@@ -342,8 +294,5 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func syncUI(with state: TeleprompterState) {
         notchPanelController.sync(with: state)
         editorWindowController.sync(with: state)
-
-        togglePanelMenuItem?.title = state.panel.visible ? "Hide Notch UI" : "Show Notch UI"
-        playPauseMenuItem?.title = state.playback.isPlaying ? "Pause" : "Play"
     }
 }
