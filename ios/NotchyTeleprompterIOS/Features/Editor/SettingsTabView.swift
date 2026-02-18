@@ -7,6 +7,7 @@ struct SettingsTabView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
                 panelCard
+                visibilityCard
                 textCard
                 resetCard
             }
@@ -85,6 +86,22 @@ struct SettingsTabView: View {
                 range: TeleprompterStateIOS.limits.letterSpacingMin ... TeleprompterStateIOS.limits.letterSpacingMax,
                 step: 0.05
             )
+        }
+    }
+
+    private var visibilityCard: some View {
+        settingsCard(title: "Visibility") {
+            Toggle(
+                "Show Notchy Overlay",
+                isOn: Binding(
+                    get: { controller.state.overlay.visible },
+                    set: { controller.setOverlayVisible($0) }
+                )
+            )
+            .toggleStyle(.switch)
+            .tint(Color(red: 0.05, green: 0.08, blue: 0.16))
+            .font(NotchyTypographyIOS.ui(size: 13, weight: .medium))
+            .foregroundStyle(Color.white.opacity(0.86))
         }
     }
 

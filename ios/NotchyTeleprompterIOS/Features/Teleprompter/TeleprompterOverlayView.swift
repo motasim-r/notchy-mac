@@ -57,7 +57,6 @@ struct TeleprompterOverlayView: View {
             }
         }
         .frame(width: overlayWidth, height: CGFloat(controller.state.overlay.height))
-        .opacity(controller.state.overlay.visible ? 1 : 0)
     }
 
     private var viewport: some View {
