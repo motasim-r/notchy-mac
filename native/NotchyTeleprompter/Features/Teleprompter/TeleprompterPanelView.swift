@@ -113,6 +113,14 @@ struct TeleprompterPanelView: View {
             .onChange(of: controller.state.panel.letterSpacingPx) { _ in
                 controller.updateScrollBounds(contentHeight: totalContentHeight, viewportHeight: viewportHeight)
             }
+            .onChange(of: controller.state.playback.isPlaying) { isPlaying in
+                guard isPlaying else {
+                    return
+                }
+
+                let effectiveViewportHeight = viewportHeight > 0 ? viewportHeight : geo.size.height
+                controller.updateScrollBounds(contentHeight: totalContentHeight, viewportHeight: effectiveViewportHeight)
+            }
         }
     }
 
