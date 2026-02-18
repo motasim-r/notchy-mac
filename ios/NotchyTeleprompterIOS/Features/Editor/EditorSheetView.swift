@@ -47,13 +47,19 @@ struct EditorSheetView: View {
 
     @ViewBuilder
     private var content: some View {
-        switch controller.state.editor.selectedTab {
-        case .script:
-            ScriptTabView(controller: controller)
-        case .settings:
-            SettingsTabView(controller: controller)
-        case .changelogs:
-            ChangelogTabView()
+        ZStack(alignment: .topLeading) {
+            tabContent(.script) { ScriptTabView(controller: controller) }
+            tabContent(.settings) { SettingsTabView(controller: controller) }
+            tabContent(.changelogs) { ChangelogTabView() }
         }
+        .animation(nil, value: controller.state.editor.selectedTab)
+    }
+
+    private func tabContent<Content: View>(_ tab: EditorTabIOS, @ViewBuilder content: () -> Content) -> some View {
+        let isSelected = controller.state.editor.selectedTab == tab
+        return content()
+            .opacity(isSelected ? 1 : 0)
+            .allowsHitTesting(isSelected)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }

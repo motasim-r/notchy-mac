@@ -7,6 +7,7 @@ struct TeleprompterPanelView: View {
     @State private var viewportHeight: CGFloat = 0
     @State private var isHoveringPanel = false
     @State private var isHoveringControlTray = false
+    @State private var hoverCollapseWorkItem: DispatchWorkItem?
 
     private let topShoulderRadius: CGFloat = 37
     private let bottomCornerRadius: CGFloat = 14
@@ -29,15 +30,10 @@ struct TeleprompterPanelView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    if isControlTrayExpanded {
-                        controlTray
-                            .transition(
-                                .asymmetric(
-                                    insertion: .move(edge: .trailing).combined(with: .opacity),
-                                    removal: .move(edge: .trailing).combined(with: .opacity)
-                                )
-                            )
-                    }
+                    controlTray
+                        .opacity(isControlTrayExpanded ? 1 : 0)
+                        .offset(x: isControlTrayExpanded ? 0 : 14)
+                        .allowsHitTesting(isControlTrayExpanded)
                 }
                 .padding(.trailing, 6)
                 .padding(.bottom, 8)
@@ -46,9 +42,15 @@ struct TeleprompterPanelView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
         .onHover { hovering in
-            isHoveringPanel = hovering
+            if hovering {
+                isHoveringPanel = true
+                cancelHoverCollapse()
+            } else {
+                isHoveringPanel = false
+                scheduleHoverCollapse()
+            }
         }
-        .animation(.interactiveSpring(response: 0.24, dampingFraction: 0.86), value: isControlTrayExpanded)
+        .animation(.easeInOut(duration: 0.16), value: isControlTrayExpanded)
     }
 
     @ViewBuilder
@@ -147,7 +149,13 @@ struct TeleprompterPanelView: View {
         )
         .shadow(color: Color.black.opacity(0.42), radius: 8, x: 0, y: 2)
         .onHover { hovering in
-            isHoveringControlTray = hovering
+            if hovering {
+                isHoveringControlTray = true
+                cancelHoverCollapse()
+            } else {
+                isHoveringControlTray = false
+                scheduleHoverCollapse()
+            }
         }
     }
 
@@ -219,6 +227,23 @@ struct TeleprompterPanelView: View {
         )
 
         return ceil(bounds.height)
+    }
+
+    private func cancelHoverCollapse() {
+        hoverCollapseWorkItem?.cancel()
+        hoverCollapseWorkItem = nil
+    }
+
+    private func scheduleHoverCollapse() {
+        hoverCollapseWorkItem?.cancel()
+        let task = DispatchWorkItem {
+            if !isHoveringPanel && !isHoveringControlTray {
+                isHoveringPanel = false
+                isHoveringControlTray = false
+            }
+        }
+        hoverCollapseWorkItem = task
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.12, execute: task)
     }
 }
 

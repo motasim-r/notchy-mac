@@ -38,6 +38,7 @@ struct PanelState: Codable, Equatable {
     var lineHeight: Double
     var letterSpacingPx: Double
     var visible: Bool
+    var excludeFromCapture: Bool
 
     private enum CodingKeys: String, CodingKey {
         case width
@@ -47,6 +48,7 @@ struct PanelState: Codable, Equatable {
         case lineHeight
         case letterSpacingPx
         case visible
+        case excludeFromCapture
     }
 
     init(
@@ -56,7 +58,8 @@ struct PanelState: Codable, Equatable {
         fontSizePx: Double,
         lineHeight: Double,
         letterSpacingPx: Double,
-        visible: Bool
+        visible: Bool,
+        excludeFromCapture: Bool
     ) {
         self.width = width
         self.height = height
@@ -65,6 +68,7 @@ struct PanelState: Codable, Equatable {
         self.lineHeight = lineHeight
         self.letterSpacingPx = letterSpacingPx
         self.visible = visible
+        self.excludeFromCapture = excludeFromCapture
     }
 
     init(from decoder: Decoder) throws {
@@ -77,6 +81,7 @@ struct PanelState: Codable, Equatable {
         lineHeight = try container.decodeIfPresent(Double.self, forKey: .lineHeight) ?? defaults.lineHeight
         letterSpacingPx = try container.decodeIfPresent(Double.self, forKey: .letterSpacingPx) ?? defaults.letterSpacingPx
         visible = try container.decodeIfPresent(Bool.self, forKey: .visible) ?? defaults.visible
+        excludeFromCapture = try container.decodeIfPresent(Bool.self, forKey: .excludeFromCapture) ?? defaults.excludeFromCapture
     }
 }
 
@@ -165,7 +170,8 @@ struct TeleprompterState: Codable, Equatable {
             fontSizePx: 14,
             lineHeight: 1.06,
             letterSpacingPx: 0,
-            visible: true
+            visible: true,
+            excludeFromCapture: true
         ),
         editor: EditorState(
             width: 860,
