@@ -1,0 +1,38 @@
+<Window
+    x:Class="NotchyTeleprompterWin.Views.OverlayWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <Grid x:Name="Root"
+          Background="Transparent"
+          Opacity="{x:Bind Controller.OverlayOpacity, Mode=OneWay}">
+        <Border x:Name="OverlayChrome"
+                Background="#0D1429"
+                CornerRadius="16"
+                BorderBrush="#1E2A45"
+                BorderThickness="1">
+            <Grid x:Name="Viewport"
+                  Padding="14"
+                  ClipToBounds="True"
+                  SizeChanged="OnViewportSizeChanged">
+                <TextBlock x:Name="ScriptText"
+                           Text="{x:Bind Controller.ScriptText, Mode=OneWay}"
+                           FontSize="{x:Bind Controller.FontSizePx, Mode=OneWay}"
+                           LineHeight="{x:Bind Controller.LineHeightPx, Mode=OneWay}"
+                           CharacterSpacing="{x:Bind Controller.CharacterSpacing, Mode=OneWay}"
+                           Foreground="White"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           SizeChanged="OnScriptSizeChanged">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform Y="{x:Bind Controller.OverlayOffsetY, Mode=OneWay}" />
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
