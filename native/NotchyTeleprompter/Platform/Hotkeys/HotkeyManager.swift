@@ -36,6 +36,7 @@ final class CarbonHotkeyManager: HotkeyManagerProtocol {
         register(action: .speedUp, keyCode: UInt32(kVK_RightArrow), modifiers: UInt32(cmdKey | shiftKey))
         register(action: .stepLineUp, keyCode: UInt32(kVK_UpArrow), modifiers: UInt32(cmdKey | shiftKey))
         register(action: .stepLineDown, keyCode: UInt32(kVK_DownArrow), modifiers: UInt32(cmdKey | shiftKey))
+
     }
 
     func unregister() {

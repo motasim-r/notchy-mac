@@ -24,7 +24,10 @@ final class AppStateController: ObservableObject {
     private var maxOffsetPx: Double = 0
     private var offsetPersistCounter = 0
     private var saveWorkItem: DispatchWorkItem?
+    private var stepResumeWorkItem: DispatchWorkItem?
+    private var shouldResumeAfterStep = false
     private var playbackTickAccumulator: Double = 0
+    private let stepPauseDuration: TimeInterval = 0.35
 
     init(
         stateStore: StateStoreProtocol,
@@ -64,6 +67,7 @@ final class AppStateController: ObservableObject {
     }
 
     func togglePlayback() {
+        cancelStepResume()
         mutate { state in
             let willPlay = !state.playback.isPlaying
             if willPlay, maxOffsetPx > 0, state.playback.offsetPx >= maxOffsetPx {
@@ -77,6 +81,7 @@ final class AppStateController: ObservableObject {
     }
 
     func setPlaying(_ isPlaying: Bool) {
+        cancelStepResume()
         mutate { state in
             if isPlaying, maxOffsetPx > 0, state.playback.offsetPx >= maxOffsetPx {
                 state.playback.offsetPx = 0
@@ -107,6 +112,7 @@ final class AppStateController: ObservableObject {
     }
 
     func resetOffset() {
+        cancelStepResume()
         mutate { state in
             state.playback.offsetPx = 0
             state.playback.isPlaying = false
@@ -135,6 +141,12 @@ final class AppStateController: ObservableObject {
     func togglePanelVisible() {
         mutate { state in
             state.panel.visible.toggle()
+        }
+    }
+
+    func setPanelCaptureExcluded(_ excluded: Bool) {
+        mutate { state in
+            state.panel.excludeFromCapture = excluded
         }
     }
 
@@ -222,6 +234,7 @@ final class AppStateController: ObservableObject {
     }
 
     func stepScript(direction: ScriptStepDirection) {
+        let wasPlaying = state.playback.isPlaying
         mutate { state in
             let stepPx = max(8, state.panel.fontSizePx * state.panel.lineHeight)
             let nextOffset: Double
@@ -232,6 +245,13 @@ final class AppStateController: ObservableObject {
                 nextOffset = state.playback.offsetPx + stepPx
             }
             state.playback.offsetPx = min(self.maxOffsetPx, max(0, nextOffset))
+            if wasPlaying {
+                state.playback.isPlaying = false
+            }
+        }
+
+        if wasPlaying {
+            scheduleStepResume()
         }
     }
 
@@ -240,6 +260,7 @@ final class AppStateController: ObservableObject {
             return
         }
 
+        resumeIfPausedForStep()
         mutate { state in
             let nextOffset = state.playback.offsetPx + deltaPx
             state.playback.offsetPx = min(self.maxOffsetPx, max(0, nextOffset))
@@ -356,6 +377,38 @@ final class AppStateController: ObservableObject {
 
         saveWorkItem = task
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: task)
+    }
+
+    private func scheduleStepResume() {
+        stepResumeWorkItem?.cancel()
+        shouldResumeAfterStep = true
+
+        let task = DispatchWorkItem { [weak self] in
+            guard let self, self.shouldResumeAfterStep else { return }
+            self.shouldResumeAfterStep = false
+            if !self.state.playback.isPlaying {
+                self.setPlaying(true)
+            }
+        }
+
+        stepResumeWorkItem = task
+        DispatchQueue.main.asyncAfter(deadline: .now() + stepPauseDuration, execute: task)
+    }
+
+    private func cancelStepResume() {
+        shouldResumeAfterStep = false
+        stepResumeWorkItem?.cancel()
+        stepResumeWorkItem = nil
+    }
+
+    private func resumeIfPausedForStep() {
+        guard shouldResumeAfterStep else {
+            return
+        }
+        cancelStepResume()
+        if !state.playback.isPlaying {
+            setPlaying(true)
+        }
     }
 
     private func persistNow() {

@@ -120,21 +120,16 @@ struct EditorView: View {
     }
 
     private var contentPane: some View {
-        Group {
-            switch sessionState.selectedTab {
-            case .script:
-                scriptTab
-            case .settings:
-                settingsTab
-            case .shortcuts:
-                shortcutsTab
-            case .changelogs:
-                changelogTab
-            }
+        ZStack(alignment: .topLeading) {
+            tabContent(.script) { scriptTab }
+            tabContent(.settings) { settingsTab }
+            tabContent(.shortcuts) { shortcutsTab }
+            tabContent(.changelogs) { changelogTab }
         }
         .padding(20)
         .padding(.top, 26)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .animation(nil, value: sessionState.selectedTab)
     }
 
     private var scriptTab: some View {
@@ -250,6 +245,20 @@ struct EditorView: View {
                             }
                             Spacer()
                         }
+                    }
+
+                    surfaceCard(title: "Recording", subtitle: "Capture visibility") {
+                        Toggle(
+                            "Hide Notch UI in screen recordings",
+                            isOn: Binding(
+                                get: { controller.state.panel.excludeFromCapture },
+                                set: { controller.setPanelCaptureExcluded($0) }
+                            )
+                        )
+                        .toggleStyle(.switch)
+                        .notchyTint(Color(red: 0.05, green: 0.08, blue: 0.16))
+                        .font(NotchyBrandTypography.ui(size: 12, weight: .medium))
+                        .notchyForeground(Color.white.opacity(0.86))
                     }
                 }
                 .padding(.bottom, 8)
@@ -469,6 +478,14 @@ struct EditorView: View {
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(cardBackground(cornerRadius: 15))
+    }
+
+    private func tabContent<Content: View>(_ tab: EditorTab, @ViewBuilder content: () -> Content) -> some View {
+        let isSelected = sessionState.selectedTab == tab
+        return content()
+            .opacity(isSelected ? 1 : 0)
+            .allowsHitTesting(isSelected)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private func cardBackground(cornerRadius: CGFloat) -> some View {

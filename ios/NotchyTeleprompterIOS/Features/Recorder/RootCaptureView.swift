@@ -13,8 +13,11 @@ struct RootCaptureView: View {
                 Color.black.opacity(0.18)
                     .ignoresSafeArea()
 
+                topOverlay(geo: geo)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .ignoresSafeArea(edges: .top)
+
                 VStack(spacing: 0) {
-                    topOverlay(geo: geo)
                     Spacer()
                     controlTray
                         .padding(.horizontal, 14)
@@ -60,14 +63,13 @@ struct RootCaptureView: View {
 
     @ViewBuilder
     private func topOverlay(geo: GeometryProxy) -> some View {
-        if controller.state.overlay.visible {
-            TeleprompterOverlayView(
-                controller: controller,
-                maxWidth: geo.size.width - 24
-            )
-            .offset(y: CGFloat(controller.state.overlay.verticalOffsetPx))
-            .transition(.opacity)
-        }
+        TeleprompterOverlayView(
+            controller: controller,
+            maxWidth: geo.size.width - 24
+        )
+        .offset(y: CGFloat(controller.state.overlay.verticalOffsetPx))
+        .opacity(controller.state.overlay.visible ? 1 : 0)
+        .allowsHitTesting(controller.state.overlay.visible)
     }
 
     private var controlTray: some View {

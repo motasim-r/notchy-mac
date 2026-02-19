@@ -38,6 +38,7 @@ final class NotchPanelController: NSWindowController {
 
         super.init(window: panel)
 
+        applyCaptureSharingState(panel: panel, state: initialState)
         applyPlacement(for: initialState)
         sync(with: initialState)
     }
@@ -49,6 +50,9 @@ final class NotchPanelController: NSWindowController {
 
     func sync(with state: TeleprompterState) {
         applyPlacement(for: state)
+        if let panel = window {
+            applyCaptureSharingState(panel: panel, state: state)
+        }
 
         if state.panel.visible {
             window?.orderFrontRegardless()
@@ -98,6 +102,10 @@ final class NotchPanelController: NSWindowController {
             NSRect(x: x, y: y, width: width, height: height),
             display: true
         )
+    }
+
+    private func applyCaptureSharingState(panel: NSWindow, state: TeleprompterState) {
+        panel.sharingType = state.panel.excludeFromCapture ? .none : .readWrite
     }
 }
 

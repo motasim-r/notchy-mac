@@ -25,6 +25,9 @@ final class AppStateControllerIOS: ObservableObject {
     private var bannerWorkItem: DispatchWorkItem?
     private var offsetPersistCounter = 0
     private var playbackTickAccumulator: Double = 0
+    private var stepResumeWorkItem: DispatchWorkItem?
+    private var shouldResumeAfterStep = false
+    private let stepPauseDuration: TimeInterval = 0.35
 
     init(
         stateStore: StateStoreProtocol,
@@ -84,6 +87,7 @@ final class AppStateControllerIOS: ObservableObject {
     }
 
     func togglePlayback() {
+        cancelStepResume()
         mutate { state in
             let shouldPlay = !state.playback.isPlaying
             if shouldPlay, maxOffsetPx > 0, state.playback.offsetPx >= maxOffsetPx {
@@ -106,6 +110,7 @@ final class AppStateControllerIOS: ObservableObject {
     }
 
     func stepScript(direction: ScriptStepDirectionIOS) {
+        let wasPlaying = state.playback.isPlaying
         mutate { state in
             let stepPx = max(8, state.overlay.fontSizePx * state.overlay.lineHeight)
             let nextOffset: Double
@@ -118,6 +123,13 @@ final class AppStateControllerIOS: ObservableObject {
             }
 
             state.playback.offsetPx = min(maxOffsetPx, max(0, nextOffset))
+            if wasPlaying {
+                state.playback.isPlaying = false
+            }
+        }
+
+        if wasPlaying {
+            scheduleStepResume()
         }
     }
 
@@ -126,6 +138,7 @@ final class AppStateControllerIOS: ObservableObject {
             return
         }
 
+        resumeIfPausedForStep()
         mutate { state in
             let nextOffset = state.playback.offsetPx + deltaPx
             state.playback.offsetPx = min(maxOffsetPx, max(0, nextOffset))
@@ -196,6 +209,7 @@ final class AppStateControllerIOS: ObservableObject {
     }
 
     func resetOffset() {
+        cancelStepResume()
         mutate { state in
             state.playback.offsetPx = 0
             state.playback.isPlaying = false
@@ -224,6 +238,7 @@ final class AppStateControllerIOS: ObservableObject {
             return
         }
 
+        cancelStepResume()
         guard sessionReady else {
             bootstrap()
             setStatusBanner("Camera is preparing...")
@@ -266,6 +281,7 @@ final class AppStateControllerIOS: ObservableObject {
             return
         }
 
+        cancelStepResume()
         commandInFlight = true
 
         Task {
@@ -294,6 +310,7 @@ final class AppStateControllerIOS: ObservableObject {
             return
         }
 
+        cancelStepResume()
         commandInFlight = true
 
         Task {
@@ -322,6 +339,7 @@ final class AppStateControllerIOS: ObservableObject {
             return
         }
 
+        cancelStepResume()
         commandInFlight = true
 
         mutate { state in
@@ -431,6 +449,42 @@ final class AppStateControllerIOS: ObservableObject {
             try stateStore.save(state)
         } catch {
             print("[state] Failed to save iOS state: \(error)")
+        }
+    }
+
+    private func scheduleStepResume() {
+        stepResumeWorkItem?.cancel()
+        shouldResumeAfterStep = true
+
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self, self.shouldResumeAfterStep else { return }
+            self.shouldResumeAfterStep = false
+            if !self.state.playback.isPlaying {
+                self.mutate { state in
+                    state.playback.isPlaying = true
+                }
+            }
+        }
+
+        stepResumeWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + stepPauseDuration, execute: workItem)
+    }
+
+    private func cancelStepResume() {
+        shouldResumeAfterStep = false
+        stepResumeWorkItem?.cancel()
+        stepResumeWorkItem = nil
+    }
+
+    private func resumeIfPausedForStep() {
+        guard shouldResumeAfterStep else {
+            return
+        }
+        cancelStepResume()
+        if !state.playback.isPlaying {
+            mutate { state in
+                state.playback.isPlaying = true
+            }
         }
     }
 
