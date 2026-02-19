@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppInstaller
+  xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2"
+  Version="1.0.0.0"
+  Uri="https://example.com/NotchyTeleprompterWin.appinstaller">
+
+  <MainPackage
+    Name="NotchyTeleprompterWin"
+    Publisher="CN=NotchyTeleprompter"
+    Version="1.0.0.0"
+    Uri="https://example.com/NotchyTeleprompterWin_1.0.0.0_x64.msix" />
+
+  <UpdateSettings>
+    <OnLaunch HoursBetweenUpdateChecks="0" />
+  </UpdateSettings>
+</AppInstaller>

@@ -218,9 +218,22 @@ public sealed class AppStateController : INotifyPropertyChanged
         SaveSoon();
     }
 
+    public void ResetSettingsKeepingScript()
+    {
+        CancelStepResume();
+        var script = _state.ScriptText;
+        _state = TeleprompterState.Default;
+        _state.ScriptText = script;
+        _state = _state.Clamp();
+        SyncTicker();
+        NotifyAll();
+        SaveSoon();
+    }
+
     public void AdjustSpeed(double delta)
     {
-        SpeedPxPerSec = _state.Playback.SpeedPxPerSec + delta;
+        var next = _state.Playback.SpeedPxPerSec + delta;
+        SpeedPxPerSec = Math.Clamp(next, 4, 260);
     }
 
     public void StepScript(int direction)
@@ -360,6 +373,27 @@ public sealed class AppStateController : INotifyPropertyChanged
         {
             IsPlaying = true;
         }
+    }
+
+    private void NotifyAll()
+    {
+        OnPropertyChanged(nameof(ScriptText));
+        OnPropertyChanged(nameof(IsPlaying));
+        OnPropertyChanged(nameof(PlayPauseLabel));
+        OnPropertyChanged(nameof(SpeedPxPerSec));
+        OnPropertyChanged(nameof(OffsetPx));
+        OnPropertyChanged(nameof(OverlayOffsetY));
+        OnPropertyChanged(nameof(OverlayWidth));
+        OnPropertyChanged(nameof(OverlayHeight));
+        OnPropertyChanged(nameof(OverlayVerticalOffsetPx));
+        OnPropertyChanged(nameof(FontSizePx));
+        OnPropertyChanged(nameof(LineHeight));
+        OnPropertyChanged(nameof(LineHeightPx));
+        OnPropertyChanged(nameof(LetterSpacingPx));
+        OnPropertyChanged(nameof(CharacterSpacing));
+        OnPropertyChanged(nameof(OverlayVisible));
+        OnPropertyChanged(nameof(OverlayOpacity));
+        OnPropertyChanged(nameof(ExcludeFromCapture));
     }
 
     private void OnPropertyChanged([CallerMemberName] string? name = null)

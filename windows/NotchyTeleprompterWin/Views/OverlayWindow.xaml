@@ -11,9 +11,9 @@
           Background="Transparent"
           Opacity="{x:Bind Controller.OverlayOpacity, Mode=OneWay}">
         <Border x:Name="OverlayChrome"
-                Background="#000000"
+                Background="#0D1429"
                 CornerRadius="16"
-                BorderBrush="#202228"
+                BorderBrush="#1E2A45"
                 BorderThickness="1">
             <Grid x:Name="Viewport"
                   Padding="14"
