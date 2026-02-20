@@ -76,8 +76,10 @@ struct RootCaptureView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 10) {
                 circleIconButton(
-                    symbol: controller.state.playback.isPlaying ? "pause.fill" : "play.fill",
-                    label: controller.state.playback.isPlaying ? "Pause Teleprompter" : "Play Teleprompter"
+                    symbol: controller.state.playback.isPlaying ? "pause.fill" : (controller.playbackCountdownValue == nil ? "play.fill" : "xmark"),
+                    label: controller.state.playback.isPlaying
+                        ? "Pause Teleprompter"
+                        : (controller.playbackCountdownValue == nil ? "Play Teleprompter" : "Cancel Countdown")
                 ) {
                     controller.togglePlayback()
                 }
@@ -149,7 +151,7 @@ struct RootCaptureView: View {
         .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.black.opacity(0.64))
+                .fill(Color.black.opacity(controller.state.overlay.backgroundOpacity))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .stroke(Color.white.opacity(0.18), lineWidth: 1)

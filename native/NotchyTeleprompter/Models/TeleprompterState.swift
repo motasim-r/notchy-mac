@@ -34,41 +34,49 @@ struct PanelState: Codable, Equatable {
     var width: Double
     var height: Double
     var verticalNudgePx: Double
+    var backgroundOpacity: Double
     var fontSizePx: Double
     var lineHeight: Double
     var letterSpacingPx: Double
     var visible: Bool
     var excludeFromCapture: Bool
+    var showTimer: Bool
 
     private enum CodingKeys: String, CodingKey {
         case width
         case height
         case verticalNudgePx
+        case backgroundOpacity
         case fontSizePx
         case lineHeight
         case letterSpacingPx
         case visible
         case excludeFromCapture
+        case showTimer
     }
 
     init(
         width: Double,
         height: Double,
         verticalNudgePx: Double,
+        backgroundOpacity: Double,
         fontSizePx: Double,
         lineHeight: Double,
         letterSpacingPx: Double,
         visible: Bool,
-        excludeFromCapture: Bool
+        excludeFromCapture: Bool,
+        showTimer: Bool
     ) {
         self.width = width
         self.height = height
         self.verticalNudgePx = verticalNudgePx
+        self.backgroundOpacity = backgroundOpacity
         self.fontSizePx = fontSizePx
         self.lineHeight = lineHeight
         self.letterSpacingPx = letterSpacingPx
         self.visible = visible
         self.excludeFromCapture = excludeFromCapture
+        self.showTimer = showTimer
     }
 
     init(from decoder: Decoder) throws {
@@ -77,11 +85,13 @@ struct PanelState: Codable, Equatable {
         width = try container.decodeIfPresent(Double.self, forKey: .width) ?? defaults.width
         height = try container.decodeIfPresent(Double.self, forKey: .height) ?? defaults.height
         verticalNudgePx = try container.decodeIfPresent(Double.self, forKey: .verticalNudgePx) ?? defaults.verticalNudgePx
+        backgroundOpacity = try container.decodeIfPresent(Double.self, forKey: .backgroundOpacity) ?? defaults.backgroundOpacity
         fontSizePx = try container.decodeIfPresent(Double.self, forKey: .fontSizePx) ?? defaults.fontSizePx
         lineHeight = try container.decodeIfPresent(Double.self, forKey: .lineHeight) ?? defaults.lineHeight
         letterSpacingPx = try container.decodeIfPresent(Double.self, forKey: .letterSpacingPx) ?? defaults.letterSpacingPx
         visible = try container.decodeIfPresent(Bool.self, forKey: .visible) ?? defaults.visible
         excludeFromCapture = try container.decodeIfPresent(Bool.self, forKey: .excludeFromCapture) ?? defaults.excludeFromCapture
+        showTimer = try container.decodeIfPresent(Bool.self, forKey: .showTimer) ?? defaults.showTimer
     }
 }
 
@@ -167,11 +177,13 @@ struct TeleprompterState: Codable, Equatable {
             width: 358,
             height: 118,
             verticalNudgePx: 0,
+            backgroundOpacity: 0.95,
             fontSizePx: 14,
             lineHeight: 1.06,
             letterSpacingPx: 0,
             visible: true,
-            excludeFromCapture: true
+            excludeFromCapture: true,
+            showTimer: false
         ),
         editor: EditorState(
             width: 860,
@@ -204,6 +216,8 @@ struct TeleprompterState: Codable, Equatable {
         let heightMax = 600.0
         let verticalNudgeMin = -70.0
         let verticalNudgeMax = 220.0
+        let backgroundOpacityMin = 0.3
+        let backgroundOpacityMax = 1.0
         let editorWidthMin = 680.0
         let editorHeightMin = 520.0
     }
@@ -222,6 +236,10 @@ struct TeleprompterState: Codable, Equatable {
         copy.panel.verticalNudgePx = copy.panel.verticalNudgePx.clamped(
             min: Self.limits.verticalNudgeMin,
             max: Self.limits.verticalNudgeMax
+        )
+        copy.panel.backgroundOpacity = copy.panel.backgroundOpacity.clamped(
+            min: Self.limits.backgroundOpacityMin,
+            max: Self.limits.backgroundOpacityMax
         )
         copy.panel.fontSizePx = copy.panel.fontSizePx.clamped(
             min: Self.limits.fontSizeMin,

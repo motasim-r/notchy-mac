@@ -9,6 +9,8 @@ final class AppStateController: ObservableObject {
     @Published private(set) var updateVersion: String?
     @Published private(set) var checkingForUpdates = false
     @Published private(set) var updateErrorMessage: String?
+    @Published private(set) var playbackCountdownValue: Int?
+    @Published private(set) var stopwatchElapsedSeconds: Double = 0
 
     var onStateChange: ((TeleprompterState) -> Void)?
     var requestAccessibilityPermissionHandler: (() -> Void)?
@@ -25,9 +27,11 @@ final class AppStateController: ObservableObject {
     private var offsetPersistCounter = 0
     private var saveWorkItem: DispatchWorkItem?
     private var stepResumeWorkItem: DispatchWorkItem?
+    private var playbackCountdownWorkItem: DispatchWorkItem?
     private var shouldResumeAfterStep = false
     private var playbackTickAccumulator: Double = 0
     private let stepPauseDuration: TimeInterval = 0.35
+    private let playbackCountdownStartValue = 3
 
     init(
         stateStore: StateStoreProtocol,
@@ -68,20 +72,27 @@ final class AppStateController: ObservableObject {
 
     func togglePlayback() {
         cancelStepResume()
-        mutate { state in
-            let willPlay = !state.playback.isPlaying
-            if willPlay, maxOffsetPx > 0, state.playback.offsetPx >= maxOffsetPx {
-                state.playback.offsetPx = 0
-            }
-            if willPlay, !state.panel.visible {
-                state.panel.visible = true
-            }
-            state.playback.isPlaying = willPlay
+        if state.playback.isPlaying {
+            setPlaying(false)
+            return
         }
+
+        if !state.panel.showTimer {
+            setPlaying(true)
+            return
+        }
+
+        if playbackCountdownValue != nil {
+            cancelPlaybackCountdown()
+            return
+        }
+
+        startPlaybackCountdown()
     }
 
     func setPlaying(_ isPlaying: Bool) {
         cancelStepResume()
+        cancelPlaybackCountdown()
         mutate { state in
             if isPlaying, maxOffsetPx > 0, state.playback.offsetPx >= maxOffsetPx {
                 state.playback.offsetPx = 0
@@ -113,6 +124,8 @@ final class AppStateController: ObservableObject {
 
     func resetOffset() {
         cancelStepResume()
+        cancelPlaybackCountdown()
+        stopwatchElapsedSeconds = 0
         mutate { state in
             state.playback.offsetPx = 0
             state.playback.isPlaying = false
@@ -132,6 +145,12 @@ final class AppStateController: ObservableObject {
         }
     }
 
+    func setPanelBackgroundOpacity(_ opacity: Double) {
+        mutate { state in
+            state.panel.backgroundOpacity = opacity
+        }
+    }
+
     func setPanelVisible(_ isVisible: Bool) {
         mutate { state in
             state.panel.visible = isVisible
@@ -147,6 +166,16 @@ final class AppStateController: ObservableObject {
     func setPanelCaptureExcluded(_ excluded: Bool) {
         mutate { state in
             state.panel.excludeFromCapture = excluded
+        }
+    }
+
+    func setTimerVisible(_ visible: Bool) {
+        mutate { state in
+            state.panel.showTimer = visible
+        }
+
+        if !visible, playbackCountdownValue != nil {
+            setPlaying(true)
         }
     }
 
@@ -185,6 +214,10 @@ final class AppStateController: ObservableObject {
         mutate { state in
             state.keyboard.consumeKeysWhenRemote = consumeKeys
         }
+    }
+
+    func resetStopwatch() {
+        stopwatchElapsedSeconds = 0
     }
 
     func setAccessibilityPermissionGranted(_ granted: Bool) {
@@ -234,6 +267,7 @@ final class AppStateController: ObservableObject {
     }
 
     func stepScript(direction: ScriptStepDirection) {
+        cancelPlaybackCountdown()
         let wasPlaying = state.playback.isPlaying
         mutate { state in
             let stepPx = max(8, state.panel.fontSizePx * state.panel.lineHeight)
@@ -260,6 +294,7 @@ final class AppStateController: ObservableObject {
             return
         }
 
+        cancelPlaybackCountdown()
         resumeIfPausedForStep()
         mutate { state in
             let nextOffset = state.playback.offsetPx + deltaPx
@@ -278,6 +313,9 @@ final class AppStateController: ObservableObject {
     }
 
     func resetSettingsKeepingScript() {
+        cancelStepResume()
+        cancelPlaybackCountdown()
+        stopwatchElapsedSeconds = 0
         mutate { state in
             let script = state.scriptText
             state = .defaultState
@@ -347,6 +385,7 @@ final class AppStateController: ObservableObject {
 
         let effectiveDelta = playbackTickAccumulator
         playbackTickAccumulator = 0
+        stopwatchElapsedSeconds += effectiveDelta
 
         let nextOffset = min(
             state.playback.offsetPx + state.playback.speedPxPerSec * effectiveDelta,
@@ -399,6 +438,56 @@ final class AppStateController: ObservableObject {
         shouldResumeAfterStep = false
         stepResumeWorkItem?.cancel()
         stepResumeWorkItem = nil
+    }
+
+    private func startPlaybackCountdown() {
+        var shouldResetStopwatch = false
+        mutate { state in
+            if maxOffsetPx > 0, state.playback.offsetPx >= maxOffsetPx {
+                state.playback.offsetPx = 0
+                shouldResetStopwatch = true
+            }
+            if !state.panel.visible {
+                state.panel.visible = true
+            }
+            state.playback.isPlaying = false
+        }
+
+        if shouldResetStopwatch {
+            stopwatchElapsedSeconds = 0
+        }
+
+        playbackCountdownValue = playbackCountdownStartValue
+        schedulePlaybackCountdownTick(from: playbackCountdownStartValue)
+    }
+
+    private func schedulePlaybackCountdownTick(from currentValue: Int) {
+        playbackCountdownWorkItem?.cancel()
+
+        let task = DispatchWorkItem { [weak self] in
+            guard let self, self.playbackCountdownValue != nil else {
+                return
+            }
+
+            let nextValue = currentValue - 1
+            guard nextValue > 0 else {
+                self.playbackCountdownValue = nil
+                self.setPlaying(true)
+                return
+            }
+
+            self.playbackCountdownValue = nextValue
+            self.schedulePlaybackCountdownTick(from: nextValue)
+        }
+
+        playbackCountdownWorkItem = task
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: task)
+    }
+
+    private func cancelPlaybackCountdown() {
+        playbackCountdownWorkItem?.cancel()
+        playbackCountdownWorkItem = nil
+        playbackCountdownValue = nil
     }
 
     private func resumeIfPausedForStep() {

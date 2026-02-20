@@ -14,9 +14,14 @@ struct ScriptTabView: View {
     }
 
     private var playbackCard: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        let countdownValue = controller.playbackCountdownValue
+        let playButtonLabel = countdownValue == nil
+            ? (controller.state.playback.isPlaying ? "Pause" : "Play")
+            : "Starting in \(countdownValue ?? 0)"
+
+        return VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 8) {
-                actionButton(controller.state.playback.isPlaying ? "Pause" : "Play") {
+                actionButton(playButtonLabel) {
                     controller.togglePlayback()
                 }
 
@@ -26,7 +31,11 @@ struct ScriptTabView: View {
 
                 Spacer()
 
-                Text("Offset \(Int(controller.state.playback.offsetPx.rounded())) px")
+                Text(
+                    countdownValue == nil
+                        ? "Offset \(Int(controller.state.playback.offsetPx.rounded())) px"
+                        : "Countdown \(countdownValue ?? 0)"
+                )
                     .font(.system(size: 13, weight: .semibold, design: .monospaced))
                     .foregroundStyle(Color.white.opacity(0.85))
             }
