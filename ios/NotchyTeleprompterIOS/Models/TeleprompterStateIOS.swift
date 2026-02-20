@@ -47,37 +47,45 @@ struct OverlayStateIOS: Codable, Equatable {
     var width: Double
     var height: Double
     var verticalOffsetPx: Double
+    var backgroundOpacity: Double
     var fontSizePx: Double
     var lineHeight: Double
     var letterSpacingPx: Double
     var visible: Bool
+    var showTimer: Bool
 
     private enum CodingKeys: String, CodingKey {
         case width
         case height
         case verticalOffsetPx
+        case backgroundOpacity
         case fontSizePx
         case lineHeight
         case letterSpacingPx
         case visible
+        case showTimer
     }
 
     init(
         width: Double,
         height: Double,
         verticalOffsetPx: Double,
+        backgroundOpacity: Double,
         fontSizePx: Double,
         lineHeight: Double,
         letterSpacingPx: Double,
-        visible: Bool
+        visible: Bool,
+        showTimer: Bool
     ) {
         self.width = width
         self.height = height
         self.verticalOffsetPx = verticalOffsetPx
+        self.backgroundOpacity = backgroundOpacity
         self.fontSizePx = fontSizePx
         self.lineHeight = lineHeight
         self.letterSpacingPx = letterSpacingPx
         self.visible = visible
+        self.showTimer = showTimer
     }
 
     init(from decoder: Decoder) throws {
@@ -86,10 +94,12 @@ struct OverlayStateIOS: Codable, Equatable {
         width = try container.decodeIfPresent(Double.self, forKey: .width) ?? defaults.width
         height = try container.decodeIfPresent(Double.self, forKey: .height) ?? defaults.height
         verticalOffsetPx = try container.decodeIfPresent(Double.self, forKey: .verticalOffsetPx) ?? defaults.verticalOffsetPx
+        backgroundOpacity = try container.decodeIfPresent(Double.self, forKey: .backgroundOpacity) ?? defaults.backgroundOpacity
         fontSizePx = try container.decodeIfPresent(Double.self, forKey: .fontSizePx) ?? defaults.fontSizePx
         lineHeight = try container.decodeIfPresent(Double.self, forKey: .lineHeight) ?? defaults.lineHeight
         letterSpacingPx = try container.decodeIfPresent(Double.self, forKey: .letterSpacingPx) ?? defaults.letterSpacingPx
         visible = try container.decodeIfPresent(Bool.self, forKey: .visible) ?? defaults.visible
+        showTimer = try container.decodeIfPresent(Bool.self, forKey: .showTimer) ?? defaults.showTimer
     }
 }
 
@@ -205,10 +215,12 @@ Notchy helps you stay on message, sound prepared, and maintain real eye contact 
             width: 368,
             height: 148,
             verticalOffsetPx: 0,
+            backgroundOpacity: 0.95,
             fontSizePx: 13,
             lineHeight: 1.06,
             letterSpacingPx: 0,
-            visible: true
+            visible: true,
+            showTimer: true
         ),
         recording: RecordingStateIOS(
             status: .idle,
@@ -239,6 +251,8 @@ Notchy helps you stay on message, sound prepared, and maintain real eye contact 
         let heightMax = 320.0
         let verticalOffsetMin = -40.0
         let verticalOffsetMax = 260.0
+        let backgroundOpacityMin = 0.3
+        let backgroundOpacityMax = 1.0
     }
 
     func clamped() -> TeleprompterStateIOS {
@@ -250,6 +264,10 @@ Notchy helps you stay on message, sound prepared, and maintain real eye contact 
         copy.overlay.width = copy.overlay.width.clamped(min: Self.limits.widthMin, max: Self.limits.widthMax)
         copy.overlay.height = copy.overlay.height.clamped(min: Self.limits.heightMin, max: Self.limits.heightMax)
         copy.overlay.verticalOffsetPx = copy.overlay.verticalOffsetPx.clamped(min: Self.limits.verticalOffsetMin, max: Self.limits.verticalOffsetMax)
+        copy.overlay.backgroundOpacity = copy.overlay.backgroundOpacity.clamped(
+            min: Self.limits.backgroundOpacityMin,
+            max: Self.limits.backgroundOpacityMax
+        )
         copy.overlay.fontSizePx = copy.overlay.fontSizePx.clamped(min: Self.limits.fontSizeMin, max: Self.limits.fontSizeMax)
         copy.overlay.lineHeight = copy.overlay.lineHeight.clamped(min: Self.limits.lineHeightMin, max: Self.limits.lineHeightMax)
         copy.overlay.letterSpacingPx = copy.overlay.letterSpacingPx.clamped(min: Self.limits.letterSpacingMin, max: Self.limits.letterSpacingMax)

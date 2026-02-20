@@ -9,6 +9,8 @@ final class AppStateControllerIOS: ObservableObject {
     @Published private(set) var permissionMessage: String?
     @Published private(set) var commandInFlight = false
     @Published private(set) var statusBannerMessage: String?
+    @Published private(set) var playbackCountdownValue: Int?
+    @Published private(set) var stopwatchElapsedSeconds: Double = 0
 
     var captureSession: AVCaptureSession {
         captureManager.session
@@ -26,8 +28,10 @@ final class AppStateControllerIOS: ObservableObject {
     private var offsetPersistCounter = 0
     private var playbackTickAccumulator: Double = 0
     private var stepResumeWorkItem: DispatchWorkItem?
+    private var playbackCountdownWorkItem: DispatchWorkItem?
     private var shouldResumeAfterStep = false
     private let stepPauseDuration: TimeInterval = 0.35
+    private let playbackCountdownStartValue = 3
 
     init(
         stateStore: StateStoreProtocol,
@@ -88,13 +92,25 @@ final class AppStateControllerIOS: ObservableObject {
 
     func togglePlayback() {
         cancelStepResume()
-        mutate { state in
-            let shouldPlay = !state.playback.isPlaying
-            if shouldPlay, maxOffsetPx > 0, state.playback.offsetPx >= maxOffsetPx {
-                state.playback.offsetPx = 0
+        if state.playback.isPlaying {
+            cancelPlaybackCountdown()
+            mutate { state in
+                state.playback.isPlaying = false
             }
-            state.playback.isPlaying = shouldPlay
+            return
         }
+
+        if !state.overlay.showTimer {
+            startPlaybackImmediately()
+            return
+        }
+
+        if playbackCountdownValue != nil {
+            cancelPlaybackCountdown()
+            return
+        }
+
+        startPlaybackCountdown()
     }
 
     func setSpeed(_ speed: Double) {
@@ -110,6 +126,7 @@ final class AppStateControllerIOS: ObservableObject {
     }
 
     func stepScript(direction: ScriptStepDirectionIOS) {
+        cancelPlaybackCountdown()
         let wasPlaying = state.playback.isPlaying
         mutate { state in
             let stepPx = max(8, state.overlay.fontSizePx * state.overlay.lineHeight)
@@ -138,6 +155,7 @@ final class AppStateControllerIOS: ObservableObject {
             return
         }
 
+        cancelPlaybackCountdown()
         resumeIfPausedForStep()
         mutate { state in
             let nextOffset = state.playback.offsetPx + deltaPx
@@ -157,6 +175,16 @@ final class AppStateControllerIOS: ObservableObject {
         }
     }
 
+    func setOverlayTimerVisible(_ isVisible: Bool) {
+        mutate { state in
+            state.overlay.showTimer = isVisible
+        }
+
+        if !isVisible, playbackCountdownValue != nil {
+            startPlaybackImmediately()
+        }
+    }
+
     func setOverlaySize(width: Double, height: Double) {
         mutate { state in
             state.overlay.width = width
@@ -167,6 +195,12 @@ final class AppStateControllerIOS: ObservableObject {
     func setVerticalPosition(_ value: Double) {
         mutate { state in
             state.overlay.verticalOffsetPx = value
+        }
+    }
+
+    func setOverlayBackgroundOpacity(_ value: Double) {
+        mutate { state in
+            state.overlay.backgroundOpacity = value
         }
     }
 
@@ -188,7 +222,14 @@ final class AppStateControllerIOS: ObservableObject {
         }
     }
 
+    func resetStopwatch() {
+        stopwatchElapsedSeconds = 0
+    }
+
     func resetSettingsKeepingScript() {
+        cancelStepResume()
+        cancelPlaybackCountdown()
+        stopwatchElapsedSeconds = 0
         mutate { state in
             let script = state.script
             state = .defaultState
@@ -210,6 +251,8 @@ final class AppStateControllerIOS: ObservableObject {
 
     func resetOffset() {
         cancelStepResume()
+        cancelPlaybackCountdown()
+        stopwatchElapsedSeconds = 0
         mutate { state in
             state.playback.offsetPx = 0
             state.playback.isPlaying = false
@@ -239,6 +282,7 @@ final class AppStateControllerIOS: ObservableObject {
         }
 
         cancelStepResume()
+        cancelPlaybackCountdown()
         guard sessionReady else {
             bootstrap()
             setStatusBanner("Camera is preparing...")
@@ -282,6 +326,7 @@ final class AppStateControllerIOS: ObservableObject {
         }
 
         cancelStepResume()
+        cancelPlaybackCountdown()
         commandInFlight = true
 
         Task {
@@ -311,6 +356,7 @@ final class AppStateControllerIOS: ObservableObject {
         }
 
         cancelStepResume()
+        cancelPlaybackCountdown()
         commandInFlight = true
 
         Task {
@@ -340,6 +386,7 @@ final class AppStateControllerIOS: ObservableObject {
         }
 
         cancelStepResume()
+        cancelPlaybackCountdown()
         commandInFlight = true
 
         mutate { state in
@@ -411,6 +458,7 @@ final class AppStateControllerIOS: ObservableObject {
 
         let effectiveDelta = playbackTickAccumulator
         playbackTickAccumulator = 0
+        stopwatchElapsedSeconds += effectiveDelta
 
         let result = ScrollEngine.nextOffset(
             current: state.playback.offsetPx,
@@ -474,6 +522,70 @@ final class AppStateControllerIOS: ObservableObject {
         shouldResumeAfterStep = false
         stepResumeWorkItem?.cancel()
         stepResumeWorkItem = nil
+    }
+
+    private func startPlaybackImmediately() {
+        cancelPlaybackCountdown()
+
+        var shouldResetStopwatch = false
+        mutate { state in
+            if maxOffsetPx > 0, state.playback.offsetPx >= maxOffsetPx {
+                state.playback.offsetPx = 0
+                shouldResetStopwatch = true
+            }
+            state.playback.isPlaying = true
+        }
+
+        if shouldResetStopwatch {
+            stopwatchElapsedSeconds = 0
+        }
+    }
+
+    private func startPlaybackCountdown() {
+        var shouldResetStopwatch = false
+        mutate { state in
+            if maxOffsetPx > 0, state.playback.offsetPx >= maxOffsetPx {
+                state.playback.offsetPx = 0
+                shouldResetStopwatch = true
+            }
+            state.playback.isPlaying = false
+        }
+
+        if shouldResetStopwatch {
+            stopwatchElapsedSeconds = 0
+        }
+
+        playbackCountdownValue = playbackCountdownStartValue
+        schedulePlaybackCountdownTick(from: playbackCountdownStartValue)
+    }
+
+    private func schedulePlaybackCountdownTick(from currentValue: Int) {
+        playbackCountdownWorkItem?.cancel()
+
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self, self.playbackCountdownValue != nil else {
+                return
+            }
+
+            let nextValue = currentValue - 1
+            guard nextValue > 0 else {
+                self.playbackCountdownValue = nil
+                self.startPlaybackImmediately()
+                return
+            }
+
+            self.playbackCountdownValue = nextValue
+            self.schedulePlaybackCountdownTick(from: nextValue)
+        }
+
+        playbackCountdownWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
+    }
+
+    private func cancelPlaybackCountdown() {
+        playbackCountdownWorkItem?.cancel()
+        playbackCountdownWorkItem = nil
+        playbackCountdownValue = nil
     }
 
     private func resumeIfPausedForStep() {

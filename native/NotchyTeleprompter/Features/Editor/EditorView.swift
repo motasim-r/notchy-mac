@@ -201,6 +201,17 @@ struct EditorView: View {
                             range: TeleprompterState.limits.verticalNudgeMin ... TeleprompterState.limits.verticalNudgeMax,
                             step: 1
                         )
+
+                        sliderControl(
+                            title: "Panel Transparency",
+                            valueText: "\(Int((controller.state.panel.backgroundOpacity * 100).rounded()))%",
+                            value: Binding(
+                                get: { controller.state.panel.backgroundOpacity },
+                                set: { controller.setPanelBackgroundOpacity($0) }
+                            ),
+                            range: TeleprompterState.limits.backgroundOpacityMin ... TeleprompterState.limits.backgroundOpacityMax,
+                            step: 0.01
+                        )
                     }
 
                     surfaceCard(title: "Text", subtitle: "Readability tuning") {
@@ -253,6 +264,20 @@ struct EditorView: View {
                             isOn: Binding(
                                 get: { controller.state.panel.excludeFromCapture },
                                 set: { controller.setPanelCaptureExcluded($0) }
+                            )
+                        )
+                        .toggleStyle(.switch)
+                        .notchyTint(Color(red: 0.05, green: 0.08, blue: 0.16))
+                        .font(NotchyBrandTypography.ui(size: 12, weight: .medium))
+                        .notchyForeground(Color.white.opacity(0.86))
+                    }
+
+                    surfaceCard(title: "Timer", subtitle: "Show or hide timer below notch-ui") {
+                        Toggle(
+                            "Show timer under Notch UI",
+                            isOn: Binding(
+                                get: { controller.state.panel.showTimer },
+                                set: { controller.setTimerVisible($0) }
                             )
                         )
                         .toggleStyle(.switch)
@@ -334,9 +359,14 @@ struct EditorView: View {
     }
 
     private var playbackStrip: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        let countdownValue = controller.playbackCountdownValue
+        let playButtonLabel = countdownValue == nil
+            ? (controller.state.playback.isPlaying ? "Pause" : "Play")
+            : "Starting in \(countdownValue ?? 0)"
+
+        return VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 8) {
-                actionButton(controller.state.playback.isPlaying ? "Pause" : "Play", primary: true) {
+                actionButton(playButtonLabel, primary: true) {
                     controller.togglePlayback()
                 }
 
@@ -351,13 +381,18 @@ struct EditorView: View {
                         .font(NotchyBrandTypography.ui(size: 11, weight: .medium))
                         .notchyForeground(Color.white.opacity(0.7))
                 } else {
-                    Text("Offset")
+                    Text(countdownValue == nil ? "Offset" : "Countdown")
                         .font(NotchyBrandTypography.ui(size: 11, weight: .medium))
                         .notchyForeground(Color.white.opacity(0.62))
 
-                    Text("\(Int(controller.state.playback.offsetPx.rounded())) px")
+                    Text(
+                        countdownValue == nil
+                            ? "\(Int(controller.state.playback.offsetPx.rounded())) px"
+                            : "\(countdownValue ?? 0)"
+                    )
                         .font(.system(size: 12, weight: .semibold, design: .monospaced))
                         .notchyForeground(Color.white.opacity(0.92))
+                        .frame(width: 96, alignment: .trailing)
                 }
             }
 
