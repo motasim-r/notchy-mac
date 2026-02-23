@@ -49,6 +49,17 @@ struct SettingsTabView: View {
                 range: TeleprompterStateIOS.limits.verticalOffsetMin ... TeleprompterStateIOS.limits.verticalOffsetMax,
                 step: 1
             )
+
+            sliderRow(
+                title: "Panel Transparency",
+                valueText: "\(Int((controller.state.overlay.backgroundOpacity * 100).rounded()))%",
+                value: Binding(
+                    get: { controller.state.overlay.backgroundOpacity },
+                    set: { controller.setOverlayBackgroundOpacity($0) }
+                ),
+                range: TeleprompterStateIOS.limits.backgroundOpacityMin ... TeleprompterStateIOS.limits.backgroundOpacityMax,
+                step: 0.01
+            )
         }
     }
 
@@ -96,6 +107,18 @@ struct SettingsTabView: View {
                 isOn: Binding(
                     get: { controller.state.overlay.visible },
                     set: { controller.setOverlayVisible($0) }
+                )
+            )
+            .toggleStyle(.switch)
+            .tint(Color(red: 0.05, green: 0.08, blue: 0.16))
+            .font(NotchyTypographyIOS.ui(size: 13, weight: .medium))
+            .foregroundStyle(Color.white.opacity(0.86))
+
+            Toggle(
+                "Show Timer",
+                isOn: Binding(
+                    get: { controller.state.overlay.showTimer },
+                    set: { controller.setOverlayTimerVisible($0) }
                 )
             )
             .toggleStyle(.switch)

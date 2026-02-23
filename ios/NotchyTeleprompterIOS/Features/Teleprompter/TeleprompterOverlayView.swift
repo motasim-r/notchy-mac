@@ -1,11 +1,19 @@
 import SwiftUI
 import UIKit
 
+enum OverlayLayoutMetricsIOS {
+    static let timerGap: CGFloat = 6
+    static let timerHeight: CGFloat = 28
+
+    static func timerExtraHeight(showTimer: Bool) -> CGFloat {
+        showTimer ? (timerGap + timerHeight) : 0
+    }
+}
+
 struct TeleprompterOverlayView: View {
     @ObservedObject var controller: AppStateControllerIOS
     let maxWidth: CGFloat
 
-    @State private var viewportHeight: CGFloat = 0
     @State private var lastDragY: CGFloat = 0
 
     private let topShoulderRadius: CGFloat = 34
@@ -31,16 +39,19 @@ struct TeleprompterOverlayView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
+        let overlayHeight = CGFloat(controller.state.overlay.height)
+        let timerExtraHeight = OverlayLayoutMetricsIOS.timerExtraHeight(showTimer: controller.state.overlay.showTimer)
+
+        return VStack(spacing: 0) {
             ZStack {
                 overlayShape
-                    .fill(Color.black.opacity(0.94))
+                    .fill(Color.black.opacity(controller.state.overlay.backgroundOpacity))
 
                 viewport
                     .padding(.horizontal, 18)
                     .padding(.vertical, 12)
             }
-            .frame(width: overlayWidth, height: CGFloat(controller.state.overlay.height))
+            .frame(width: overlayWidth, height: overlayHeight)
             .clipShape(overlayShape)
             .overlay(
                 overlayShape
@@ -49,14 +60,13 @@ struct TeleprompterOverlayView: View {
             .shadow(color: .black.opacity(0.3), radius: 14, x: 0, y: 8)
             .contentShape(Rectangle())
             .gesture(dragGesture)
-            .onAppear {
-                viewportHeight = geometry.size.height
-            }
-            .onChange(of: geometry.size.height) { newHeight in
-                viewportHeight = newHeight
+
+            if controller.state.overlay.showTimer {
+                timerStrip
+                    .padding(.top, OverlayLayoutMetricsIOS.timerGap)
             }
         }
-        .frame(width: overlayWidth, height: CGFloat(controller.state.overlay.height))
+        .frame(width: overlayWidth, height: overlayHeight + timerExtraHeight, alignment: .top)
     }
 
     private var viewport: some View {
@@ -169,6 +179,73 @@ struct TeleprompterOverlayView: View {
             .onEnded { _ in
                 lastDragY = 0
             }
+    }
+
+    private var timerStrip: some View {
+        HStack(spacing: 8) {
+            Text(timerLabelText)
+                .font(.system(size: 13, weight: .semibold, design: .monospaced))
+                .foregroundStyle(timerForegroundColor)
+                .lineLimit(1)
+                .minimumScaleFactor(0.85)
+                .padding(.horizontal, 12)
+                .frame(height: OverlayLayoutMetricsIOS.timerHeight)
+                .background(
+                    Capsule(style: .continuous)
+                        .fill(Color.black.opacity(controller.state.overlay.backgroundOpacity))
+                        .overlay(
+                            Capsule(style: .continuous)
+                                .stroke(Color.white.opacity(0.18), lineWidth: 0.8)
+                        )
+                )
+
+            Button {
+                controller.resetStopwatch()
+            } label: {
+                Image(systemName: "arrow.counterclockwise")
+                    .font(.system(size: 9, weight: .semibold))
+                    .foregroundStyle(Color.white.opacity(0.9))
+                    .frame(width: 20, height: 20)
+                    .background(
+                        Capsule(style: .continuous)
+                            .fill(Color.black.opacity(controller.state.overlay.backgroundOpacity))
+                            .overlay(
+                                Capsule(style: .continuous)
+                                    .stroke(Color.white.opacity(0.2), lineWidth: 0.8)
+                            )
+                    )
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Reset timer")
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+    }
+
+    private var timerForegroundColor: Color {
+        if controller.playbackCountdownValue != nil {
+            return Color(red: 1, green: 0.93, blue: 0.64)
+        }
+        return Color.white.opacity(0.9)
+    }
+
+    private var timerLabelText: String {
+        if let countdownValue = controller.playbackCountdownValue {
+            return "\(countdownValue)"
+        }
+        return formattedElapsedTime(controller.stopwatchElapsedSeconds)
+    }
+
+    private func formattedElapsedTime(_ elapsedSeconds: Double) -> String {
+        let totalSeconds = max(0, Int(elapsedSeconds.rounded(.down)))
+        let hours = totalSeconds / 3600
+        let minutes = (totalSeconds % 3600) / 60
+        let seconds = totalSeconds % 60
+
+        if hours > 0 {
+            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        }
+
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
 

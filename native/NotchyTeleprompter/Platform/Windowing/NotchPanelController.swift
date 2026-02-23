@@ -14,8 +14,9 @@ final class NotchPanelController: NSWindowController {
         hostingView = NSHostingView(rootView: rootView)
 
         let initialState = stateController.state
+        let initialSize = Self.panelSize(for: initialState)
         let panel = NotchPanel(
-            contentRect: NSRect(x: 0, y: 0, width: initialState.panel.width, height: initialState.panel.height),
+            contentRect: NSRect(x: 0, y: 0, width: initialSize.width, height: initialSize.height),
             styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered,
             defer: false
@@ -85,8 +86,9 @@ final class NotchPanelController: NSWindowController {
             return
         }
 
-        let width = CGFloat(state.panel.width)
-        let height = CGFloat(state.panel.height)
+        let size = Self.panelSize(for: state)
+        let width = size.width
+        let height = size.height
 
         // Zero-gap anchor: panel top edge starts at the physical top edge of the screen.
         let topAnchor = targetScreen.frame.maxY
@@ -101,6 +103,13 @@ final class NotchPanelController: NSWindowController {
         panel.setFrame(
             NSRect(x: x, y: y, width: width, height: height),
             display: true
+        )
+    }
+
+    private static func panelSize(for state: TeleprompterState) -> CGSize {
+        CGSize(
+            width: CGFloat(state.panel.width),
+            height: CGFloat(state.panel.height) + NotchPanelLayoutMetrics.timerExtraHeight(showTimer: state.panel.showTimer)
         )
     }
 
