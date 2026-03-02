@@ -6,6 +6,7 @@
 - Bootstrapped a fully separate iOS workspace under `/ios` with no changes to macOS runtime paths.
 - Added iPhone-only SwiftUI + AVFoundation architecture for full-screen recording + notch teleprompter.
 - Added JSON persistence for script, playback, overlay settings, and editor tab state.
+- Added iOS TestFlight automation script for one-command archive, IPA export, and App Store Connect upload.
 
 ### Recorder
 - Added front-camera + microphone capture session management.
