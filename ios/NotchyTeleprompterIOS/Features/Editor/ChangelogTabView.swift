@@ -10,7 +10,8 @@ struct ChangelogTabView: View {
                 "Added pause/resume recording with one final merged output file.",
                 "Enabled save-to-Photos flow with permissions and error handling.",
                 "Added script editor and settings tabs in bottom sheet.",
-                "Added Season font-driven brand typography for iOS UI."
+                "Added Season font-driven brand typography for iOS UI.",
+                "Added one-command TestFlight release automation (archive, export IPA, and upload)."
             ]
         ),
         ChangelogSection(
