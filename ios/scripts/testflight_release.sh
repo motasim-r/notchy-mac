@@ -36,12 +36,20 @@ show_settings() {
     -project "$PROJECT_PATH" \
     -scheme "$SCHEME" \
     -configuration "$CONFIGURATION" \
+    -destination "generic/platform=iOS" \
     -showBuildSettings
 }
 
 build_setting() {
   local key="$1"
-  awk -F' = ' -v key="$key" '$1 ~ " " key " " {print $2; exit}'
+  awk -F' = ' -v key="$key" '{
+    lhs=$1
+    gsub(/^[[:space:]]+/, "", lhs)
+    if (lhs == key) {
+      print $2
+      exit
+    }
+  }'
 }
 
 SETTINGS="$(show_settings)"
