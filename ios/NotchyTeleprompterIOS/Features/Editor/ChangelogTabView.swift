@@ -11,7 +11,8 @@ struct ChangelogTabView: View {
                 "Enabled save-to-Photos flow with permissions and error handling.",
                 "Added script editor and settings tabs in bottom sheet.",
                 "Added Season font-driven brand typography for iOS UI.",
-                "Added one-command TestFlight release automation (archive, export IPA, and upload)."
+                "Added one-command TestFlight release automation (archive, export IPA, and upload).",
+                "Added complete App Store icon set coverage (including required 152x152 and 167x167 entries) for smoother TestFlight submissions."
             ]
         ),
         ChangelogSection(
