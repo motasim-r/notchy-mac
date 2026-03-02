@@ -7,6 +7,7 @@
 - Added iPhone-only SwiftUI + AVFoundation architecture for full-screen recording + notch teleprompter.
 - Added JSON persistence for script, playback, overlay settings, and editor tab state.
 - Added iOS TestFlight automation script for one-command archive, IPA export, and App Store Connect upload.
+- Added full iPad AppIcon slots (including 152x152 and 167x167) to satisfy App Store Connect/TestFlight validation requirements.
 
 ### Recorder
 - Added front-camera + microphone capture session management.
